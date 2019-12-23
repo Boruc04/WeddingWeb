@@ -25,7 +25,8 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets", 
+              "ecoysystem.config.js"
             ],
             "styles": [
               "src/styles.sass"
