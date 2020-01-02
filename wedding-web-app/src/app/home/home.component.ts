@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { Observable, timer, from } from 'rxjs';
-import { take, map } from 'rxjs/operators';
-import { Duration } from 'moment';
-const moment = require('moment');
+import { Observable, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
+import * as moment from 'moment';
 
 const weddingDate = new Date(2020, 7, 22, 15, 0); //22-Aug-2020 3:00PM
 
@@ -40,7 +39,6 @@ export class HomeComponent {
     timeLeft.hours = duration.hours();
     timeLeft.minutes = duration.minutes();
     timeLeft.seconds = duration.seconds();
-    console.log('run');
     return timeLeft;
   }
 }
