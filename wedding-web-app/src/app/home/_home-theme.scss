@@ -5,15 +5,14 @@
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
-    app-home {
-        background-image: url(assets/backgroundImage.jpg);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: auto 100%;
+    app-home > div > h1, h2 {
+        color: mat-color($foreground, default-contrast);
     }
 
-    app-home > div > h1, h2 {
-        color: mat-color($primary, default-contrast);
+    app-home {
+        .home-body-text {
+            font-family: Roboto, "Helvetica Neue", sans-serif;
+        }
     }
 }
 

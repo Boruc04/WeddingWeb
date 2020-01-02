@@ -1,0 +1,15 @@
+.navbar-header {
+    display: flex;
+
+    .navbar-button {
+        margin: 0 16px;
+
+        &:last-child {
+            margin-left: auto;
+        }
+    }
+}
+
+.flex-spacer {
+    flex-grow: 1;
+}

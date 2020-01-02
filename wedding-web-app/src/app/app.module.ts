@@ -7,6 +7,7 @@ import { NavBarModule } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { FooterModule } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
   ],
   imports: [
     NavBarModule,
+    FooterModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule

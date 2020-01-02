@@ -1,0 +1,15 @@
+@mixin navbar-theme($theme) {
+    $primary: map-get($theme, primary);
+    $foreground: map-get($theme, foreground);
+    
+    app-navbar {
+        .navbar-header{  
+            background: transparent;
+            color: mat-color($foreground, default contrast);
+        }
+
+        .navbar-button {
+            font-family: 'Magnolia-Script'; 
+        }
+    }
+}
