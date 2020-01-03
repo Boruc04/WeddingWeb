@@ -16,10 +16,11 @@ h1, h2 {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    margin-top: 100px;
 }
 
-.home-body-text {
-    font-size: 16px;
+.home-body-text, .home-countdown-label  {
+    font-size: 20px;
 }
 
 .home-countdown-container {
@@ -34,7 +35,16 @@ h1, h2 {
 }
 
 .home-photo {
-        > img {
-        width: 400px;
+    margin: 20px 0 20px;
+
+    > img {
+        width: 500px;
+    }
+}
+
+.home-photo-logo {
+    
+    > img {
+        width: 400px;;
     }
 }
