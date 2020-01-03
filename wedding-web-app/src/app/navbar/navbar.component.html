@@ -1,11 +1,11 @@
 <nav>
     <mat-toolbar class="navbar-header">
-        <a mat-button class="navbar-button" routerlink="/">Strona Główna</a>
+        <a mat-button class="navbar-button" [routerLink]="['/']">Strona Główna</a>
 
         <div class="flex-spacer"></div>
 
-        <a mat-button class="navbar-button" routerlink="/confirm">Potwierdź obecność</a>
-        <a mat-button class="navbar-button" routerlink="/adress">Mapka dojazdowa</a>
-        <a mat-button class="navbar-button" routerlink="/contact">Kontakt</a>
+        <a mat-button class="navbar-button" [routerLink]="['/confirm']">Potwierdź obecność</a>
+        <a mat-button class="navbar-button" [routerLink]="['/adress']">Mapka dojazdowa</a>
+        <a mat-button class="navbar-button" [routerLink]="['/contact']" routerLinkActive="active">Kontakt</a>
     </mat-toolbar>
 </nav>

@@ -4,12 +4,12 @@
     
     app-navbar {
         .navbar-header{  
-            background: transparent;
+            background: mat-color($primary, default contrast);
             color: mat-color($foreground, default contrast);
         }
 
         .navbar-button {
-            font-family: 'Magnolia-Script'; 
+            font-family: 'Magnolia-Script';
         }
     }
 }

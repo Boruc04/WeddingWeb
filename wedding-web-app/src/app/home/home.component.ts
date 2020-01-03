@@ -18,7 +18,6 @@ export class HomeComponent {
   constructor() {
 
     this.timeLeft = this.getTimeLeftFromWeddingTillNow();
-    console.log(this.timeLeft);
 
     this.timeLeft$ = timer(0, 1000).pipe(
       map(() => this.timeLeft = this.getTimeLeftFromWeddingTillNow())
