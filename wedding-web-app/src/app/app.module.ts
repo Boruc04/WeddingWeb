@@ -7,24 +7,26 @@ import { AppComponent } from './app.component';
 
 import { NavBarModule } from './navbar/navbar.component';
 import { FooterModule } from './footer/footer.component';
+import { AdressModule } from './adress/adress.component';
+import { ConfirmModule } from './confirm/confirm.component';
 
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
-import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent,
-    ConfirmComponent
+    ContactComponent
   ],
   imports: [
     NavBarModule,
     FooterModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AdressModule,
+    ConfirmModule
   ],
   providers: [],
   bootstrap: [AppComponent]

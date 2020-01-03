@@ -41,6 +41,15 @@ body {
     margin: 0; 
     // font-family: Roboto, "Helvetica Neue", sans-serif; 
     font-family: 'Magnolia-Script';
+    background-image: url("./assets/background.png");
+    // background-position: center;
+    background-repeat: repeat-y;
+    background-size: 100%;
+}
+
+h1, h2 {
+    font-weight:normal;
+    font-size:42px;
 }
 
 @font-face {

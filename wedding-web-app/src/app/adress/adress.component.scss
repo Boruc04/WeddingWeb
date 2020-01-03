@@ -1,0 +1,45 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.adress-container {
+    margin-top: 200px;
+}
+
+.adress-header {
+    font-size: 30px;
+    text-align: center;
+}
+
+.adress-body {
+    display: flex;
+}
+
+.adress-column {
+    display: flex;
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    width: 503px;
+    height: 503px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    > p {
+        font-size: 25px;
+        margin: 0 0 0 0;
+    }
+
+    > img {
+        width: 400px;
+    }
+
+    &.dance > p:nth-child(2) {
+        margin: 10px 0 30px 0 !important;
+    }
+}

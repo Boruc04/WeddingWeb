@@ -1,0 +1,29 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.confirm-body {
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
