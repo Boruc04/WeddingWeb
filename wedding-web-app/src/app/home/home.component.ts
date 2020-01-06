@@ -30,11 +30,8 @@ export class HomeComponent {
     const weddingMoment = moment(weddingDate);
 
     const duration = moment.duration(weddingMoment.diff(moment()));
-
     const timeLeft = new TimeLeft();
-    timeLeft.years = duration.years();
-    timeLeft.months = duration.months();
-    timeLeft.days = duration.days();
+    timeLeft.days = Math.floor(duration.asDays());
     timeLeft.hours = duration.hours();
     timeLeft.minutes = duration.minutes();
     timeLeft.seconds = duration.seconds();
@@ -43,8 +40,6 @@ export class HomeComponent {
 }
 
 export class TimeLeft {
-  years: number;
-  months: number;
   days: number;
   hours: number;
   minutes: number;

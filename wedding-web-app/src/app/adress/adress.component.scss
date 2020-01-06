@@ -1,45 +1,53 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
 }
 
 .adress-container {
-    margin-top: 200px;
-}
+  margin-top: 200px;
 
-.adress-header {
+  .adress-header {
     font-size: 30px;
     text-align: center;
-}
+  }
 
-.adress-body {
+  .adress-body {
     display: flex;
-}
 
-.adress-column {
-    display: flex;
-    border-style: solid;
-    border-width: 2px;
-    border-color: white;
-    width: 503px;
-    height: 503px;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
-    > p {
+    .adress-column {
+      display: flex;
+      border-style: solid;
+      border-width: 0;
+      border-color: white;
+      width: 503px;
+      height: 503px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      > p {
         font-size: 25px;
         margin: 0 0 0 0;
-    }
+      }
 
-    > img {
+      > img {
         width: 400px;
-    }
+        height: auto;
+      }
 
-    &.dance > p:nth-child(2) {
-        margin: 10px 0 30px 0 !important;
+      &.church > img {
+        width: 300px;
+      }
+
+      &.dance,
+      &.church {
+        > p:last-of-type {
+          margin: 0 0 30px 0;
+        }
+      }
     }
+  }
 }
