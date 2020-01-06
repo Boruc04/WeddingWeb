@@ -8,10 +8,10 @@
 
 .adress-container {
   margin-top: 200px;
+  text-align: center;
 
   .adress-header {
     font-size: 30px;
-    text-align: center;
   }
 
   .adress-body {
@@ -22,31 +22,53 @@
       border-style: solid;
       border-width: 0;
       border-color: white;
-      width: 503px;
-      height: 503px;
+      width: 450px;
+      height: 450px;
       justify-content: center;
       align-items: center;
       flex-direction: column;
 
       > p {
-        font-size: 25px;
+        &:first-of-type {
+          font-size: 25px;
+        }
+
+        font-size: 20px;
         margin: 0 0 0 0;
       }
 
       > img {
-        width: 400px;
         height: auto;
       }
 
-      &.church > img {
-        width: 300px;
+      %p-lastOfType {
+        margin: 0 0 30px 0;
       }
 
-      &.dance,
       &.church {
-        > p:last-of-type {
-          margin: 0 0 30px 0;
+        > img {
+          width: 200px;
         }
+
+        > p:last-of-type {
+          @extend %p-lastOfType;
+        }
+      }
+
+      &.dance {
+        > img {
+          width: 300px;
+        }
+
+        > p:last-of-type {
+          @extend %p-lastOfType;
+        }
+      }
+
+      &.map > iframe {
+        width: 400px;
+        height: 400px;
+        border: 0;
       }
     }
   }

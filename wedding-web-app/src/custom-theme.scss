@@ -1,12 +1,11 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
-@import 'app/navbar/navbar-theme';
-@import 'app/footer/footer-theme';
-@import 'app/home/home-theme';
-@import 'app/adress/adress-theme';
+@import "app/navbar/navbar-theme";
+@import "app/footer/footer-theme";
+@import "app/home/home-theme";
+@import "app/adress/adress-theme";
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -38,25 +37,25 @@ $wedding-web-app-theme: mat-light-theme($wedding-web-app-primary, $wedding-web-a
 @include home-theme($wedding-web-app-theme);
 @include adress-theme($wedding-web-app-theme);
 
-html, body { height: 100%; }
-body { 
-    margin: 0; 
-    // font-family: Roboto, "Helvetica Neue", sans-serif; 
-    font-family: 'Magnolia-Script';
-    background-image: url("./assets/background.png");
-    // background-position: center;
-    background-repeat: repeat-y;
-    background-size: 100%;
-}
-
-h1, h2 {
-    font-weight:normal;
-    font-size:42px; 
-}
-
 @font-face {
-    font-family: 'Magnolia-Script';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Magnolia-Script'), url('./assets/magnoliaScript.otf') format('opentype');
+  font-family: "Magnolia-Script";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Magnolia-Script"), url("./assets/magnoliaScript.otf") format("opentype");
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Magnolia-Script";
+  background-image: url("./assets/background.png");
+  background-repeat: repeat-y;
+  background-size: 100%;
+}
+
+h1,
+h2 {
+  font-weight: normal;
+  font-size: 42px;
 }
