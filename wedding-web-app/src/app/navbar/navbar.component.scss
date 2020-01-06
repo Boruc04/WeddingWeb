@@ -4,6 +4,11 @@
     .navbar-button {
         margin: 0 16px;
         font-size: 18px;
+
+        .home-image {
+            height: 100%;
+            max-height: 64px;
+        }
     }
 }
 
