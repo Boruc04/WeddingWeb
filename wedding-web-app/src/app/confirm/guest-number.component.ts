@@ -30,7 +30,7 @@ export class GuestNumberComponent implements AfterViewInit {
 
     @Input() placeholderTitle = 'Podaj całkowitą liczbę gości';
     @Output() guestNumberEmitter = new EventEmitter<number>();
-    @ViewChild('guestNumber', { static: false }) guestNumberRef: ElementRef;
+    @ViewChild('guestNumber') guestNumberRef: ElementRef;
 
     ngAfterViewInit(): void {
         const guestNumber = this.guestNumberRef.nativeElement;
