@@ -8,16 +8,19 @@ import { AppComponent } from './app.component';
 import { NavBarModule } from './navbar/navbar.component';
 import { FooterModule } from './footer/footer.component';
 import { AdressModule } from './adress/adress.component';
-import { ConfirmModule } from './confirm/confirm.component';
+import { ConfirmModule } from './confirm/confirmation.module';
 
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
+import { SharedComponent } from './common/shared/shared.component';
+import { MyMonitoringService } from './services/monitoring.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    SharedComponent
   ],
   imports: [
     NavBarModule,
@@ -28,7 +31,7 @@ import { ContactComponent } from './contact/contact.component';
     AdressModule,
     ConfirmModule
   ],
-  providers: [],
+  providers: [MyMonitoringService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

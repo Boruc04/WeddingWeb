@@ -1,29 +1,39 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
 }
 
 .confirm-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .container-body {
+    max-width: 600px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-}
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-}
 
-.example-full-width {
-    width: 100%;
-}
+    .confirmation-form {
+      min-width: 300px;
+      width: 100%;
 
-.confirm-body {
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+      .confirmation-form-header {
+        display: flex;
+      }
+
+      .confirmation-form-repeat-row {
+        display: flex;
+      }
+
+      .full-width {
+        width: 100%;
+        min-width: 250px;
+        margin: 0 8px 0 8px;
+      }
+    }
+  }
 }

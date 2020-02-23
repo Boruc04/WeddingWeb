@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { SharedComponent } from '../common/shared/shared.component';
 
 const weddingDate = new Date(2020, 7, 22, 15, 0); //22-Aug-2020 3:00PM
 
@@ -10,13 +11,13 @@ const weddingDate = new Date(2020, 7, 22, 15, 0); //22-Aug-2020 3:00PM
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent extends SharedComponent {
 
   timeLeft$: Observable<TimeLeft>;
   timeLeft: TimeLeft;
 
   constructor() {
-
+    super();
     this.timeLeft = this.getTimeLeftFromWeddingTillNow();
 
     this.timeLeft$ = timer(0, 1000).pipe(

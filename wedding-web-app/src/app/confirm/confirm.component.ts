@@ -1,13 +1,9 @@
-import { Component, NgModule } from '@angular/core';
-
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
-import { DemoMaterialModule } from './material-module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-
+import { ConfirmationItem } from './interfaces/confirmation-item';
+import { GuestItem } from './interfaces/guest-item';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -22,27 +18,28 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.scss']
 })
-export class ConfirmComponent {
+export class ConfirmComponent implements OnInit {
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
+  emailFormControl;
+  guestArray: Array<GuestItem>;
   matcher = new MyErrorStateMatcher();
 
+  ngOnInit() {
+  }
+
+  wrtieToConsole(obj: any) {
+    console.log(obj);
+  }
+
+  handleFormSubmit(form: NgForm) {
+    console.log('Form Submited.');
+    console.log(form);
+    const confirmationItem = form.value as ConfirmationItem;
+    console.log(confirmationItem);
+  }
+
+  createGuestsArray($event) {
+    const guestNumber: number = +$event;
+    this.guestArray = new Array<GuestItem>(guestNumber);
+  }
 }
-
-@NgModule({
-  imports: [
-    MatFormFieldModule,
-    DemoMaterialModule,
-    ReactiveFormsModule,
-    FormsModule,
-    CommonModule
-  ],
-  exports: [ConfirmComponent],
-  declarations: [ConfirmComponent]
-})
-export class ConfirmModule { }
-
