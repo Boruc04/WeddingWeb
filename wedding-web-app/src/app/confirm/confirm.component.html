@@ -6,7 +6,7 @@
         <mat-card>
             <form class="confirmation-form" #confirmationForm="ngForm" (ngSubmit)="handleFormSubmit(confirmationForm)">
                 <div class="confirmation-form-header">
-                    <mat-form-field appearance="legacy" class="full-width">
+                    <mat-form-field appearance="standard" class="full-width">
                         <input matInput ngModel name="email" type="email" placeholder="Podaj email"
                             required>
                         <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -27,7 +27,7 @@
                     </mat-form-field>
                 </div>
                 <div class="confirmation-footer">
-                    <mat-form-field appearance="legacy" class="full-width">
+                    <mat-form-field appearance="standard" class="full-width">
                         <textarea matInput placeholder="Informacje dodatkowe."></textarea>
                     </mat-form-field>
                     <button mat-stroked-button type="submit" [disabled]="confirmationForm.invalid">Wyślij</button>
