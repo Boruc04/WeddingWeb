@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 import { ConfirmationItem } from './interfaces/confirmation-item';
 import { GuestItem } from './interfaces/guest-item';
+import { SharedComponent } from '../common/shared/shared.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -18,14 +19,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.scss']
 })
-export class ConfirmComponent implements OnInit {
+export class ConfirmComponent extends SharedComponent {
 
   emailFormControl;
   guestArray: Array<GuestItem>;
   matcher = new MyErrorStateMatcher();
-
-  ngOnInit() {
-  }
 
   wrtieToConsole(obj: any) {
     console.log(obj);
