@@ -25,10 +25,11 @@
             "aot": false,
             "assets": [
               "src/assets",
-              "src/ecosystem.config.js"
+              "src/ecosystem.config.js",
+              "src/web.config"
             ],
             "styles": [
-              "src/custom-theme.scss",
+              "src/custom-theme.scss"
             ],
             "scripts": []
           },
