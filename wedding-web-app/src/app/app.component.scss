@@ -16,6 +16,10 @@ app-navbar {
     z-index: 2;
 }
 
+app-footer {
+    z-index: 2;
+}
+
 app-root > app-home, app-adress, app-contact, app-confirm {
     overflow-y: auto;
 }
