@@ -7,12 +7,12 @@ import { AppComponent } from './app.component';
 
 import { NavBarModule } from './navbar/navbar.component';
 import { FooterModule } from './footer/footer.component';
-import { AdressModule } from './adress/adress.component';
+import { AddressModule } from './address/address.component';
 import { ConfirmModule } from './confirm/confirmation.module';
 
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
-import { SharedComponent } from './common/shared/shared.component';
+import { BaseComponent } from './common/shared/base.component';
 import { MyMonitoringService } from './services/monitoring.service';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { MyMonitoringService } from './services/monitoring.service';
     AppComponent,
     HomeComponent,
     ContactComponent,
-    SharedComponent
+    BaseComponent
   ],
   imports: [
     NavBarModule,
@@ -28,7 +28,7 @@ import { MyMonitoringService } from './services/monitoring.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AdressModule,
+    AddressModule,
     ConfirmModule
   ],
   providers: [MyMonitoringService],

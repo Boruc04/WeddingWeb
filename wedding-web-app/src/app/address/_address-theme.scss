@@ -1,12 +1,12 @@
-@mixin adress-theme($theme) {
+@mixin address-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  app-adress {
-    .adress-column > p:not(:first-of-type) {
+  app-address {
+    .address-column > p:not(:first-of-type) {
       font-family: "Abhaya Libre", serif;
     }
   }

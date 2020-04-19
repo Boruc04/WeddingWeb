@@ -4,7 +4,7 @@ import { MyMonitoringService } from '../../services/monitoring.service';
 @Component({
   template: ``,
 })
-export class SharedComponent {
+export class BaseComponent {
 
   private myMonitoringService: MyMonitoringService;
 
