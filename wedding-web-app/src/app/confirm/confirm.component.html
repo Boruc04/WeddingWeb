@@ -1,7 +1,8 @@
 <div class="confirm-container">
     <h1 class="container-header">Potwierdź swoją obecność</h1>
     <mat-card>
-        <form class="confirmation-form" [formGroup]="confirmationFormGroup">
+        <form class="confirmation-form" (ngSubmit)="onSubmit(confirmationFormGroup)"
+            [formGroup]="confirmationFormGroup">
             <div class="confirmation-form-header">
                 <mat-form-field>
                     <mat-label>Email kontaktowy</mat-label>
@@ -29,13 +30,33 @@
                 </mat-form-field>
             </div>
 
-            <div class="confirmation-form-repeat-row" *ngFor="let guest of guestArray">
-                <mat-form-field>
-                    <input matInput name="fistName" placeholder="Podaj imię" >
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput name="LastName" placeholder="Podaj nazwisko">
-                </mat-form-field>
+            <div class="confirmation-form-repeat-row" *ngFor="let guest of guestList; index as i">
+                <div [formGroup]="guest">
+                    <mat-form-field>
+                        <mat-label>Imię gościa nr {{ i+1 }}.</mat-label>
+                        <input matInput name="fistName" placeholder="Podaj imię" formControlName="firstName">
+                        <mat-error *ngIf="guestFirstName(i)?.hasError('required')">
+                            Imię jest wymagana.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="!guestFirstName(i)?.hasError('required') && (guestFirstName(i)?.hasError('min') || guestFirstName(i)?.hasError('max'))">
+                            Imie musi mieścić się w przedziale od {{minTextLength}} do {{ maxTextLength }}.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Nazwisko gościa nr {{ i+1 }}</mat-label>
+                        <input matInput name=" guest[i].lastName" placeholder="Podaj nazwisko"
+                            formControlName="lastName">
+                        <mat-error *ngIf="guestLastName(i)?.hasError('required')">
+                            Nazwisko jest wymagana.
+                        </mat-error>
+                        <mat-error
+                            *ngIf="!guestLastName(i)?.hasError('required') && (guestLastName(i)?.hasError('min') || guestLastName(i)?.hasError('max'))">
+                            Nazwisko musi mieścić się w przedziale od {{minTextLength}} do {{ maxTextLength }}.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
             </div>
 
             <div class="confirmation-form-footer">

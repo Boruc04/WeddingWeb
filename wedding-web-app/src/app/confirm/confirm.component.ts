@@ -1,11 +1,9 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, NgForm, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
-import { ConfirmationItem } from './interfaces/confirmation-item';
-import { GuestItem } from './interfaces/guest-item';
 import { BaseComponent } from '../common/shared/base.component';
 
 @Component({
@@ -20,16 +18,21 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
 
   get email() { return this.confirmationFormGroup.get('email'); }
   get guestNumberFC() { return this.confirmationFormGroup.get('guestNumber'); }
+  get guestList() { return (this.confirmationFormGroup.get('guestList') as FormArray).controls; }
   get minGuestNumber() { return 1; }
   get maxGuestNumber() { return 10; }
+  get minTextLength() { return 1; }
+  get maxTextLength() { return 256; }
   confirmationFormGroup: FormGroup;
-  guestArray: Array<GuestItem>;
 
   confirmation = {
     email: '',
     guestsNumber: null,
     guestList: []
   };
+
+  guestFirstName(index: number) { return this.guestList[index].get('firstName'); }
+  guestLastName(index: number) { return this.guestList[index].get('lastName'); }
 
   ngOnInit(): void {
     this.confirmationFormGroup = new FormGroup({
@@ -45,7 +48,8 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
           Validators.required,
           Validators.min(this.minGuestNumber),
           Validators.max(this.maxGuestNumber)
-        ])
+        ]),
+      guestList: new FormArray([])
     });
   }
 
@@ -63,14 +67,36 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
 
   createGuestsArray(guestNumber: number) {
     if (this.confirmationFormGroup.get('guestNumber').valid) {
-      this.guestArray = new Array<GuestItem>(guestNumber);
+      const guestListFormArray = this.confirmationFormGroup.get('guestList') as FormArray;
+      guestListFormArray.clear();
+      for (let index = 0; index < guestNumber; index++) {
+
+        this.confirmation.guestList.push({
+          firstName: '',
+          lastName: ''
+        });
+        guestListFormArray.push(new FormGroup({
+          firstName: new FormControl(
+            this.confirmation.guestList[index].firstName,
+            [
+              Validators.required,
+              Validators.minLength(this.minTextLength),
+              Validators.maxLength(this.maxTextLength)
+            ]),
+          lastName: new FormControl(
+            this.confirmation.guestList[index].lastName,
+            [
+              Validators.required,
+              Validators.minLength(this.minTextLength),
+              Validators.maxLength(this.maxTextLength)
+            ])
+        }));
+      }
     }
   }
 
-  handleFormSubmit(form: NgForm) {
-    console.log('Form Submited.');
-    console.log(form);
-    const confirmationItem = form.value as ConfirmationItem;
+  onSubmit(form: FormGroup) {
+    const confirmationItem = form.value;
     console.log(confirmationItem);
   }
 }
