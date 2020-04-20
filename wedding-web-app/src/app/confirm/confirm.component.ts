@@ -1,32 +1,70 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { FormControl, NgForm, Validators, FormGroup } from '@angular/forms';
+
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { ConfirmationItem } from './interfaces/confirmation-item';
 import { GuestItem } from './interfaces/guest-item';
-import { SharedComponent } from '../common/shared/shared.component';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { BaseComponent } from '../common/shared/base.component';
 
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.scss']
 })
-export class ConfirmComponent extends SharedComponent {
+export class ConfirmComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  emailFormControl;
+  @ViewChild('guestNumber')
+  guestNumberRef: ElementRef;
+
+  get email() { return this.confirmationFormGroup.get('email'); }
+  get guestNumberFC() { return this.confirmationFormGroup.get('guestNumber'); }
+  get minGuestNumber() { return 1; }
+  get maxGuestNumber() { return 10; }
+  confirmationFormGroup: FormGroup;
   guestArray: Array<GuestItem>;
-  matcher = new MyErrorStateMatcher();
 
-  wrtieToConsole(obj: any) {
-    console.log(obj);
+  confirmation = {
+    email: '',
+    guestsNumber: null,
+    guestList: []
+  };
+
+  ngOnInit(): void {
+    this.confirmationFormGroup = new FormGroup({
+      email: new FormControl(
+        this.confirmation.email,
+        [
+          Validators.required,
+          Validators.email
+        ]),
+      guestNumber: new FormControl(
+        this.confirmation.guestsNumber,
+        [
+          Validators.required,
+          Validators.min(this.minGuestNumber),
+          Validators.max(this.maxGuestNumber)
+        ])
+    });
+  }
+
+  ngAfterViewInit(): void {
+    fromEvent(this.guestNumberRef.nativeElement, 'keyup')
+      .pipe(
+        map((ev: any) => ev.target.value),
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(event => {
+        this.createGuestsArray(+event);
+      });
+  }
+
+  createGuestsArray(guestNumber: number) {
+    if (this.confirmationFormGroup.get('guestNumber').valid) {
+      this.guestArray = new Array<GuestItem>(guestNumber);
+    }
   }
 
   handleFormSubmit(form: NgForm) {
@@ -34,10 +72,5 @@ export class ConfirmComponent extends SharedComponent {
     console.log(form);
     const confirmationItem = form.value as ConfirmationItem;
     console.log(confirmationItem);
-  }
-
-  createGuestsArray($event) {
-    const guestNumber: number = +$event;
-    this.guestArray = new Array<GuestItem>(guestNumber);
   }
 }

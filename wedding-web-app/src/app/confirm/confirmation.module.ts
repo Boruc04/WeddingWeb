@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, MatFormFieldDefaultOptions, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { DemoMaterialModule } from './material.module';
 
 import { ConfirmComponent } from './confirm.component';
-import { GuestNumberComponent } from './guest-number.component';
+
+const appearance: MatFormFieldDefaultOptions = {
+    appearance: 'outline'
+};
 
 @NgModule({
     imports: [
@@ -18,9 +21,15 @@ import { GuestNumberComponent } from './guest-number.component';
     ],
     exports: [ConfirmComponent],
     declarations: [
-        ConfirmComponent,
-        GuestNumberComponent
+        ConfirmComponent
+    ],
+    providers: [
+        {
+            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+            useValue: appearance
+        }
     ]
 })
 export class ConfirmModule { }
+
 

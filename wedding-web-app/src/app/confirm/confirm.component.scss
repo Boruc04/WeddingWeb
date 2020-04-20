@@ -1,37 +1,39 @@
 :host {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
+  margin: auto;
 }
 
 .confirm-container {
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: space-evenly;
 
-  .container-body {
-    max-width: 600px;
+  mat-form-field,
+  app-guest-number,
+  .item {
+    padding: 0 8px 0 8px;
+    flex-grow: 1;
+  }
+
+  .confirmation-form {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    flex-flow: column wrap;
 
-    .confirmation-form {
-      min-width: 300px;
-      width: 100%;
+    .confirmation-form-header {
+      display: flex;
+      flex-flow: row wrap;
+    }
 
-      .confirmation-form-header {
-        display: flex;
-      }
+    .confirmation-form-repeat-row {
+      display: flex;
+      flex-flow: row wrap;
+    }
 
-      .confirmation-form-repeat-row {
-        display: flex;
-      }
+    .confirmation-form-footer {
+      display: flex;
+      flex-flow: column wrap;
 
-      .full-width {
-        width: 100%;
-        min-width: 250px;
+      > button {
         margin: 0 8px 0 8px;
       }
     }
