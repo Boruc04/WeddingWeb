@@ -20,6 +20,7 @@ app-footer {
     z-index: 2;
 }
 
-app-root > app-home, app-adress, app-contact, app-confirm {
+app-root > app-home, app-address, app-contact, app-confirm {
     overflow-y: auto;
+    height: 100%;
 }

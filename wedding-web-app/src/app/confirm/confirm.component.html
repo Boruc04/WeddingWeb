@@ -1,70 +1,75 @@
 <div class="confirm-container">
-    <h1 class="container-header">Potwierdź swoją obecność</h1>
-    <mat-card>
-        <form class="confirmation-form" (ngSubmit)="onSubmit(confirmationFormGroup)"
-            [formGroup]="confirmationFormGroup">
-            <div class="confirmation-form-header">
-                <mat-form-field>
-                    <mat-label>Email kontaktowy</mat-label>
-                    <input matInput type="email" placeholder="Podaj email kontaktowy." formControlName="email" required>
-                    <mat-error *ngIf="email?.hasError('email') && !email?.hasError('required')">
-                        Podaj prawidłowy email.
-                    </mat-error>
-                    <mat-error *ngIf="email?.hasError('required')">
-                        Email jest wymagany.
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Liczba potwierdzanych gości.</mat-label>
-                    <input matInput #guestNumber type="number"
-                        placeholder="Podaj całkowitą liczbę potwierdzanych gości." formControlName="guestNumber"
-                        required>
-                    <mat-hint>Pamiętaj żeby policzyć siebie :) {{ guestNumberFC.validator | json }}</mat-hint>
-                    <mat-error *ngIf="guestNumberFC?.hasError('required')">
-                        Liczba gości jest wymagana.
-                    </mat-error>
-                    <mat-error
-                        *ngIf="!guestNumberFC?.hasError('required') && (guestNumberFC?.hasError('min') || guestNumberFC?.hasError('max'))">
-                        Liczba gości musi mieścić się w przedziale od {{minGuestNumber}} do {{ maxGuestNumber }}.
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="confirmation-form-repeat-row" *ngFor="let guest of guestList; index as i">
-                <div [formGroup]="guest">
+    <div class="container-header">
+        <h1>Potwierdź swoją obecność</h1>
+    </div>
+    <div class="container-body">
+        <mat-card>
+            <form class="confirmation-form" (ngSubmit)="onSubmit(confirmationFormGroup)"
+                [formGroup]="confirmationFormGroup">
+                <div class="confirmation-form-header">
                     <mat-form-field>
-                        <mat-label>Imię gościa nr {{ i+1 }}.</mat-label>
-                        <input matInput name="fistName" placeholder="Podaj imię" formControlName="firstName">
-                        <mat-error *ngIf="guestFirstName(i)?.hasError('required')">
-                            Imię jest wymagana.
+                        <mat-label>Email kontaktowy</mat-label>
+                        <input matInput type="email" placeholder="Podaj email kontaktowy." formControlName="email"
+                            required>
+                        <mat-error *ngIf="email?.hasError('email') && !email?.hasError('required')">
+                            Podaj prawidłowy email.
                         </mat-error>
-                        <mat-error
-                            *ngIf="!guestFirstName(i)?.hasError('required') && (guestFirstName(i)?.hasError('min') || guestFirstName(i)?.hasError('max'))">
-                            Imie musi mieścić się w przedziale od {{minTextLength}} do {{ maxTextLength }}.
+                        <mat-error *ngIf="email?.hasError('required')">
+                            Email jest wymagany.
                         </mat-error>
                     </mat-form-field>
-
                     <mat-form-field>
-                        <mat-label>Nazwisko gościa nr {{ i+1 }}</mat-label>
-                        <input matInput name=" guest[i].lastName" placeholder="Podaj nazwisko"
-                            formControlName="lastName">
-                        <mat-error *ngIf="guestLastName(i)?.hasError('required')">
-                            Nazwisko jest wymagana.
+                        <mat-label>Liczba potwierdzanych gości.</mat-label>
+                        <input matInput #guestNumber type="number"
+                            placeholder="Podaj całkowitą liczbę potwierdzanych gości." formControlName="guestNumber"
+                            required>
+                        <mat-hint>Pamiętaj żeby policzyć siebie :) {{ guestNumberFC.validator | json }}</mat-hint>
+                        <mat-error *ngIf="guestNumberFC?.hasError('required')">
+                            Liczba gości jest wymagana.
                         </mat-error>
                         <mat-error
-                            *ngIf="!guestLastName(i)?.hasError('required') && (guestLastName(i)?.hasError('min') || guestLastName(i)?.hasError('max'))">
-                            Nazwisko musi mieścić się w przedziale od {{minTextLength}} do {{ maxTextLength }}.
+                            *ngIf="!guestNumberFC?.hasError('required') && (guestNumberFC?.hasError('min') || guestNumberFC?.hasError('max'))">
+                            Liczba gości musi mieścić się w przedziale od {{minGuestNumber}} do {{ maxGuestNumber }}.
                         </mat-error>
                     </mat-form-field>
                 </div>
-            </div>
 
-            <div class="confirmation-form-footer">
-                <mat-form-field>
-                    <textarea matInput placeholder="Informacje dodatkowe."></textarea>
-                </mat-form-field>
-                <button mat-stroked-button type="submit" [disabled]="confirmationFormGroup.invalid">Wyślij</button>
-            </div>
-        </form>
-    </mat-card>
+                <div class="confirmation-form-repeat-row" *ngFor="let guest of guestList; index as i">
+                    <div [formGroup]="guest">
+                        <mat-form-field>
+                            <mat-label>Imię gościa nr {{ i+1 }}.</mat-label>
+                            <input matInput name="fistName" placeholder="Podaj imię" formControlName="firstName">
+                            <mat-error *ngIf="guestFirstName(i)?.hasError('required')">
+                                Imię jest wymagana.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="!guestFirstName(i)?.hasError('required') && (guestFirstName(i)?.hasError('min') || guestFirstName(i)?.hasError('max'))">
+                                Imie musi mieścić się w przedziale od {{minTextLength}} do {{ maxTextLength }}.
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Nazwisko gościa nr {{ i+1 }}</mat-label>
+                            <input matInput name=" guest[i].lastName" placeholder="Podaj nazwisko"
+                                formControlName="lastName">
+                            <mat-error *ngIf="guestLastName(i)?.hasError('required')">
+                                Nazwisko jest wymagana.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="!guestLastName(i)?.hasError('required') && (guestLastName(i)?.hasError('min') || guestLastName(i)?.hasError('max'))">
+                                Nazwisko musi mieścić się w przedziale od {{minTextLength}} do {{ maxTextLength }}.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="confirmation-form-footer">
+                    <mat-form-field>
+                        <textarea matInput placeholder="Informacje dodatkowe."></textarea>
+                    </mat-form-field>
+                    <button mat-stroked-button type="submit" [disabled]="confirmationFormGroup.invalid">Wyślij</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
 </div>

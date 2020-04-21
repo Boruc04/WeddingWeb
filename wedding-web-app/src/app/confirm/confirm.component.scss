@@ -1,12 +1,13 @@
-:host {
-  display: flex;
-  margin: auto;
-}
-
 .confirm-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  .container-header{
+    text-align: center;
+  }
 
   mat-form-field,
   app-guest-number,
