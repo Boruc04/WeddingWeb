@@ -1,0 +1,15 @@
+{
+  "email": [
+    {
+      "id": 1,
+      "email": "mborucinski+wesele@email.com",
+      "guestNumber": 1,
+      "guestList": [
+        {
+          "firstName": "",
+          "lastName": ""
+        }
+      ]
+    }
+  ]
+}
