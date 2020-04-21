@@ -1,25 +1,21 @@
 :host {
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
-    align-items: center;
+    margin: auto;
 }
 
 .contact-container {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-}
 
-.contact-item {
-    text-align: center;
+    .contact-item {
+        text-align: center;
 
-    &.header {
-        font-size: 30px;
-    }
+        &.header {
+            font-size: 30px;
+        }
 
-    &.person {
-        font-size: 25px;
+        &.person {
+            font-size: 25px;
+        }
     }
 }
