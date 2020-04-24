@@ -5,6 +5,8 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { BaseComponent } from '../common/shared/base.component';
+import { ApiService } from './service/api.service';
+import { Email } from './service/email';
 
 @Component({
   selector: 'app-confirm',
@@ -12,6 +14,7 @@ import { BaseComponent } from '../common/shared/base.component';
   styleUrls: ['./confirm.component.scss']
 })
 export class ConfirmComponent extends BaseComponent implements OnInit, AfterViewInit {
+
 
   @ViewChild('guestNumber')
   guestNumberRef: ElementRef;
@@ -31,8 +34,17 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
     guestList: []
   };
 
+  apiService: ApiService;
+
   guestFirstName(index: number) { return this.guestList[index].get('firstName'); }
   guestLastName(index: number) { return this.guestList[index].get('lastName'); }
+
+
+  constructor(apiService: ApiService) {
+    super();
+
+    this.apiService = apiService;
+  }
 
   ngOnInit(): void {
     this.confirmationFormGroup = new FormGroup({
@@ -98,5 +110,7 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
   onSubmit(form: FormGroup) {
     const confirmationItem = form.value;
     console.log(confirmationItem);
+    const email = new Email();
+    this.apiService.sendEmail(email);
   }
 }
