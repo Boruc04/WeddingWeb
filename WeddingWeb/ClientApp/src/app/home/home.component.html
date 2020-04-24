@@ -1,14 +1,62 @@
-<h1>Hello, world!</h1>
-<p>Welcome to your new single-page application, built with:</p>
-<ul>
-  <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-  <li><a href='https://angular.io/'>Angular</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>
-  <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-</ul>
-<p>To help you get started, we've also set up:</p>
-<ul>
-  <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-  <li><strong>Angular CLI integration</strong>. In development mode, there's no need to run <code>ng serve</code>. It runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-  <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
-</ul>
-<p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
+<div class="home-container">
+    <div class="home-header">
+        <h1>Witajcie na naszej stronie ślubnej!</h1>
+    </div>
+
+    <div class="home-photo">
+        <img src="../../assets/home_central_photo_small.jpg" alt="Paulina & Michał & Kreska">
+    </div>
+
+    <div class="home-body-text">
+        <p>
+            Będziemy zamieszczać tu przydatne informacje o ślubie i miejscu wesela, aby pomóc Ci w
+            pełni ułatwić przybycie.
+        </p>
+        <p>
+            Zabierz ze sobą wygodne buty, aby bawić się z nami do białego rana :)
+        </p>
+        <p>Czekamy na Ciebie!</p>
+
+        <p class="home-countdown-label">Do zobaczenia za:</p>
+
+    </div>
+
+    <div class="home-countdown-container">
+        <div class="home-countdown-container-column">
+            <div>
+                <p>Dni</p>
+            </div>
+            <div>
+                <p>{{ timeLeft.days }}</p>
+            </div>
+        </div>
+        <div class="home-countdown-container-column">
+            <div>
+                <p>Godziny</p>
+            </div>
+            <div>
+                <p>{{ timeLeft.hours }}</p>
+            </div>
+        </div>
+        <div class="home-countdown-container-column">
+            <div>
+                <p>Minuty</p>
+            </div>
+            <div>
+                <p>{{ timeLeft.minutes}}</p>
+            </div>
+        </div>
+        <div class="home-countdown-container-column">
+            <div>
+                <p>Sekundy</p>
+            </div>
+            <div>
+                <p>{{ timeLeft.seconds }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-photo-logo">
+        <img src="../../assets/PaulinaMichal.png" alt="Paulina & Michał logo">
+    </div>
+</div>
