@@ -13,17 +13,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     version: '3.1.x'
-- task: DotNetCoreCLI@2
-  displayName: Restore
-  inputs:
-    command: restore
-    projects: '**/*.csproj'
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration Release'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
@@ -34,4 +24,4 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'myWebsiteName'
+    artifactName: 'WeddingWeb'
