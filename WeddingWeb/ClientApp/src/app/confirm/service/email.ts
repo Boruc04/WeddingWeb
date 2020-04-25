@@ -3,6 +3,8 @@ export interface Email {
     guestNumber: number;
     guestList: Guest[];
     additionalInfo: string;
+    needHotel: boolean;
+    needDrive: boolean;
 }
 
 export interface Guest {

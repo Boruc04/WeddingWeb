@@ -9,10 +9,14 @@
         flex: 1;
         text-align: center;
     }
+    .home-photo {
+        margin-bottom: 25px;
+    }
 
     .home-photo > img,
     .home-photo-logo > img {
         max-width: 100%;
+        align-self: center;
     }
 
     .home-body-text,

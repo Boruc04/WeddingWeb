@@ -36,9 +36,22 @@
         display: flex;
         flex-flow: column wrap;
 
-        > button {
-          margin: 0 8px 0 8px;
+        .checkbox-container {
+          display: flex;
+          flex-flow: row;
+          margin-bottom: 50px;
+
+          .guest-checkbox {
+            flex: 1;
+            margin: 0 8px 0 8px;
+          }
         }
+      }
+
+      > button {
+        align-self: center;
+        width: 50%;
+        margin: 0 8px 0 8px;
       }
     }
   }

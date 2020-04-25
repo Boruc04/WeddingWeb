@@ -42,8 +42,8 @@ namespace WeddingWeb.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<IActionResult> SendEmail(Email email)
 		{
-			var statusCode = await _emailService.SendEmail(email);
-			//var statusCode = StatusCodes.Status200OK;
+			//var statusCode = await _emailService.SendEmail(email);
+			var statusCode = StatusCodes.Status200OK;
 			return StatusCode((int)statusCode);
 		}
 	}

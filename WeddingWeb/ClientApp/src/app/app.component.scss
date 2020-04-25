@@ -26,6 +26,7 @@ app-root > app-contact,
 app-root > app-confirm {
     overflow-y: auto;
     height: 100%;
+    padding-top: 30px;
 }
 
 @media (max-width: 720px) {

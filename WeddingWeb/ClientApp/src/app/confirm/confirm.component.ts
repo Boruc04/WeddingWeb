@@ -22,7 +22,10 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
 
   get email() { return this.confirmationFormGroup.get('mainEmail'); }
   get guestNumberFC() { return this.confirmationFormGroup.get('guestNumber'); }
+  get needHotel() { return this.confirmationFormGroup.get('needHotel'); }
+  get needDrive() { return this.confirmationFormGroup.get('needDrive'); }
   get guestList() { return (this.confirmationFormGroup.get('guestList') as FormArray).controls; }
+
   get minGuestNumber() { return 1; }
   get maxGuestNumber() { return 10; }
   get minTextLength() { return 1; }
@@ -33,7 +36,9 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
     mainEmail: '',
     guestsNumber: null,
     guestList: [],
-    additionalInfo: ''
+    additionalInfo: '',
+    needHotel: false,
+    needDrive: false
   };
 
   guestFirstName(index: number) { return this.guestList[index].get('firstName'); }
@@ -72,7 +77,9 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
       additionalInfo: new FormControl(
         this.confirmationInitState.additionalInfo,
         Validators.max(500)
-      )
+      ),
+      needHotel: new FormControl(this.confirmationInitState.needHotel),
+      needDrive: new FormControl(this.confirmationInitState.needDrive)
     });
   }
 

@@ -68,8 +68,12 @@
                         <textarea matInput placeholder="Informacje dodatkowe."
                             formControlName="additionalInfo"></textarea>
                     </mat-form-field>
-                    <button mat-stroked-button type="submit" [disabled]="confirmationFormGroup.invalid">Wyślij</button>
+                    <div class="mat-form-field checkbox-container">
+                        <mat-checkbox class="guest-checkbox" formControlName="needDrive">Transport</mat-checkbox>
+                        <mat-checkbox class="guest-checkbox" formControlName="needHotel">Nocleg</mat-checkbox>
+                    </div>
                 </div>
+                <button mat-stroked-button type="submit" [disabled]="confirmationFormGroup.invalid">Wyślij</button>
             </form>
         </mat-card>
     </div>
