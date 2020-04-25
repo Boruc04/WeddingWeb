@@ -45,7 +45,7 @@ export class NavbarComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const scroll$ = fromEvent(window, 'scroll').pipe(
-      throttleTime(10),
+      throttleTime(50),
       map(() => window.pageYOffset),
       pairwise(),
       map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
