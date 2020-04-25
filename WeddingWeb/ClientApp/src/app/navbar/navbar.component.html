@@ -1,13 +1,20 @@
-<nav>
-    <mat-toolbar class="navbar-header">
-        <a mat-button class="navbar-button home" [routerLink]="['/']">
+<nav class="navbar-header">
+    <mat-toolbar>
+        <a mat-button class="navbar-button home-logo" [routerLink]="['/']">
             <img class="home-image" src="../../assets/PaulinaMichal.gif">
         </a>
 
-        <div class="flex-spacer"></div>
+        <div class="navbar-hide-small flex-spacer"></div>
 
-        <a mat-button class="navbar-button" [routerLink]="['/confirm']">Potwierdź obecność</a>
-        <a mat-button class="navbar-button" [routerLink]="['/address']">Mapka dojazdowa</a>
-        <a mat-button class="navbar-button" [routerLink]="['/contact']" routerLinkActive="active">Kontakt</a>
+        <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/confirm']">Potwierdź obecność</a>
+        <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/address']">Mapka dojazdowa</a>
+        <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/contact']"
+            routerLinkActive="active">Kontakt</a>
     </mat-toolbar>
+</nav>
+
+<nav class="navbar navbar-show-small">
+    <a mat-button class="navbar-link" [routerLink]="['/confirm']">Potwierdź obecność</a>
+    <a mat-button class="navbar-link" [routerLink]="['/address']">Mapka dojazdowa</a>
+    <a mat-button class="navbar-link" [routerLink]="['/contact']" routerLinkActive="active">Kontakt</a>
 </nav>

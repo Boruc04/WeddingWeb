@@ -4,12 +4,11 @@
     $background: map-get($theme, background);
 
     app-navbar {
-        .navbar-header {
-            color: mat-color($foreground, base);
-            background-color: mat-color($background, app-bar);
-        }
+        color: mat-color($foreground, base);
+        background-color: mat-color($background, app-bar);
 
-        .navbar-button {
+        .navbar-button,
+        .navbar-link {
             font-family: "Magnolia-Script";
         }
     }
