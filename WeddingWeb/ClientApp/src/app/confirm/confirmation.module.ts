@@ -7,7 +7,9 @@ import { MatFormFieldModule, MatFormFieldDefaultOptions, MAT_FORM_FIELD_DEFAULT_
 import { DemoMaterialModule } from './material.module';
 
 import { ConfirmComponent } from './confirm.component';
-import { ApiService } from './service/api.service';
+import { EmailService } from './service/email.service';
+import { HttpErrorHandler } from './service/http-error-handler.service';
+import { MessageService } from './service/message.service';
 
 const appearance: MatFormFieldDefaultOptions = {
     appearance: 'outline'
@@ -19,7 +21,7 @@ const appearance: MatFormFieldDefaultOptions = {
         DemoMaterialModule,
         ReactiveFormsModule,
         FormsModule,
-        CommonModule, 
+        CommonModule,
         HttpClientModule
     ],
     exports: [ConfirmComponent],
@@ -31,7 +33,9 @@ const appearance: MatFormFieldDefaultOptions = {
             provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
             useValue: appearance
         },
-        ApiService
+        EmailService,
+        HttpErrorHandler,
+        MessageService
     ]
 })
 export class ConfirmModule { }

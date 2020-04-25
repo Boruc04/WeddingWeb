@@ -5,8 +5,8 @@ import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { BaseComponent } from '../common/shared/base.component';
-import { ApiService } from './service/api.service';
-import { Email } from './service/email';
+import { EmailService } from './service/email.service';
+import { CustomResponse, Email } from './service/email';
 
 @Component({
   selector: 'app-confirm',
@@ -19,7 +19,7 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
   @ViewChild('guestNumber')
   guestNumberRef: ElementRef;
 
-  get email() { return this.confirmationFormGroup.get('email'); }
+  get email() { return this.confirmationFormGroup.get('mainEmail'); }
   get guestNumberFC() { return this.confirmationFormGroup.get('guestNumber'); }
   get guestList() { return (this.confirmationFormGroup.get('guestList') as FormArray).controls; }
   get minGuestNumber() { return 1; }
@@ -28,40 +28,42 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
   get maxTextLength() { return 256; }
   confirmationFormGroup: FormGroup;
 
-  confirmation = {
-    email: '',
+  confirmationInitState = {
+    mainEmail: '',
     guestsNumber: null,
-    guestList: []
+    guestList: [],
+    additionalInfo: ''
   };
-
-  apiService: ApiService;
 
   guestFirstName(index: number) { return this.guestList[index].get('firstName'); }
   guestLastName(index: number) { return this.guestList[index].get('lastName'); }
 
-
-  constructor(apiService: ApiService) {
+  constructor(private emailService: EmailService) {
     super();
 
-    this.apiService = apiService;
+    this.emailService = emailService;
   }
 
   ngOnInit(): void {
     this.confirmationFormGroup = new FormGroup({
-      email: new FormControl(
-        this.confirmation.email,
+      mainEmail: new FormControl(
+        this.confirmationInitState.mainEmail,
         [
           Validators.required,
           Validators.email
         ]),
       guestNumber: new FormControl(
-        this.confirmation.guestsNumber,
+        this.confirmationInitState.guestsNumber,
         [
           Validators.required,
           Validators.min(this.minGuestNumber),
           Validators.max(this.maxGuestNumber)
         ]),
-      guestList: new FormArray([])
+      guestList: new FormArray([]),
+      additionalInfo: new FormControl(
+        this.confirmationInitState.additionalInfo,
+        Validators.max(500)
+      )
     });
   }
 
@@ -83,20 +85,20 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
       guestListFormArray.clear();
       for (let index = 0; index < guestNumber; index++) {
 
-        this.confirmation.guestList.push({
+        this.confirmationInitState.guestList.push({
           firstName: '',
           lastName: ''
         });
         guestListFormArray.push(new FormGroup({
           firstName: new FormControl(
-            this.confirmation.guestList[index].firstName,
+            this.confirmationInitState.guestList[index].firstName,
             [
               Validators.required,
               Validators.minLength(this.minTextLength),
               Validators.maxLength(this.maxTextLength)
             ]),
           lastName: new FormControl(
-            this.confirmation.guestList[index].lastName,
+            this.confirmationInitState.guestList[index].lastName,
             [
               Validators.required,
               Validators.minLength(this.minTextLength),
@@ -108,9 +110,25 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
   }
 
   onSubmit(form: FormGroup) {
-    const confirmationItem = form.value;
-    console.log(confirmationItem);
-    const email = new Email();
-    this.apiService.sendEmail(email);
+    this.emailService.sendEmail(form.value)
+      .subscribe(
+        (response: CustomResponse) => {
+          console.log(response);
+
+          if (response.ok) {
+            this.onSuccess();
+          } else {
+            this.onError();
+          }
+        }
+      );
+  }
+
+  onError() {
+    alert('There was an error please try again later.');
+  }
+
+  onSuccess() {
+    alert('Success');
   }
 }
