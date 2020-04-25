@@ -5,11 +5,6 @@
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  app-home > div > h1,
-  h2 {
-    color: mat-color($foreground, default-contrast);
-  }
-
   app-home {
     .home-body-text {
       font-family: "Abhaya Libre", serif;

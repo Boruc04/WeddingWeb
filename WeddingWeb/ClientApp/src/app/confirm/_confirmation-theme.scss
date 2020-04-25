@@ -1,0 +1,25 @@
+@mixin confirmation-theme($theme) {
+    $primary: map-get($theme, primary);
+    $foreground: map-get($theme, foreground);
+    $warn: map-get($theme, warn);
+    $accent: map-get($theme, accent);
+    $background: map-get($theme, background);
+
+    .snackbar-success {
+        background-color: mat-color($background, status-bar);
+        color: mat-color($foreground, base);
+        
+        button {
+            color: mat-color($foreground, base);
+        }
+    }
+
+    .snackbar-error {
+        background-color: mat-color($warn);
+        color: mat-color($warn, default-contrast);
+
+        button {
+            color: mat-color($warn, default-contrast);
+        }
+    }
+}

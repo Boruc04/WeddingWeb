@@ -1,12 +1,13 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormArray, FormGroupDirective, NgForm } from '@angular/forms';
 
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { BaseComponent } from '../common/shared/base.component';
 import { EmailService } from './service/email.service';
-import { CustomResponse, Email } from './service/email';
+import { CustomResponse } from './service/email';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-confirm',
@@ -16,8 +17,8 @@ import { CustomResponse, Email } from './service/email';
 export class ConfirmComponent extends BaseComponent implements OnInit, AfterViewInit {
 
 
-  @ViewChild('guestNumber')
-  guestNumberRef: ElementRef;
+  @ViewChild('guestNumber') guestNumberRef: ElementRef;
+  @ViewChild('myForm', { static: false }) myForm: NgForm;
 
   get email() { return this.confirmationFormGroup.get('mainEmail'); }
   get guestNumberFC() { return this.confirmationFormGroup.get('guestNumber'); }
@@ -38,14 +39,22 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
   guestFirstName(index: number) { return this.guestList[index].get('firstName'); }
   guestLastName(index: number) { return this.guestList[index].get('lastName'); }
 
-  constructor(private emailService: EmailService) {
+  constructor(private emailService: EmailService, private snackBar: MatSnackBar) {
     super();
 
     this.emailService = emailService;
   }
 
   ngOnInit(): void {
-    this.confirmationFormGroup = new FormGroup({
+    this.confirmationFormGroup = this.InitFormGroup();
+  }
+
+  ngAfterViewInit(): void {
+    this.BindActionsToForm();
+  }
+
+  InitFormGroup(): FormGroup {
+    return new FormGroup({
       mainEmail: new FormControl(
         this.confirmationInitState.mainEmail,
         [
@@ -67,7 +76,7 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
     });
   }
 
-  ngAfterViewInit(): void {
+  BindActionsToForm() {
     fromEvent(this.guestNumberRef.nativeElement, 'keyup')
       .pipe(
         map((ev: any) => ev.target.value),
@@ -78,6 +87,13 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
         this.createGuestsArray(+event);
       });
   }
+
+  ResetForm() {
+    this.myForm.resetForm();
+    this.confirmationFormGroup = this.InitFormGroup();
+    this.BindActionsToForm();
+  }
+
 
   createGuestsArray(guestNumber: number) {
     if (this.confirmationFormGroup.get('guestNumber').valid) {
@@ -125,10 +141,27 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
   }
 
   onError() {
-    alert('There was an error please try again later.');
+    this.ResetForm();
+    this.snackBar.open(
+      'There was an error please try again later.',
+      'ok',
+      {
+        duration: 2000,
+        panelClass: ['snackbar-error']
+      }
+    );
+
   }
 
   onSuccess() {
-    alert('Success');
+    this.ResetForm();
+    this.snackBar.open(
+      'Dziękujemy!',
+      'ok',
+      {
+        duration: 20000,
+        panelClass: ['snackbar-success']
+      }
+    );
   }
 }

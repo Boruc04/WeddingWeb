@@ -4,7 +4,7 @@
     </div>
     <div class="container-body">
         <mat-card>
-            <form class="confirmation-form" (ngSubmit)="onSubmit(confirmationFormGroup)"
+            <form #myForm="ngForm" class="confirmation-form" (ngSubmit)="onSubmit(confirmationFormGroup)"
                 [formGroup]="confirmationFormGroup">
                 <div class="confirmation-form-header">
                     <mat-form-field>
@@ -65,7 +65,8 @@
 
                 <div class="confirmation-form-footer">
                     <mat-form-field>
-                        <textarea matInput placeholder="Informacje dodatkowe." formControlName="additionalInfo"></textarea>
+                        <textarea matInput placeholder="Informacje dodatkowe."
+                            formControlName="additionalInfo"></textarea>
                     </mat-form-field>
                     <button mat-stroked-button type="submit" [disabled]="confirmationFormGroup.invalid">Wyślij</button>
                 </div>
