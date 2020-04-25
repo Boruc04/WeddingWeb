@@ -10,5 +10,7 @@ import { MyMonitoringService } from './services/monitoring.service';
 export class AppComponent {
   title = 'wedding-web-app';
 
-  constructor(private myMoniotringService: MyMonitoringService) { }
+  constructor(private myMoniotringService: MyMonitoringService) {
+    console.error("Nie szukajcie tutaj niczego :)");
+   }
 }
