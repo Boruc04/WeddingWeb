@@ -33,10 +33,13 @@ namespace WeddingWeb.Services
 
 			msg.AddContent(MimeType.Text, "Dziękujemy bardzo za potwierdzenie obecności!");
 
-			StringBuilder messageText = new StringBuilder($"Email:{email.MainEmail}, Liczba gości: {email.GuestNumber}, Informacje dodatkowe {email.AdditionalInfo}");
+			StringBuilder messageText = new StringBuilder($"Email: {email.MainEmail}, Liczba gości: {email.GuestNumber}, " +
+			                                              $"Informacje dodatkowe: {email.AdditionalInfo}, Nocleg {email.NeedHotel}, " +
+			                                              $"Transport: {email.NeedDrive}");
 
 			foreach (var guest in email.GuestList)
 			{
+				messageText.AppendLine();
 				messageText.Append($"\n Imie: {guest.FirstName}, Nazwisko: {guest.LastName}");
 			}
 
@@ -53,6 +56,8 @@ namespace WeddingWeb.Services
 		public int GuestNumber { get; set; }
 		public List<Guest> GuestList { get; set; }
 		public string AdditionalInfo { get; set; }
+		public bool NeedHotel { get; set; }
+		public bool NeedDrive { get; set; }
 	}
 
 	public class Guest
