@@ -51,13 +51,23 @@ body {
   height: 100%;
   margin: 0;
   font-family: "Magnolia-Script";
-  background-image: url("./assets/background.png");
-  background-repeat: repeat-y;
-  background-size: 100%;
+  background-image: url("./assets/side_flipped.png"), url("./assets/side.png"), url("./assets/background.png");
+  background-position: left, right, left top;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: 1000px, 1000px, 100%;
 }
 
 h1,
 h2 {
   font-weight: normal;
   font-size: 42px;
+}
+
+@media (max-width: 1200px) {
+  body {
+    background-image: url("./assets/background.png");
+    background-position: left top;
+    background-repeat: repeat;
+    background-size: 100%;
+  }
 }
