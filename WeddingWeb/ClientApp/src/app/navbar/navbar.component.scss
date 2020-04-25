@@ -1,7 +1,7 @@
 .navbar-header {
     display: flex;
     align-content: center;
-    padding: 8px;
+    padding: 8px 16px;
 
     .navbar-button {
         margin: 0 16px;
@@ -20,7 +20,7 @@
 
 .navbar-link {
     flex: 1;
-    font-size: 12px;
+    font-size: 15px;
     text-align: center;
 }
 
@@ -57,9 +57,6 @@
    
     .navbar {
         flex-flow: column wrap;
-    }
-
-    .navbar-link {
-        font-size: 15px;
+        align-content: center;
     }
 }

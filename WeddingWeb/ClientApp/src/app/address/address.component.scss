@@ -1,68 +1,99 @@
 .address-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 
-  .address-header {
-    font-size: 30px;
-    margin: auto;
+  .address-header,
+  .address-body {
+    flex: 1;
+    text-align: center;
   }
 
   .address-body {
-    margin: auto;
     display: flex;
+    flex-flow: column;
 
-    .address-column {
+    .row {
+      flex: 1;
       display: flex;
-      border-style: solid;
-      border-width: 0;
-      border-color: white;
-      width: 450px;
-      height: 450px;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      flex-flow: row nowrap;
 
-      > p {
-        &:first-of-type {
-          font-size: 25px;
+      .square {
+        display: flex;
+        flex: 1;
+        width: 450px;
+        height: 450px;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          font-size: 20px;
+          margin: 0;
+
+          &.title {
+            font-size: 25px;
+          }
+
+          &.bottom-margin {
+            margin-bottom: 30px;
+          }
+        }
+        img {
+          max-width: 100%;
         }
 
-        font-size: 20px;
-        margin: 0 0 0 0;
-      }
-
-      > img {
-        height: auto;
-      }
-
-      %p-lastOfType {
-        margin: 0 0 30px 0;
-      }
-
-      &.church {
-        > img {
-          width: 200px;
-        }
-
-        > p:last-of-type {
-          @extend %p-lastOfType;
+        &.map > iframe {
+          width: 400px;
+          height: 400px;
+          border: 0;
         }
       }
+    }
 
-      &.dance {
-        > img {
-          width: 300px;
-        }
+    @media (max-width: 720px) {
+      .row {
+        flex-flow: column wrap;
 
-        > p:last-of-type {
-          @extend %p-lastOfType;
+        .square {
+          margin-top: 16px;
+          width: 350px;
+          height: 350px;
+
+          &.church {
+            order: 1;
+          }
+          &.church.map {
+            order: 2;
+          }
+
+          &.dance.map {
+            order: 4;
+          }
+
+          &.dance {
+            order: 3;
+          }
+
+          &.map > iframe {
+            width: 300px;
+            height: 300px;
+          }
         }
       }
+    }
 
-      &.map > iframe {
-        width: 400px;
-        height: 400px;
-        border: 0;
+    @media (max-width: 400px) {
+      .row {
+        .square {
+          width: 250px;
+          height: 250px;
+
+          &.map > iframe {
+            width: 200px;
+            height: 200px;
+          }
+        }
       }
     }
   }

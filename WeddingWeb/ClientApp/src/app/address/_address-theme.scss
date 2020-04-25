@@ -6,7 +6,7 @@
   $foreground: map-get($theme, foreground);
 
   app-address {
-    .address-column > p:not(:first-of-type) {
+    .square > p:not(.title) {
       font-family: "Abhaya Libre", serif;
     }
   }

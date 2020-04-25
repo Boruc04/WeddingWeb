@@ -32,6 +32,16 @@ app-root > app-confirm {
     app-root {
         top: 124px;
     }
+
+    app-root > app-home,
+    app-root > app-address,
+    app-root > app-contact,
+    app-root > app-confirm {
+        overflow-y: visible;
+    }
+    app-root > app-footer {
+        display: none;
+    }
 }
 
 @media (max-width: 400px) {

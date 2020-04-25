@@ -2,21 +2,17 @@
     display: flex;
     flex-direction: column;
 
-    h1,
-    h2 {
-        font-weight: normal;
-        font-size: 42px;
-    }
-
     .home-header,
     .home-photo,
     .home-photo-logo,
     .home-body-text {
-        margin: auto;
+        flex: 1;
+        text-align: center;
     }
 
-    .home-photo > img {
-        max-width: 500px;
+    .home-photo > img,
+    .home-photo-logo > img {
+        max-width: 100%;
     }
 
     .home-body-text,
@@ -27,7 +23,7 @@
 
     .home-countdown-container {
         display: flex;
-        flex-direction: row;
+        flex-flow: row wrap;
         justify-content: center;
         text-align: center;
         font-size: 20px;
@@ -35,8 +31,5 @@
         .home-countdown-container-column {
             margin: 8px;
         }
-    }
-    .home-photo-logo > img {
-        width: 400px;
     }
 }
