@@ -48,7 +48,7 @@ export class NavbarComponent implements AfterViewInit {
       throttleTime(50),
       map(() => window.pageYOffset),
       pairwise(),
-      map(([y1, y2]): Direction => (y2 < y1 ? Direction.Up : Direction.Down)),
+      map(([y1, y2]): Direction => (y2 < y1 || y1 < 10 ? Direction.Up : Direction.Down)), // y1<10 hack for bouncing back scroll bar on iphone.
       distinctUntilChanged(),
       share()
     );
