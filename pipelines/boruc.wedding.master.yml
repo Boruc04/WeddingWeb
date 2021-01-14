@@ -20,11 +20,6 @@ steps:
     configFilePath: './pipelines/GitVersion/GitVersion.yml'
     additionalArguments: '/updateprojectfiles'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: $(GitVersion.SemVer)
-
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
