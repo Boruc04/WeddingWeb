@@ -8,6 +8,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     version: '3.1.x'
+  displayName: Use Dot Net.
 
 - task: UseGitVersion@5
   inputs:
@@ -22,8 +23,10 @@ steps:
     publishWebProjects: True
     arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
+  displayName: Create build artifact
 
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'WeddingWeb'
+  displayName: Publish build artifact.
