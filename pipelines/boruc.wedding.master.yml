@@ -9,6 +9,12 @@ steps:
   inputs:
     version: '3.1.x'
 
+- task: GitVersion@5
+  inputs:
+    runtime: 'core'
+    configFilePath: '.\pipelines\GitVersion\GitVersion.yml'
+    additionalArguments: '/updateprojectfiles '
+
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
