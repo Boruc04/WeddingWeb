@@ -14,7 +14,7 @@ namespace WeddingWeb.Controllers
 	{
 		private readonly EmailService _emailService;
 
-		public EmailController(ILogger<EmailController> logger)
+		public EmailController()
 		{
 			_emailService = new EmailService();
 		}
