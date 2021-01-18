@@ -6,12 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
     selector: 'app-footer',
     templateUrl: './footer.component.html',
-    styles: [`
-    .footer-header {
-      padding: 12px;
-      font-size: 12px;
-    }
-  `]
+    styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent { }
 
