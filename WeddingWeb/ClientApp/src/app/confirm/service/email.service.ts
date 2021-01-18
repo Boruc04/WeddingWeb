@@ -49,7 +49,6 @@ export class EmailService {
 
     public getEmail(): Observable<Email> {
         return this.http.get<Email>(this.EmailUrl).pipe(
-            tap(() => console.log('Try to get email.')),
             catchError(this.handleError<Email>('getEmail'))
         );
     }

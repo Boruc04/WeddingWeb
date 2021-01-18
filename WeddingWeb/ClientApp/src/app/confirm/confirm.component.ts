@@ -136,8 +136,6 @@ export class ConfirmComponent extends BaseComponent implements OnInit, AfterView
     this.emailService.sendEmail(form.value)
       .subscribe(
         (response: CustomResponse) => {
-          console.log(response);
-
           if (response.ok) {
             this.onSuccess();
           } else {
