@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { catchError, tap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -26,7 +26,6 @@ export class EmailService {
     }
 
     public sendEmail(email: Email): Observable<CustomResponse> {
-        console.log(email);
         return this.http.post<Email>(this.EmailUrl, email, httpOptions)
             .pipe(
                 catchError(this.handleError<HttpResponse<Email>>('sendEmail')),
