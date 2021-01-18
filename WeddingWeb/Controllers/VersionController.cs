@@ -10,7 +10,7 @@ namespace WeddingWeb.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	//[ApiVersion("1.0")]
+	[ApiVersion("1.0")]
 	[Produces("application/json")]
 	public class VersionController : ControllerBase
 	{
@@ -21,9 +21,18 @@ namespace WeddingWeb.Controllers
 			_versionService = new VersionService();
 		}
 
+		
+		/// <summary>
+		/// Get the version of the application.
+		/// </summary>
+		/// <returns>the version number</returns>
+		/// <response code="200">The version was successfully retrieved.</response>
+		/// <response code="400">The version request vas invalid.</response>
 		[HttpGet]
 		[Route("")]
-		[ProducesResponseType(StatusCodes.Status200OK)]
+		[MapToApiVersion("1.0")]
+		[ProducesResponseType(typeof(Version), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<IActionResult> Get()
 		{
 			var version = await _versionService.GetApplicationVersion();

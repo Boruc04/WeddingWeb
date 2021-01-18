@@ -1,9 +1,12 @@
+using System;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace WeddingWeb
 {
@@ -25,6 +28,8 @@ namespace WeddingWeb
 			{
 				configuration.RootPath = "ClientApp/dist/wedding-web-app";
 			});
+
+			services.AddCustomSwagger();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +48,14 @@ namespace WeddingWeb
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
+
+			app.UseSwagger()
+				.UseSwaggerUI(c =>
+				{
+					c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wedding Web");
+					c.RoutePrefix = "api";
+				});
+
 			if (!env.IsDevelopment())
 			{
 				app.UseSpaStaticFiles();
@@ -69,6 +82,38 @@ namespace WeddingWeb
 					spa.UseAngularCliServer(npmScript: "start");
 				}
 			});
+		}
+	}
+
+	internal static class CustomStartupExtensionsMethods
+	{
+		public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
+		{
+			var version = Assembly.GetExecutingAssembly()
+				.GetCustomAttribute<AssemblyFileVersionAttribute>();
+
+			var desc = $"The Wedding Web <p><strong>Build: </strong>{version?.Version}</p> ";
+
+			services.AddSwaggerGen(options =>
+			{
+				options.SwaggerDoc("v1", new OpenApiInfo
+				{
+					Title = $"Wedding Web - {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}",
+					Version = "v1",
+					Description = desc,
+					Contact = new OpenApiContact
+					{
+						Name = "Wedding Web",
+						Email = "m.borucinski@outlook.com",
+						Url = new Uri("https://github.com/Boruc04/WeddingWeb")
+					}
+				});
+
+				options.IncludeXmlComments($@"{AppDomain.CurrentDomain.BaseDirectory}\{Assembly.GetExecutingAssembly()
+					.GetName()
+					.Name}.xml");
+			});
+			return services;
 		}
 	}
 }
