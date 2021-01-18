@@ -8,7 +8,7 @@
     "build:ssr": "ng run WeddingWeb:server:dev",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "json-server": "json-server --watch db.json",
+    "json-server": "json-server --port 44354 --watch db.json",
     "dev": "concurrently --kill-others \"npm run start\" \"npm run json-server\""
   },
   "private": true,
