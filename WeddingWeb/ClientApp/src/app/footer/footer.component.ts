@@ -11,10 +11,9 @@ import { Version } from './service/version';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-    
-    version: string = "0.0.0.0";
+    version = '0.0.0.0';
 
-    constructor (private versionService: VersionService){}
+    constructor(private versionService: VersionService) { }
 
     ngOnInit(): void {
         this.versionService.getAppVersion().subscribe(

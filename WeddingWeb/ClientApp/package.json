@@ -7,7 +7,6 @@
     "build": "ng build",
     "build:ssr": "ng run WeddingWeb:server:dev",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "json-server": "json-server --port 5001 --watch db.json",
     "dev": "concurrently --kill-others \"npm run start\" \"npm run json-server\""
   },
@@ -24,7 +23,6 @@
     "@angular/platform-browser-dynamic": "^11.0.8",
     "@angular/router": "^11.0.8",
     "applicationinsights-js": "^1.0.8",
-    "moment": "^2.29.1",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.3"
@@ -38,17 +36,6 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.19.12",
-    "codelyzer": "^6.0.0",
-    "concurrently": "^5.3.0",
-    "jasmine-core": "~3.6.0",
-    "jasmine-spec-reporter": "~5.0.0",
-    "json-server": "^0.16.3",
-    "karma": "~5.1.1",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.5"

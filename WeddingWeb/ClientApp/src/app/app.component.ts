@@ -11,6 +11,6 @@ export class AppComponent {
   title = 'wedding-web-app';
 
   constructor(private myMoniotringService: MyMonitoringService) {
-    console.error("Nie szukaj tutaj niczego :)");
+    console.error('Nie szukaj tutaj niczego :)');
    }
 }

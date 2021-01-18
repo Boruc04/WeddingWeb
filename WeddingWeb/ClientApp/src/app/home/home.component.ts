@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { BaseComponent } from '../common/shared/base.component';
 
-const weddingDate = new Date(2020, 7, 22, 15, 0); //22-Aug-2020 3:00PM
+const weddingDate = new Date(2020, 7, 22, 15, 0); // 22-Aug-2020 3:00PM
 
 @Component({
   selector: 'app-home',
