@@ -2,6 +2,8 @@
 
 Application build for the purpose of my own wedding over time evolved into small learning project where I can try and test new technologies.
 
+![](img/main_page_image.png)
+
 ## Build Status
 | Application | Build Status | CodeQL |
 |-------------|--------------|--------|
@@ -11,7 +13,16 @@ Application build for the purpose of my own wedding over time evolved into small
 The aim of the application is to test the latest available technology but currently it is using
 - .NET Core 3.1
 - Angular 11
+- Azure
 
 ## Getting Started
 Applicataion can be started with an F5 expirience right after cloning repo.
 
+## Architecture overview
+TODO: provide the architecture diagram
+
+## Future plans
+- gallery with authentication via AAD
+- video share with authentication via AAD
+- separate apps
+- contenerize apps
