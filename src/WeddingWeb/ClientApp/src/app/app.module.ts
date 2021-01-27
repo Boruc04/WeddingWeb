@@ -12,8 +12,9 @@ import { ConfirmModule } from './confirm/confirmation.module';
 
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
-import { BaseComponent } from './common/shared/base.component';
+import { BaseComponent } from './framework/components/base.component';
 import { MyMonitoringService } from './services/monitoring.service';
+import { FrameworkModule } from './framework/framework.module';
 import { ErrorHandlerService } from './services/error-handler.service';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ErrorHandlerService } from './services/error-handler.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     AddressModule,
-    ConfirmModule
+    ConfirmModule,
+    FrameworkModule
   ],
   providers: [
     MyMonitoringService,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from '../common/shared/base.component';
+import { BaseComponent } from '../framework/components/base.component';
 
 @Component({
   selector: 'app-contact',

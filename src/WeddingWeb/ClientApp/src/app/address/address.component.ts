@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseComponent } from '../common/shared/base.component';
+import { BaseComponent } from '../framework/components/base.component';
 
 @Component({
   selector: 'app-address',

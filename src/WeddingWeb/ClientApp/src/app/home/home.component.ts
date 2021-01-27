@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { BaseComponent } from '../common/shared/base.component';
+import { BaseComponent } from '../framework/components/base.component';
 
 const weddingDate = new Date(2020, 7, 22, 15, 0); // 22-Aug-2020 3:00PM
 

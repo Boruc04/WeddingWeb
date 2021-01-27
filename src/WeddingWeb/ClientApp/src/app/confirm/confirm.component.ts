@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup, FormArray, FormGroupDirective, NgFo
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
-import { BaseComponent } from '../common/shared/base.component';
+import { BaseComponent } from '../framework/components/base.component';
 import { EmailService } from './service/email.service';
 import { CustomResponse } from './service/email';
 import { MatSnackBar } from '@angular/material/snack-bar';
