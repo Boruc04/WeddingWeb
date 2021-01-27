@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -12,9 +12,7 @@ import { ConfirmModule } from './confirm/confirmation.module';
 
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
-import { LoggingService } from './framework/logging/logging.service';
 import { FrameworkModule } from './framework/framework.module';
-import { ErrorHandlerService } from './framework/errorhandling/error-handler.service';
 
 @NgModule({
   declarations: [
@@ -32,9 +30,7 @@ import { ErrorHandlerService } from './framework/errorhandling/error-handler.ser
     ConfirmModule,
     FrameworkModule
   ],
-  providers: [
-    LoggingService,
-    { provide: ErrorHandler, useClass: ErrorHandlerService }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
