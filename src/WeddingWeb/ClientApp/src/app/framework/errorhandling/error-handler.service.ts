@@ -9,6 +9,17 @@ export class ErrorHandlerService extends ErrorHandler {
     }
 
     handleError(error: Error) {
-        this.loggingService.logException(error);
+        this.loggingService.logException(error); // Manually log exception
+        const originalError = this.getOriginalError(error);
+        if (originalError !== error) {
+            this.loggingService.logException(originalError); // Manually log original exception
+        }
+    }
+
+    private getOriginalError(error: any) {
+        while (error && error.originalError) {
+            error = error.originalError;
+        }
+        return (error);
     }
 }

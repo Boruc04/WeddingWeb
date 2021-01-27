@@ -1,4 +1,5 @@
-import { Component, ReflectiveInjector } from '@angular/core';
+import { Component } from '@angular/core';
+import { AppInjector } from 'src/app/app-injector.service';
 import { LoggingService } from '../logging/logging.service';
 
 @Component({
@@ -11,9 +12,7 @@ export class BaseComponent {
   constructor() {
     // Manually retrieve the monitoring service from the injector
     // so that constructor has no dependencies that must be passed in from child
-    const injector = ReflectiveInjector.resolveAndCreate([
-      LoggingService
-    ]);
+    const injector = AppInjector.getInstance().getInjector();
 
     this.loggingService = injector.get(LoggingService);
     this.logNavigation();

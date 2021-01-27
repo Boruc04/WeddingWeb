@@ -13,7 +13,8 @@ import { ErrorHandlerService } from './errorhandling/error-handler.service';
   imports: [
     CommonModule
   ],
-  providers: [LoggingService,
+  providers: [
+    { provide: LoggingService, useClass: LoggingService },
     { provide: ErrorHandler, useClass: ErrorHandlerService }]
 })
 export class FrameworkModule { }
