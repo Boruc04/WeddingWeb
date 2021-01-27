@@ -20,6 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0-preview.2" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.11" />
 		<PackageReference Include="SendGrid" Version="9.22.0" />
