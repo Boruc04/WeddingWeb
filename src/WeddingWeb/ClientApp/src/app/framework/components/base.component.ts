@@ -1,25 +1,25 @@
 import { Component, ReflectiveInjector } from '@angular/core';
-import { MyMonitoringService } from '../../services/monitoring.service';
+import { LoggingService } from '../logging/logging.service';
 
 @Component({
   template: ``,
 })
 export class BaseComponent {
 
-  private myMonitoringService: MyMonitoringService;
+  private loggingService: LoggingService;
 
   constructor() {
     // Manually retrieve the monitoring service from the injector
     // so that constructor has no dependencies that must be passed in from child
     const injector = ReflectiveInjector.resolveAndCreate([
-      MyMonitoringService
+      LoggingService
     ]);
 
-    this.myMonitoringService = injector.get(MyMonitoringService);
+    this.loggingService = injector.get(LoggingService);
     this.logNavigation();
   }
 
   private logNavigation() {
-    this.myMonitoringService.logPageView();
+    this.loggingService.logPageView();
   }
 }

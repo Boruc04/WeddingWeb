@@ -3,7 +3,7 @@ import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class MyMonitoringService {
+export class LoggingService {
     appInsights: ApplicationInsights;
     constructor() {
         this.appInsights = new ApplicationInsights({

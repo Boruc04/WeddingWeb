@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MyMonitoringService } from './services/monitoring.service';
+import { LoggingService } from './framework/logging/logging.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +10,5 @@ import { MyMonitoringService } from './services/monitoring.service';
 export class AppComponent {
   title = 'wedding-web-app';
 
-  constructor(private myMonitoringService: MyMonitoringService) { }
+  constructor() { }
 }

@@ -12,17 +12,15 @@ import { ConfirmModule } from './confirm/confirmation.module';
 
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
-import { BaseComponent } from './framework/components/base.component';
-import { MyMonitoringService } from './services/monitoring.service';
+import { LoggingService } from './framework/logging/logging.service';
 import { FrameworkModule } from './framework/framework.module';
-import { ErrorHandlerService } from './services/error-handler.service';
+import { ErrorHandlerService } from './framework/errorhandling/error-handler.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent,
-    BaseComponent
+    ContactComponent
   ],
   imports: [
     NavBarModule,
@@ -35,7 +33,7 @@ import { ErrorHandlerService } from './services/error-handler.service';
     FrameworkModule
   ],
   providers: [
-    MyMonitoringService,
+    LoggingService,
     { provide: ErrorHandler, useClass: ErrorHandlerService }],
   bootstrap: [AppComponent]
 })
