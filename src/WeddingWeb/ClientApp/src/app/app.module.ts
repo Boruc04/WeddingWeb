@@ -14,12 +14,14 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { FrameworkModule } from './framework/framework.module';
 import { AppInjector } from './app-injector.service';
+import { GalleryComponent } from './gallery/gallery/gallery.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,
