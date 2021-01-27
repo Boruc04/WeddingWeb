@@ -14,13 +14,15 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { BaseComponent } from './common/shared/base.component';
 import { MyMonitoringService } from './services/monitoring.service';
+import { GalleryComponent } from './gallery/gallery/gallery.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ContactComponent,
-    BaseComponent
+    BaseComponent,
+    GalleryComponent
   ],
   imports: [
     NavBarModule,
