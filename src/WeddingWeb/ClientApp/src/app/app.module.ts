@@ -31,7 +31,7 @@ import { MyMonitoringService } from './services/monitoring.service';
     AddressModule,
     ConfirmModule
   ],
-  providers: [MyMonitoringService],
+  providers: [MyMonitoringService, { provide: ErrorHandler, useClass: ErrorHandlerService }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,25 +1,40 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { AppInsights } from 'applicationinsights-js';
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class MyMonitoringService {
-
-    private config: Microsoft.ApplicationInsights.IConfig = {
-        instrumentationKey: environment.appInsights.instrumentationKey
-    };
-
+    appInsights: ApplicationInsights;
     constructor() {
-        if (!AppInsights.config) {
-            AppInsights.downloadAndSetup(this.config);
-        }
+        this.appInsights = new ApplicationInsights({
+            config: {
+                instrumentationKey: environment.appInsights.instrumentationKey,
+                enableAutoRouteTracking: true // option to log all route changes
+            }
+        });
+        this.appInsights.loadAppInsights();
     }
 
-    logPageView(name?: string, url?: string, properties?: any, measurements?: any, duration?: number) {
-        AppInsights.trackPageView(name, url, properties, measurements, duration);
+    logPageView(name?: string, url?: string) { // option to call manually
+        this.appInsights.trackPageView({
+            name: name,
+            uri: url
+        });
     }
 
-    logEvent(name: string, properties?: any, measurements?: any) {
-        AppInsights.trackEvent(name, properties, measurements);
+    logEvent(name: string, properties?: { [key: string]: any }) {
+        this.appInsights.trackEvent({ name: name }, properties);
+    }
+
+    logMetric(name: string, average: number, properties?: { [key: string]: any }) {
+        this.appInsights.trackMetric({ name: name, average: average }, properties);
+    }
+
+    logException(exception: Error, severityLevel?: number) {
+        this.appInsights.trackException({ exception: exception, severityLevel: severityLevel });
+    }
+
+    logTrace(message: string, properties?: { [key: string]: any }) {
+        this.appInsights.trackTrace({ message: message }, properties);
     }
 }
