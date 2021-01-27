@@ -9,6 +9,6 @@ export class ErrorHandlerService extends ErrorHandler {
     }
 
     handleError(error: Error) {
-        this.loggingService.logException(error); // Manually log exception
+        this.myMonitoringService.logException(error);
     }
 }
