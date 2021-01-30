@@ -10,6 +10,5 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule).then((moduleRef) => {
-  AppInjector.getInstance().setInjector(moduleRef.injector);
-});
+
+platformBrowserDynamic().bootstrapModule(AppModule);

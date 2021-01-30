@@ -4,17 +4,15 @@ import { BaseComponent } from './components/base.component';
 import { LoggingService } from './logging/logging.service';
 import { ErrorHandlerService } from './errorhandling/error-handler.service';
 
-
-
 @NgModule({
   declarations: [
     BaseComponent
   ],
-  imports: [
+  exports: [
     CommonModule
   ],
   providers: [
-    { provide: LoggingService, useClass: LoggingService },
+    LoggingService,
     { provide: ErrorHandler, useClass: ErrorHandlerService }]
 })
 export class FrameworkModule { }

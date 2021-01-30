@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ApplicationRef, Injector, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -13,6 +13,7 @@ import { ConfirmModule } from './confirm/confirmation.module';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { FrameworkModule } from './framework/framework.module';
+import { AppInjector } from './app-injector.service';
 
 @NgModule({
   declarations: [
@@ -21,16 +22,28 @@ import { FrameworkModule } from './framework/framework.module';
     ContactComponent
   ],
   imports: [
+    BrowserModule,
+    FrameworkModule,
     NavBarModule,
     FooterModule,
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AddressModule,
-    ConfirmModule,
-    FrameworkModule
+    ConfirmModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: []
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(private injector: Injector) { }
+
+  /**
+   * The reason for manual bootstraping is because of need for an injector.
+   * It could not stay inside the main.ts because base.component was loading faster than bootstrap ends and service resolution fail.
+   * @param applicationRef 
+   */
+  ngDoBootstrap(applicationRef: ApplicationRef) {
+    AppInjector.getInstance().setInjector(this.injector);
+    applicationRef.bootstrap(AppComponent);
+  }
+}

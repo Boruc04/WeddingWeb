@@ -7,11 +7,10 @@ import { AddressComponent } from './address/address.component';
 
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'confirm', component: ConfirmComponent },
   { path: 'address', component: AddressComponent },
   { path: 'contact', component: ContactComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({
