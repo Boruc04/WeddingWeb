@@ -9,13 +9,13 @@ export class LoggingService {
         this.appInsights = new ApplicationInsights({
             config: {
                 instrumentationKey: environment.appInsights.instrumentationKey,
-                enableAutoRouteTracking: true // option to log all route changes
+                enableAutoRouteTracking: true
             }
         });
         this.appInsights.loadAppInsights();
     }
 
-    logPageView(name?: string, url?: string) { // option to call manually
+    logPageView(name?: string, url?: string) {
         this.appInsights.trackPageView({
             name: name,
             uri: url
@@ -32,7 +32,7 @@ export class LoggingService {
 
     logException(exception: Error, severityLevel?: number) {
         this.appInsights.trackException({ exception: exception, severityLevel: severityLevel });
-        if (!environment.production){
+        if (!environment.production) {
             this.sendToConsole(exception);
         }
     }
