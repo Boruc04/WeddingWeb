@@ -1,6 +1,3 @@
-# According to documentation, this file must stay in root directory.
-# This file contains configuration for GitVersion
-# You can override it by executing command: gitversion init (or dotnet gitversion init)
 assembly-informational-format: '{FullSemVer}'
 mode: Mainline
 branches:
