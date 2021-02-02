@@ -1,19 +1,20 @@
-﻿using System;
-using SendGrid;
+﻿using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Security.KeyVault.Secrets;
 
 namespace WeddingWeb.Services
 {
 	public class EmailService
 	{
 		private readonly SendGridClient _client;
-		public EmailService()
+		public EmailService(SecretClient secretClient)
 		{
-			_client = new SendGridClient("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");
+			KeyVaultSecret  sendGridApiKey = secretClient.GetSecret("SEND-GRID-API-KEY");
+			_client = new SendGridClient(sendGridApiKey.Value);
 		}
 
 		public async Task<HttpStatusCode> SendEmail(Email email)
@@ -34,8 +35,8 @@ namespace WeddingWeb.Services
 			msg.AddContent(MimeType.Text, "Dziękujemy bardzo za potwierdzenie obecności!");
 
 			StringBuilder messageText = new StringBuilder($"Email: {email.MainEmail}, Liczba gości: {email.GuestNumber}, " +
-			                                              $"Informacje dodatkowe: {email.AdditionalInfo}, Nocleg {email.NeedHotel}, " +
-			                                              $"Transport: {email.NeedDrive}");
+														  $"Informacje dodatkowe: {email.AdditionalInfo}, Nocleg {email.NeedHotel}, " +
+														  $"Transport: {email.NeedDrive}");
 
 			foreach (var guest in email.GuestList)
 			{

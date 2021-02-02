@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Http;
 using WeddingWeb.Services;
 
@@ -14,9 +14,9 @@ namespace WeddingWeb.Controllers
 	{
 		private readonly EmailService _emailService;
 
-		public EmailController()
+		public EmailController(SecretClient secretClient)
 		{
-			_emailService = new EmailService();
+			_emailService = new EmailService(secretClient);
 		}
 
 		[HttpGet]
