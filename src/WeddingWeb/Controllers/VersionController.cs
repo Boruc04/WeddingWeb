@@ -6,9 +6,9 @@ using Version = WeddingWeb.Services.Version;
 
 namespace WeddingWeb.Controllers
 {
-	[Route("api/[controller]")]
 	[ApiController]
 	[ApiVersion("1.0")]
+	[Route("api/version")]
 	[Produces("application/json")]
 	public class VersionController : ControllerBase
 	{
@@ -18,7 +18,6 @@ namespace WeddingWeb.Controllers
 		{
 			_versionService = new VersionService();
 		}
-
 
 		/// <summary>
 		/// Get the version of the application.
