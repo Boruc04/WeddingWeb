@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 using WeddingWeb.Services;
 
 namespace WeddingWeb.Controllers
@@ -18,7 +17,7 @@ namespace WeddingWeb.Controllers
 		{
 			_emailService = new EmailService(configuration);
 		}
-		
+
 		[HttpPost]
 		[Route("")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
