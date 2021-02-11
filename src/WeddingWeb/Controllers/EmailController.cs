@@ -1,44 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using WeddingWeb.Services;
 
 namespace WeddingWeb.Controllers
 {
 	[ApiController]
 	[Produces("application/json")]
-	[Route("api/[controller]")]
+	[Route("api/email")]
 	public class EmailController : ControllerBase
 	{
 		private readonly EmailService _emailService;
 
-		public EmailController(SecretClient secretClient)
+		public EmailController(IConfiguration configuration)
 		{
-			_emailService = new EmailService(secretClient);
+			_emailService = new EmailService(configuration);
 		}
-
-		[HttpGet]
-		[ProducesResponseType(StatusCodes.Status200OK)]
-		public IActionResult Get()
-		{
-			var email = new Email()
-			{
-				MainEmail = "test@kasd.pl",
-				GuestNumber = 5,
-				GuestList = new List<Guest>
-				{
-					new Guest { FirstName = "imiebakend", LastName = "nazwisko" },
-					new Guest { FirstName = "drugieImieback", LastName = "drugieNazwisko" }
-				},
-				AdditionalInfo = "jakiś tekst"
-			};
-
-			return Ok(email);
-		}
-
+		
 		[HttpPost]
+		[Route("")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<IActionResult> SendEmail(Email email)
 		{

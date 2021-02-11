@@ -1,5 +1,3 @@
-using System;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -7,8 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
+using System;
+using System.Reflection;
 
 namespace WeddingWeb
 {
@@ -38,7 +36,6 @@ namespace WeddingWeb
 			});
 
 			services.AddCustomSwagger();
-			services.AddKeyVaultService(Configuration);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,15 +120,5 @@ namespace WeddingWeb
 			});
 			return services;
 		}
-
-		public static IServiceCollection AddKeyVaultService(this IServiceCollection services, IConfiguration configuration)
-		{
-			var client = new SecretClient(new Uri(configuration["KeyVaultUri"]), new DefaultAzureCredential());
-
-			services.AddSingleton(client);
-
-			return services;
-		}
-
 	}
 }

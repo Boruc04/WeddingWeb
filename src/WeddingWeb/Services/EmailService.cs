@@ -1,20 +1,20 @@
-﻿using SendGrid;
+﻿using Microsoft.Extensions.Configuration;
+using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Azure.Security.KeyVault.Secrets;
 
 namespace WeddingWeb.Services
 {
 	public class EmailService
 	{
 		private readonly SendGridClient _client;
-		public EmailService(SecretClient secretClient)
+
+		public EmailService(IConfiguration configuration)
 		{
-			KeyVaultSecret  sendGridApiKey = secretClient.GetSecret("SEND-GRID-API-KEY");
-			_client = new SendGridClient(sendGridApiKey.Value);
+			_client = new SendGridClient(configuration["SEND-GRID-API-KEY"]);
 		}
 
 		public async Task<HttpStatusCode> SendEmail(Email email)
