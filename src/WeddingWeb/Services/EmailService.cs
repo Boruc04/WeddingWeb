@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
@@ -11,9 +11,10 @@ namespace WeddingWeb.Services
 	public class EmailService
 	{
 		private readonly SendGridClient _client;
-		public EmailService()
+
+		public EmailService(IConfiguration configuration)
 		{
-			_client = new SendGridClient("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");
+			_client = new SendGridClient(configuration["SEND-GRID-API-KEY"]);
 		}
 
 		public async Task<HttpStatusCode> SendEmail(Email email)
@@ -34,8 +35,8 @@ namespace WeddingWeb.Services
 			msg.AddContent(MimeType.Text, "Dziękujemy bardzo za potwierdzenie obecności!");
 
 			StringBuilder messageText = new StringBuilder($"Email: {email.MainEmail}, Liczba gości: {email.GuestNumber}, " +
-			                                              $"Informacje dodatkowe: {email.AdditionalInfo}, Nocleg {email.NeedHotel}, " +
-			                                              $"Transport: {email.NeedDrive}");
+														  $"Informacje dodatkowe: {email.AdditionalInfo}, Nocleg {email.NeedHotel}, " +
+														  $"Transport: {email.NeedDrive}");
 
 			foreach (var guest in email.GuestList)
 			{
