@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormArray, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormArray, NgForm } from '@angular/forms';
 
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
