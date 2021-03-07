@@ -11,12 +11,6 @@ pr:
     - src
   drafts: false
 
-resources:
-  repositories:
-  - repository: 
-    type: github
-    name: Boruc04/WeddingWeb
-
 stages:
 - stage: Build
   displayName: Wedding.Web.Build
