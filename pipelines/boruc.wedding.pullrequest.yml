@@ -53,6 +53,7 @@ stages:
         additionalArguments: '/updateprojectfiles'
 
 - stage: CreateTestEnvironment
+  dependsOn: []
   # dependsOn: [Build]
   # condition: succeeded()
   displayName: Wedding.Web.TerraformApply
@@ -69,7 +70,7 @@ stages:
 
             - task: TerraformInstaller@0
               inputs:
-                terraformVersion: '0.15'
+                terraformVersion: '0.15.x'
               displayName: install terraform
 
             - task: TerraformTaskV1@0
