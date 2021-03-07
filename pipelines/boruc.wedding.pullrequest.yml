@@ -1,9 +1,13 @@
-name: Boruc.WeddingWeb.Master-$(FullSemVer)
+name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
 
-trigger: 
+pr:
   branches:
     include:
       - master
+  paths:
+    include:
+    - scr
+  drafts: false
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -31,9 +35,3 @@ steps:
     arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
   displayName: Create build artifact
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'WeddingWeb'
-  displayName: Publish build artifact.
