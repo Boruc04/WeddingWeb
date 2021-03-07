@@ -11,6 +11,12 @@ pr:
     - src
   drafts: false
 
+resources:
+  repositories:
+  - repository: 
+    type: github
+    name: Boruc04/WeddingWeb
+
 stages:
 - stage: Build
   displayName: Wedding.Web.Build
@@ -26,6 +32,7 @@ stages:
         value: 'Release'
 
     steps:
+    - checkout: self
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
@@ -40,14 +47,6 @@ stages:
         useConfigFile: true
         configFilePath: './pipelines/GitVersion/GitVersion.yml'
         additionalArguments: '/updateprojectfiles'
-
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: publish
-        publishWebProjects: True
-        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: True
-      displayName: Create build artifact
 
 - stage: CreateTestEnvironment
   dependsOn: [] #[Build]
