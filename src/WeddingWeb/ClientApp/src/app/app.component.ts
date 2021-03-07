@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { LoggingService } from './framework/logging/logging.service';
 
 @Component({
   selector: 'app-root',
