@@ -4,7 +4,8 @@ resources:
   repositories:
   - repository: WeddingWeb
     type: GitHub
-    source: Boruc04/WeddingWeb
+    name: Boruc04/WeddingWeb
+    endpoint: boruc04-service-connection
     pr:
       autoCancel: true
       branches:
