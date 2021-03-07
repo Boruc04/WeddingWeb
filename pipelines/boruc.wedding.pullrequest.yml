@@ -57,10 +57,9 @@ stages:
   condition: succeeded()
   displayName: Wedding.Web.TerraformApply
   jobs:
-  - deployment: Test
+  - deployment: Create-Test
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'wedding-web-test'
     strategy:
       runOnce:
         deploy:
@@ -84,13 +83,6 @@ stages:
             - task: TerraformTaskV1@0
               inputs:
                 provider: 'azurerm'
-                command: 'plan'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-                environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
-              displayName: terraform plan
-            - task: TerraformTaskV1@0
-              inputs:
-                provider: 'azurerm'
                 command: 'apply'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 commandOptions: '-auto-approve'
@@ -102,7 +94,7 @@ stages:
   condition: succeeded()
   displayName: Wedding.Web.TerraformDestroy
   jobs:
-  - deployment: Test
+  - deployment: Destroy-Test
     pool:
       vmImage: 'ubuntu-latest'
     environment: 'wedding-web-test'
