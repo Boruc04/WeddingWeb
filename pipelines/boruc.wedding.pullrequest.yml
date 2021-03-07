@@ -1,11 +1,14 @@
 name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
 
 pr:
+  autoCancel: true
   branches:
     include:
       - feature/*
       - bugfix/*
       - hotfix/*
+    exclude:
+      - master
   paths:
     include:
     - src
@@ -43,8 +46,8 @@ stages:
         additionalArguments: '/updateprojectfiles'
 
 - stage: CreateTestEnvironment
-  dependsOn: [] #[Build]
-  # condition: succeeded()
+  dependsOn: [Build]
+  condition: succeeded()
   displayName: Wedding.Web.TerraformApply
   jobs:
   - deployment: Test
