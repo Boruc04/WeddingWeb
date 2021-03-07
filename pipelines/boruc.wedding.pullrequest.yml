@@ -86,13 +86,21 @@ stages:
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
         displayName: terraform apply
 
-  - job: DelayDestroyTest
+- stage: DelayDestroy
+  dependsOn: [CreateTestEnvironment]
+  jobs:
+  - job: Delay
     pool: Server
     steps:
     - task: Delay@1
       inputs:
-        delayForMinutes: '10'
+        delayForMinutes: '1'
 
+- stage: DestoryTestEnvironment
+  dependsOn: [and(CreateTestEnvironment, DelayDestroy)]
+  condition: succeeded()
+  displayName: Wedding.Web.TerraformDestroy
+  jobs:
   - job: DestroyTest
     pool:
       vmImage: 'ubuntu-latest'
