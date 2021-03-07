@@ -52,77 +52,72 @@ stages:
         configFilePath: './pipelines/GitVersion/GitVersion.yml'
         additionalArguments: '/updateprojectfiles'
 
-- stage: CreateTestEnvironment
+- stage: CreateAndDestroyTestEnvironment
   dependsOn: [Build]
   condition: succeeded()
   displayName: Wedding.Web.TerraformApply
   jobs:
-  - deployment: CreateTest
+  - job: CreateTest
     pool:
       vmImage: 'ubuntu-latest'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - checkout: self
-            - task: TerraformInstaller@0
-              inputs:
-                terraformVersion: $(terraformVersion)
-              displayName: install terraform
-            - task: TerraformTaskV1@0
-              inputs:
-                provider: 'azurerm'
-                command: 'init'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-                backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
-                backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
-                backendAzureRmStorageAccountName: 'weddingwebterraform'
-                backendAzureRmContainerName: 'terraform'
-                backendAzureRmKey: 'terraform.tfstate'
-              displayName: terraform init
-            - task: TerraformTaskV1@0
-              inputs:
-                provider: 'azurerm'
-                command: 'apply'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-                commandOptions: '-auto-approve'
-                environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
-              displayName: terraform apply
+    steps:
+      - checkout: self
+      - task: TerraformInstaller@0
+        inputs:
+          terraformVersion: $(terraformVersion)
+        displayName: install terraform
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
+          backendAzureRmStorageAccountName: 'weddingwebterraform'
+          backendAzureRmContainerName: 'terraform'
+          backendAzureRmKey: 'terraform.tfstate'
+        displayName: terraform init
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          commandOptions: '-auto-approve'
+          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+        displayName: terraform apply
 
-- stage: DestoryTestEnvironment
-  dependsOn: [CreateTestEnvironment]
-  condition: succeeded()
-  displayName: Wedding.Web.TerraformDestroy
-  jobs:
-  - deployment: DestroyTest
+  - job: DelayDestroyTest
+    pool: Server
+    steps:
+    - task: Delay@1
+      inputs:
+        delayForMinutes: '10'
+
+  - job: DestroyTest
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'wedding-web-test'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - checkout: self
-            - task: TerraformInstaller@0
-              inputs:
-                terraformVersion: $(terraformVersion)
-            - task: TerraformTaskV1@0
-              inputs:
-                provider: 'azurerm'
-                command: 'init'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-                backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
-                backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
-                backendAzureRmStorageAccountName: 'weddingwebterraform'
-                backendAzureRmContainerName: 'terraform'
-                backendAzureRmKey: 'terraform.tfstate'
-              displayName: terraform init
-            - task: TerraformTaskV1@0
-              inputs:
-                provider: 'azurerm'
-                command: 'destroy'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-                environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
-              displayName: terraform destory
+    steps:
+      - checkout: self
+      - task: TerraformInstaller@0
+        inputs:
+          terraformVersion: $(terraformVersion)
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
+          backendAzureRmStorageAccountName: 'weddingwebterraform'
+          backendAzureRmContainerName: 'terraform'
+          backendAzureRmKey: 'terraform.tfstate'
+        displayName: terraform init
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'destroy'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+        displayName: terraform destory
 
 
