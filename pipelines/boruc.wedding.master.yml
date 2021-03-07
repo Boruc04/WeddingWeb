@@ -1,39 +1,57 @@
 name: Boruc.WeddingWeb.Master-$(FullSemVer)
 
-trigger: 
-  branches:
-    include:
-      - master
+resources:
+  repositories:
+  - repository: WeddingWeb
+    type: GitHub
+    name: Boruc04/WeddingWeb
+    endpoint: github.com_Boruc04
+    trigger:
+      branches:
+        include:
+          - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+- stage: Build
+  displayName: Wedding.Web.Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
 
-steps:
-- task: UseDotNet@2
-  inputs:
-    version: '3.1.x'
-  displayName: Use Dot Net.
+    variables:
+      - name: projectPath
+        value: ''
+      - name: buildConfiguration
+        value: 'Release'
 
-- task: gitversion/setup@0
-  inputs:
-    versionSpec: '5.x'
+    steps:
+    - checkout: wedding-web
+    - task: UseDotNet@2
+      inputs:
+        version: '3.1.x'
+      displayName: Use Dot Net.
 
-- task: gitversion/execute@0
-  inputs:
-    useConfigFile: true
-    configFilePath: './pipelines/GitVersion/GitVersion.yml'
-    additionalArguments: '/updateprojectfiles'
+    - task: gitversion/setup@0
+      inputs:
+        versionSpec: '5.x'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: publish
-    publishWebProjects: True
-    arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: True
-  displayName: Create build artifact
+    - task: gitversion/execute@0
+      inputs:
+        useConfigFile: true
+        configFilePath: './pipelines/GitVersion/GitVersion.yml'
+        additionalArguments: '/updateprojectfiles'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'WeddingWeb'
-  displayName: Publish build artifact.
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
+      displayName: Create build artifact
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'WeddingWeb'
+      displayName: Publish build artifact.
