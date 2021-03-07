@@ -19,8 +19,7 @@ pr:
   # paths:
   #   include:
   #   - src
-  drafts: false
-trigger: none
+  drafts: true
 
 stages:
 - stage: Build
@@ -70,13 +69,7 @@ stages:
 
             - task: TerraformInstaller@0
               inputs:
-                terraformVersion: '0.12.3'
-            - task: PowerShell@2
-              inputs:
-                targetType: 'inline'
-                script: |
-                  cd $(System.DefaultWorkingDirectory)
-                  dir -r
+                terraformVersion: ''
 
             - task: TerraformTaskV1@0
               inputs:
