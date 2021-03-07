@@ -117,6 +117,17 @@ stages:
             - task: TerraformTaskV1@0
               inputs:
                 provider: 'azurerm'
+                command: 'init'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+                backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+                backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
+                backendAzureRmStorageAccountName: 'weddingwebterraform'
+                backendAzureRmContainerName: 'terraform'
+                backendAzureRmKey: 'terraform.tfstate'
+              displayName: terraform init
+            - task: TerraformTaskV1@0
+              inputs:
+                provider: 'azurerm'
                 command: 'destroy'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
