@@ -12,30 +12,36 @@ Application build for the purpose of my own wedding over time evolved into small
 
 ## Technology involved
 
-The aim of the application is to test the latest available technology but currently it is using
+The aim of the project is to test and learn the latest technology. Some of those currently used:
 
 - .NET Core 3.1
 - Angular 11
-- Azure Web Apps
+- Azure
+- Terraform
 
 ## Getting Started
 
-Application can be started with an F5 experience right after cloning repo.
+### Visual Studio (F5 experience)
+
+- clone repository
+- open project in Visual Studio
+- run project
 
 ## Architecture overview
 
 TODO: provide the architecture diagram
 
-## Branching strategy
+## Development
 
-The main branch is the [master](https://github.com/Boruc04/WeddingWeb/tree/master) branch, all features/bugfixes/hotfixes should be created out from the master branch.
+The branching strategy follows the [GitHub Flow](https://guides.github.com/introduction/flow/)
 
-Branching strategy follows the [Microsoft Release Flow](https://docs.microsoft.com/azure/devops/learn/devops-at-microsoft/release-flow) - the purpose of that exercise is to test it in the real scenario.
+- `master`: Contains the latest stable code, all PRs must be against it.
+
+Any other branch is considered temporary and could be deleted at any time.
 
 ## Future plans
 
-- introduce Key Vault
-- introduce CI/CD for release branch.
+- introduce terraform
 - gallery with authentication via AAD
 - video share with authentication via AAD
 - separate apps
