@@ -1,44 +1,8 @@
-# According to documentation, this file must stay in root directory.
-# This file contains configuration for GitVersion
-# You can override it by executing command: gitversion init (or dotnet gitversion init)
-assembly-informational-format: '{FullSemVer}'
-mode: Mainline
+mode: ContinuousDeployment
 branches:
-  master:
-    tag: ''
-    increment: Patch                #any commit change minor number
-    prevent-increment-of-merged-branch-version: true
-    track-merge-target: false
-    regex: master|releases?[/-]
-    tracks-release-branches: false  #Indicates this branch config represents develop in GitFlow.
-    is-release-branch: false        #Indicates this branch config represents a release branch in GitFlow.
-  feature:
-    mode: ContinuousDelivery
-    tag: useBranchName
-    increment: Inherit
-    prevent-increment-of-merged-branch-version: true
-    track-merge-target: false
-    regex: feature?[/-]
-    tracks-release-branches: false
-    is-release-branch: false
-  pull-request:
-    mode: ContinuousDelivery
-    tag: PullRequest
-    increment: None                 #PR not change any in code.
-    prevent-increment-of-merged-branch-version: false
-    tag-number-pattern: '[/-](?<number>\d+)[-/]'
-    track-merge-target: false
-    regex: (pull|pull\-requests|pr|[0-9]+)[/-]
-    tracks-release-branches: false
-    is-release-branch: false
-  hotfix:
-    mode: ContinuousDelivery
-    tag: beta
-    increment: Patch                #hotfix change only patch number
-    prevent-increment-of-merged-branch-version: false
-    track-merge-target: false
-    regex: hotfix?[/-]
-    tracks-release-branches: true
-    is-release-branch: false
+  main:
+    mode: ContinuousDeployment
+  feature: {}
 ignore:
   sha: []
+merge-message-formats: {}
