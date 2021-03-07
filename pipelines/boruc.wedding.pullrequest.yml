@@ -68,8 +68,8 @@ stages:
             - checkout: self
 
             - task: TerraformInstaller@0
-              inputs:
-                terraformVersion: latest
+              # inputs:
+              #   terraformVersion: latest
               displayName: install terraform
 
             - task: TerraformTaskV1@0
