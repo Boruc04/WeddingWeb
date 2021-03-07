@@ -1,12 +1,7 @@
 name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
 
-# resources:
-#   repositories:
-#   - repository: WeddingWeb
-#     type: GitHub
-#     name: Boruc04/WeddingWeb
-#     ref: feature/introduce_iaac
-#     endpoint: github.com_Boruc04
+trigger: none
+
 pr:
   autoCancel: true
   branches:
@@ -16,9 +11,6 @@ pr:
       - hotfix/*
     exclude:
       - master
-  # paths:
-  #   include:
-  #   - src
   drafts: true
 
 variables:

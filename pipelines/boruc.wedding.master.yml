@@ -1,16 +1,11 @@
 name: Boruc.WeddingWeb.Master-$(FullSemVer)
 
-resources:
-  repositories:
-  - repository: WeddingWeb
-    type: GitHub
-    name: Boruc04/WeddingWeb
-    endpoint: github.com_Boruc04
-    trigger:
-      branches:
-        include:
-          - master
-    pr: none
+trigger:
+  branches:
+    include:
+      - master
+
+pr: none
 
 stages:
 - stage: Build
