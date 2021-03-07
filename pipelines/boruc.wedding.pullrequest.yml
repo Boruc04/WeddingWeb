@@ -19,7 +19,6 @@ resources:
         include:
         - src
       drafts: false
-    trigger: none
 
 stages:
 - stage: Build
@@ -66,3 +65,41 @@ stages:
         deploy:
           steps:
             - checkout: WeddingWeb
+
+            - task: TerraformInstaller@0
+              inputs:
+                terraformVersion: '0.12.3'
+
+            - task: TerraformTaskV1@0
+              inputs:
+                provider: 'azurerm'
+                command: 'apply'
+                workingDirectory: '$(System.DefaultWorkingDirectory)\infrastructure\terraform'
+                environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+
+- stage: DestoryTestEnvironment
+  dependsOn: [CreateTestEnvironment]
+  condition: succeeded()
+  displayName: Wedding.Web.TerraformDestroy
+  jobs:
+  - deployment: Test
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'wedding-web-test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: WeddingWeb
+
+            - task: TerraformInstaller@0
+              inputs:
+                terraformVersion: '0.12.3'
+
+            - task: TerraformTaskV1@0
+              inputs:
+                provider: 'azurerm'
+                command: 'destroy'
+                workingDirectory: '$(System.DefaultWorkingDirectory)\infrastructure\terraform'
+                environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+
