@@ -14,30 +14,25 @@ stages:
   - job: Build
     pool:
       vmImage: 'ubuntu-latest'
-
     variables:
       - name: projectPath
         value: ''
       - name: buildConfiguration
         value: 'Release'
-
     steps:
-    - checkout: wedding-web
+    - checkout: self
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
       displayName: Use Dot Net.
-
     - task: gitversion/setup@0
       inputs:
         versionSpec: '5.x'
-
     - task: gitversion/execute@0
       inputs:
         useConfigFile: true
         configFilePath: './pipelines/GitVersion/GitVersion.yml'
         additionalArguments: '/updateprojectfiles'
-
     - task: DotNetCoreCLI@2
       inputs:
         command: publish
@@ -45,7 +40,6 @@ stages:
         arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
       displayName: Create build artifact
-
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
