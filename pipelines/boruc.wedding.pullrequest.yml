@@ -57,7 +57,7 @@ stages:
   condition: succeeded()
   displayName: Wedding.Web.TerraformApply
   jobs:
-  - deployment: Create-Test
+  - deployment: CreateTest
     pool:
       vmImage: 'ubuntu-latest'
     strategy:
@@ -94,7 +94,7 @@ stages:
   condition: succeeded()
   displayName: Wedding.Web.TerraformDestroy
   jobs:
-  - deployment: Destroy-Test
+  - deployment: DestroyTest
     pool:
       vmImage: 'ubuntu-latest'
     environment: 'wedding-web-test'
