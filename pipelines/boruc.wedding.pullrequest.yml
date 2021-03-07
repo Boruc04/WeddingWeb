@@ -1,18 +1,24 @@
 name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
 
-pr:
-  autoCancel: true
-  branches:
-    include:
-      - feature/*
-      - bugfix/*
-      - hotfix/*
-    exclude:
-      - master
-  paths:
-    include:
-    - src
-  drafts: false
+resources:
+  repositories:
+  - repository: WeddingWeb
+    type: GitHub
+    name: Boruc04/WeddingWeb
+    endpoint: github.com_Boruc04
+    pr:
+      autoCancel: true
+      branches:
+        include:
+          - feature/*
+          - bugfix/*
+          - hotfix/*
+        exclude:
+          - master
+      paths:
+        include:
+        - src
+      drafts: false
 
 stages:
 - stage: Build
@@ -29,7 +35,7 @@ stages:
         value: 'Release'
 
     steps:
-    - checkout: self
+    - checkout: WeddingWeb
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
@@ -58,4 +64,4 @@ stages:
       runOnce:
         deploy:
           steps:
-            - checkout: self
+            - checkout: WeddingWeb
