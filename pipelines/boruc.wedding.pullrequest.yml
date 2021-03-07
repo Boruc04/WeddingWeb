@@ -69,7 +69,8 @@ stages:
 
             - task: TerraformInstaller@0
               inputs:
-                terraformVersion: ''
+                terraformVersion: latest
+              displayName: install terraform
 
             - task: TerraformTaskV1@0
               inputs:
@@ -81,7 +82,7 @@ stages:
                 backendAzureRmStorageAccountName: 'weddingwebterraform'
                 backendAzureRmContainerName: 'terraform'
                 backendAzureRmKey: 'terraform.tfstate'
-              displayName: Terraform Init
+              displayName: terraform init
 
             - task: TerraformTaskV1@0
               inputs:
@@ -89,7 +90,7 @@ stages:
                 command: 'plan'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
-              displayName: Terraform Plan
+              displayName: terraform plan
 
             - task: TerraformTaskV1@0
               inputs:
@@ -98,7 +99,7 @@ stages:
                 workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 commandOptions: '-auto-approve'
                 environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
-              displayName: Terraform Apply
+              displayName: terraform apply
 
 - stage: DestoryTestEnvironment
   dependsOn: [CreateTestEnvironment]
