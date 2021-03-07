@@ -5,6 +5,7 @@ resources:
   - repository: WeddingWeb
     type: GitHub
     name: Boruc04/WeddingWeb
+    ref: feature/introduce_iaac
     endpoint: github.com_Boruc04
     pr:
       autoCancel: true
