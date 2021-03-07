@@ -80,7 +80,7 @@ stages:
               inputs:
                 provider: 'azurerm'
                 command: 'init'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform/'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
                 backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
                 backendAzureRmStorageAccountName: 'weddingwebterraform'
@@ -92,7 +92,7 @@ stages:
               inputs:
                 provider: 'azurerm'
                 command: 'plan'
-                workingDirectory: '''$(System.DefaultWorkingDirectory)/infrastructure/terraform/'''
+                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
               displayName: Terraform Plan
 
@@ -100,7 +100,7 @@ stages:
               inputs:
                 provider: 'azurerm'
                 command: 'apply'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform/'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 commandOptions: '-auto-approve'
                 environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
               displayName: Terraform Apply
@@ -128,6 +128,6 @@ stages:
               inputs:
                 provider: 'azurerm'
                 command: 'destroy'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform/'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
 
