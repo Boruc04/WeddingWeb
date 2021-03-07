@@ -3,10 +3,12 @@ name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
 pr:
   branches:
     include:
-      - master
+      - feature/*
+      - bugfix/*
+      - hotfix/*
   paths:
     include:
-    - scr
+    - src
   drafts: false
 
 pool:
