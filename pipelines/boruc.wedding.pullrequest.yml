@@ -37,7 +37,7 @@ stages:
         value: 'Release'
 
     steps:
-    - checkout: WeddingWeb
+    - checkout: self
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
@@ -66,7 +66,7 @@ stages:
       runOnce:
         deploy:
           steps:
-            - checkout: WeddingWeb
+            - checkout: self
 
             - task: TerraformInstaller@0
               inputs:
@@ -120,7 +120,7 @@ stages:
       runOnce:
         deploy:
           steps:
-            - checkout: WeddingWeb
+            - checkout: self
 
             - task: TerraformInstaller@0
               inputs:
