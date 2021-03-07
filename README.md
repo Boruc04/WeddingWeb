@@ -8,7 +8,7 @@ Application build for the purpose of my own wedding over time evolved into small
 
 | Application | Build Status | CodeQL |
 |-------------|--------------|--------|
-| WeddingWeb | [![Build Status](https://dev.azure.com/Boruc/WeddingWeb/_apis/build/status/Boruc04.WeddingWeb?branchName=master)](https://dev.azure.com/Boruc/WeddingWeb/_build/latest?definitionId=8&branchName=master) | ![CodeQL](https://github.com/Boruc04/WeddingWeb/workflows/CodeQL/badge.svg) |
+| WeddingWeb | [![Build Status](https://dev.azure.com/Boruc/WeddingWeb/_apis/build/status/wedding-web-master?branchName=master)](https://dev.azure.com/Boruc/WeddingWeb/_build/latest?definitionId=8&branchName=master) | ![CodeQL](https://github.com/Boruc04/WeddingWeb/workflows/CodeQL/badge.svg) |
 
 ## Technology involved
 

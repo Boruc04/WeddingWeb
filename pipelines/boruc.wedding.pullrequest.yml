@@ -6,10 +6,6 @@ pr:
   autoCancel: true
   branches:
     include:
-      - feature/*
-      - bugfix/*
-      - hotfix/*
-    exclude:
       - master
   drafts: true
 
