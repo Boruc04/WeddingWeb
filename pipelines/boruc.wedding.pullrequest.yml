@@ -19,6 +19,7 @@ resources:
         include:
         - src
       drafts: false
+    trigger: none
 
 stages:
 - stage: Build
