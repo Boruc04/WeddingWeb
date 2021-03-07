@@ -52,7 +52,7 @@ stages:
         configFilePath: './pipelines/GitVersion/GitVersion.yml'
         additionalArguments: '/updateprojectfiles'
 
-- stage: CreateAndDestroyTestEnvironment
+- stage: CreateTestEnvironment
   dependsOn: [Build]
   condition: succeeded()
   displayName: Wedding.Web.TerraformApply
