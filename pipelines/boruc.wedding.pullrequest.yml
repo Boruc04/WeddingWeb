@@ -21,6 +21,10 @@ pr:
   #   - src
   drafts: true
 
+variables:
+  - name: terraformVersion
+    value: '0.14.7'
+
 stages:
 - stage: Build
   displayName: Wedding.Web.Build
@@ -28,24 +32,20 @@ stages:
   - job: Build
     pool:
       vmImage: 'ubuntu-latest'
-
     variables:
       - name: projectPath
         value: ''
       - name: buildConfiguration
         value: 'Release'
-
     steps:
     - checkout: self
     - task: UseDotNet@2
       inputs:
         version: '3.1.x'
       displayName: Use Dot Net.
-
     - task: gitversion/setup@0
       inputs:
         versionSpec: '5.x'
-
     - task: gitversion/execute@0
       inputs:
         useConfigFile: true
@@ -53,9 +53,8 @@ stages:
         additionalArguments: '/updateprojectfiles'
 
 - stage: CreateTestEnvironment
-  dependsOn: []
-  # dependsOn: [Build]
-  # condition: succeeded()
+  dependsOn: [Build]
+  condition: succeeded()
   displayName: Wedding.Web.TerraformApply
   jobs:
   - deployment: Test
@@ -67,12 +66,10 @@ stages:
         deploy:
           steps:
             - checkout: self
-
             - task: TerraformInstaller@0
               inputs:
-                terraformVersion: '0.14.7'
+                terraformVersion: $(terraformVersion)
               displayName: install terraform
-
             - task: TerraformTaskV1@0
               inputs:
                 provider: 'azurerm'
@@ -84,7 +81,6 @@ stages:
                 backendAzureRmContainerName: 'terraform'
                 backendAzureRmKey: 'terraform.tfstate'
               displayName: terraform init
-
             - task: TerraformTaskV1@0
               inputs:
                 provider: 'azurerm'
@@ -92,7 +88,6 @@ stages:
                 workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
               displayName: terraform plan
-
             - task: TerraformTaskV1@0
               inputs:
                 provider: 'azurerm'
@@ -116,15 +111,15 @@ stages:
         deploy:
           steps:
             - checkout: self
-
             - task: TerraformInstaller@0
               inputs:
-                terraformVersion: '0.12.3'
-
+                terraformVersion: $(terraformVersion)
             - task: TerraformTaskV1@0
               inputs:
                 provider: 'azurerm'
                 command: 'destroy'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
                 environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+              displayName: terraform destory
+
 
