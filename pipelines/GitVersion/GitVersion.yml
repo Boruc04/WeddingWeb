@@ -1,8 +1,7 @@
-mode: ContinuousDeployment
+mode: ContinuousDelivery
 branches:
-  main:
+  master:
+    increment: Patch
     mode: ContinuousDeployment
+    is-release-branch: true 
   feature: {}
-ignore:
-  sha: []
-merge-message-formats: {}
