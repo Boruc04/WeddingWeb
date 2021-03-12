@@ -7,15 +7,18 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
+using WeddingWeb.Helpers.Extensions;
 
 namespace WeddingWeb
 {
 	public class Startup
 	{
+		private readonly IWebHostEnvironment _environment;
 		public IConfiguration Configuration { get; }
 
-		public Startup(IConfiguration configuration)
+		public Startup(IConfiguration configuration, IWebHostEnvironment environment)
 		{
+			_environment = environment;
 			Configuration = configuration;
 		}
 
@@ -26,8 +29,11 @@ namespace WeddingWeb
 		/// <param name="services"></param>
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddApplicationInsightsTelemetry();
-
+			if (_environment.IsProduction())
+			{
+				services.AddApplicationInsightsTelemetry();
+			}
+			
 			services.AddControllers();
 			// In production, the Angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>

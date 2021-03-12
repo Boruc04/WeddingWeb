@@ -1,6 +1,6 @@
 name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
 
-trigger: none
+#trigger: none # temporary solution waiting for response https://developercommunity.visualstudio.com/t/github-pull-request-does-not-trigger-yaml-pipeline/1368653?from=email
 
 pr:
   autoCancel: true
@@ -39,6 +39,18 @@ stages:
         useConfigFile: true
         configFilePath: './pipelines/GitVersion/GitVersion.yml'
         additionalArguments: '/updateprojectfiles'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
+      displayName: Create build artifact
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'WeddingWeb'
+      displayName: Publish build artifact.
 
 - stage: CreateTestEnvironment
   dependsOn: [Build]
@@ -50,6 +62,8 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
       - checkout: self
+      - download: current
+        artifact: WeddingWeb
       - task: TerraformInstaller@0
         inputs:
           terraformVersion: $(terraformVersion)
@@ -73,6 +87,14 @@ stages:
           commandOptions: '-auto-approve'
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
         displayName: terraform apply
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          appType: 'webApp'
+          WebAppName: 'wedding-web-test-app'
+          packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
+        displayName: deploy application
 
 - stage: DelayDestroy
   dependsOn: [CreateTestEnvironment]

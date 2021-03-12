@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
+using WeddingWeb.Helpers.Extensions;
 
 namespace WeddingWeb
 {
@@ -19,16 +20,19 @@ namespace WeddingWeb
 			Host.CreateDefaultBuilder(args).
 				ConfigureAppConfiguration((context, config) =>
 					{
-						var builtConfig = config.Build();
-						var credentialOptions = new DefaultAzureCredentialOptions
+						if (context.HostingEnvironment.IsProduction())
 						{
-							ManagedIdentityClientId = builtConfig["UserAssignedManagedIdentityClientId"],
-							VisualStudioTenantId = builtConfig["KeyVault:VisualStudioTenantId"]
-						};
+							var builtConfig = config.Build();
+							var credentialOptions = new DefaultAzureCredentialOptions
+							{
+								ManagedIdentityClientId = builtConfig["UserAssignedManagedIdentityClientId"],
+								VisualStudioTenantId = builtConfig["KeyVault:VisualStudioTenantId"]
+							};
 
-						var secretClient = new SecretClient(new Uri(builtConfig["KeyVault:Uri"]),
-							new DefaultAzureCredential(credentialOptions));
-						config.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
+							var secretClient = new SecretClient(new Uri(builtConfig["KeyVault:Uri"]),
+								new DefaultAzureCredential(credentialOptions));
+							config.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
+						}
 					})
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
