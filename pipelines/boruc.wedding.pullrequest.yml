@@ -98,9 +98,12 @@ stages:
   - job: Delay
     pool: Server
     steps:
-    - task: Delay@1
+    - task: ManualValidation@0
+      timeoutInMinutes: 1
       inputs:
-        delayForMinutes: '1'
+        notifyUsers: 'm.borucinski@outlook.com'
+        onTimeout: 'resume'
+      displayName: Test and Approve
 
 - stage: DestoryTestEnvironment
   dependsOn: [CreateTestEnvironment, DelayDestroy]
