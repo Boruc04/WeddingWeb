@@ -1,13 +1,8 @@
 name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
 
-#trigger: none # temporary solution waiting for response https://developercommunity.visualstudio.com/t/github-pull-request-does-not-trigger-yaml-pipeline/1368653?from=email
-
+trigger: none
 pr:
-  autoCancel: true
-  branches:
-    include:
-    - '*'
-  drafts: true
+- master
 
 variables:
   - name: terraformVersion
