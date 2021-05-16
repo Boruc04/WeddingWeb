@@ -14,9 +14,9 @@ namespace WeddingWeb.Controllers
 	{
 		private readonly VersionService _versionService;
 
-		public VersionController()
+		public VersionController(VersionService versionService)
 		{
-			_versionService = new VersionService();
+			_versionService = versionService;
 		}
 
 		/// <summary>

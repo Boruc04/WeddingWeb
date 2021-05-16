@@ -1,69 +1,60 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SendGrid;
-using SendGrid.Helpers.Mail;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
+using WeddingWeb.Domain;
+using WeddingWeb.DTO;
+using WeddingWeb.Helpers.Exceptions;
 
 namespace WeddingWeb.Services
 {
-	public class EmailService
+	public class EmailService : IEmailService
 	{
 		private readonly SendGridClient _client;
 
 		public EmailService(IConfiguration configuration)
 		{
-			_client = new SendGridClient(configuration["SEND-GRID-API-KEY"]);
+			_client = new SendGridClient(configuration["SendGrid:ApiKey"]);
 		}
 
-		public async Task<HttpStatusCode> SendEmail(Email email)
+		public async Task SendEmail(EmailDTO emailDto)
 		{
-			var msg = new SendGridMessage();
-
-			msg.SetFrom(new EmailAddress("m.borucinski@outlook.com", "Paulina i Michał"));
-
-			var recipients = new List<EmailAddress>
-			{
-				new EmailAddress("m.borucinski+slub@gmail.com")
-			};
-
-			msg.AddTos(recipients);
-
-			msg.SetSubject("Paulina i Michał potiwerdzenie obecności - dziękujemy.");
-
-			msg.AddContent(MimeType.Text, "Dziękujemy bardzo za potwierdzenie obecności!");
-
-			StringBuilder messageText = new StringBuilder($"Email: {email.MainEmail}, Liczba gości: {email.GuestNumber}, " +
-														  $"Informacje dodatkowe: {email.AdditionalInfo}, Nocleg {email.NeedHotel}, " +
-														  $"Transport: {email.NeedDrive}");
-
-			foreach (var guest in email.GuestList)
-			{
-				messageText.AppendLine();
-				messageText.Append($"\n Imie: {guest.FirstName}, Nazwisko: {guest.LastName}");
-			}
-
-			msg.AddContent(MimeType.Html, messageText.ToString());
-			var response = await _client.SendEmailAsync(msg);
-
-			return response.StatusCode;
+			var email = EmailDTO.MapFromDto(emailDto);
+			var message = email.CreateSendGridMessage();
+			var response = await _client.SendEmailAsync(message);
+			await response.Validate();
 		}
 	}
 
-	public class Email
+	/// <summary>
+	/// Service with mocked integration with Sendgrid api.
+	/// </summary>
+	public class MockEmailService : IEmailService
 	{
-		public string MainEmail { get; set; }
-		public int GuestNumber { get; set; }
-		public List<Guest> GuestList { get; set; }
-		public string AdditionalInfo { get; set; }
-		public bool NeedHotel { get; set; }
-		public bool NeedDrive { get; set; }
+		public MockEmailService() { }
+
+		public async Task SendEmail(EmailDTO emailDto)
+		{
+			var email = EmailDTO.MapFromDto(emailDto);
+			email.CreateSendGridMessage();
+			await Task.CompletedTask;
+		}
 	}
 
-	public class Guest
+	public static class SendGridResponseExtensions
 	{
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
+		public static async Task Validate(this Response response)
+		{
+			if (!response.IsSuccessStatusCode)
+			{
+				var requestContent = await response.Body.ReadAsStringAsync();
+
+				throw response.StatusCode switch
+				{
+					HttpStatusCode.BadRequest => new DomainException(requestContent),
+					_ => new ExternalServiceException(response.StatusCode)
+				};
+			}
+		}
 	}
 }

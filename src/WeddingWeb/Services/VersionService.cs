@@ -11,7 +11,7 @@ namespace WeddingWeb.Services
 		{
 			_version = new Version
 			{
-				Value = Assembly.GetExecutingAssembly().GetName().Version.ToString()
+				Value = Assembly.GetExecutingAssembly().GetName().Version?.ToString()
 			};
 		}
 

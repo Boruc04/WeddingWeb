@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using WeddingWeb.DTO;
 using WeddingWeb.Services;
 
 namespace WeddingWeb.Controllers
@@ -12,26 +13,26 @@ namespace WeddingWeb.Controllers
 	[Produces("application/json")]
 	public class EmailController : ControllerBase
 	{
-		private readonly EmailService _emailService;
+		private readonly IEmailService _emailService;
 
-		public EmailController(IConfiguration configuration)
+		public EmailController(IEmailService emailService)
 		{
-			_emailService = new EmailService(configuration);
+			_emailService = emailService;
 		}
 
 		/// <summary>
 		/// Validate and send an email.
 		/// </summary>
 		/// <param name="email"></param>
-		/// <returns></returns>
 		[HttpPost]
 		[Route("")]
+		[MapToApiVersion("1.0")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<IActionResult> SendEmail(Email email)
+		public async Task<IActionResult> SendEmail(EmailDTO email)
 		{
-			var statusCode = await _emailService.SendEmail(email);
-			return StatusCode((int)statusCode);
+			await _emailService.SendEmail(email);
+			return Ok();
 		}
 	}
 

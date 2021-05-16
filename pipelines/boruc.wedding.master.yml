@@ -23,7 +23,7 @@ stages:
     - checkout: self
     - task: UseDotNet@2
       inputs:
-        version: '3.1.x'
+        version: '5.x.x'
       displayName: Use Dot Net.
     - task: gitversion/setup@0
       inputs:

@@ -8,7 +8,7 @@ namespace WeddingWeb.Helpers.Extensions
 		public static readonly string Test = "Test";
 	}
 
-	public static class CustomHostEnvironmentEnvExtensions
+	public static class CustomHostEnvironmentExtensions
 	{
 		/// <summary>
 		/// Checks if the current host environment name is <see cref="CustomEnvironments.Test"/>.
