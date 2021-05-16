@@ -4,6 +4,9 @@ trigger:
   branches:
     include:
       - master
+  paths:
+    include:
+      - src/*
 
 pr: none
 
@@ -16,14 +19,14 @@ stages:
       vmImage: 'ubuntu-latest'
     variables:
       - name: projectPath
-        value: ''
+        value: 'src/**/WeddingWeb.csproj'
       - name: buildConfiguration
         value: 'Release'
     steps:
     - checkout: self
     - task: UseDotNet@2
       inputs:
-        version: '5.x.x'
+        version: '5.x'
       displayName: Use Dot Net.
     - task: gitversion/setup@0
       inputs:
@@ -35,10 +38,10 @@ stages:
         additionalArguments: '/updateprojectfiles'
     - task: DotNetCoreCLI@2
       inputs:
-        command: publish
-        publishWebProjects: True
-        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: True
+        command: 'publish'
+        publishWebProjects: false
+        projects: '$(projectPath)'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
       displayName: Create build artifact
     - task: PublishBuildArtifacts@1
       inputs:
