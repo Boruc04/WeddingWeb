@@ -38,6 +38,9 @@ namespace WeddingWeb.Helpers.Filters
 				case DomainException:
 					OnDomainException(context);
 					break;
+				case ExternalServiceException:
+					OnExternalServiceException(context);
+					break;
 				default:
 					OnDefaultException(context);
 					break;
