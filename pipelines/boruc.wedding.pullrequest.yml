@@ -2,9 +2,11 @@ name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
 
 trigger: none
 pr:
+  autoCancel: true
   branches:
     include:
       - master
+  drafts: false
 
 variables:
   - name: terraformVersion
