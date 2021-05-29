@@ -48,3 +48,23 @@ stages:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
         artifactName: 'WeddingWeb'
       displayName: Publish build artifact.
+
+- stage: Release
+  displayName: Wedding.Web.Release.Prod
+  dependsOn: [Build]
+  condition: succeeded()
+  jobs:
+  - job: Production
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - download: current
+        artifact: WeddingWeb
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'WeddingWeb'
+          appType: 'webApp'
+          WebAppName: 'paulinaimichal'
+          packageForLinux: '$(System.DefaultWorkingDirectory)/_Boruc04.WeddingWeb/WeddingWeb/WeddingWeb.zip'
+          AppSettings: '-ASPNETCORE_ENVIRONMENT Production'
