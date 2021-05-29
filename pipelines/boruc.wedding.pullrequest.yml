@@ -1,0 +1,168 @@
+name: Boruc.WeddingWeb.PullRequest-$(FullSemVer)
+
+trigger: none
+pr:
+- master
+
+variables:
+  - name: terraformVersion
+    value: '0.14.7'
+
+stages:
+- stage: Build
+  displayName: Wedding.Web.Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    variables:
+      - name: projectPath
+        value: 'src/**/WeddingWeb.csproj'
+      - name: buildConfiguration
+        value: 'Release'
+      - name: testProjectPath
+        value: 'test/**/*Tests.csproj'
+
+    steps:
+    - checkout: self
+    - task: UseDotNet@2
+      inputs:
+        version: '5.x'
+      displayName: Use Dot Net.
+    - task: gitversion/setup@0
+      inputs:
+        versionSpec: '5.x'
+    - task: gitversion/execute@0
+      inputs:
+        useConfigFile: true
+        configFilePath: './pipelines/GitVersion/GitVersion.yml'
+        additionalArguments: '/updateprojectfiles'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: |
+          $(projectPath)
+          $(testProjectPath)
+        feedsToUse: 'select'
+      displayName: restore projects
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: |
+          $(projectPath)
+          $(testProjectPath)
+        configuration: $(buildConfiguration)
+        arguments: '--no-restore'
+      displayName: build projects
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        projects: '$(testProjectPath)'
+        arguments: '--no-build'
+        testRunTitle: 'Wedding Web Tests'
+      displayName: run tests
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--no-build --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
+      displayName: Create build artifact
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'WeddingWeb'
+      displayName: Publish build artifact.
+
+- stage: CreateTestEnvironment
+  dependsOn: [Build]
+  condition: succeeded()
+  displayName: Wedding.Web.TerraformApply
+  jobs:
+  - job: CreateTest
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - checkout: self
+      - download: current
+        artifact: WeddingWeb
+      - task: TerraformInstaller@0
+        inputs:
+          terraformVersion: $(terraformVersion)
+        displayName: install terraform
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
+          backendAzureRmStorageAccountName: 'weddingwebterraform'
+          backendAzureRmContainerName: 'terraform'
+          backendAzureRmKey: 'terraform.tfstate'
+        displayName: terraform init
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          commandOptions: '-auto-approve'
+          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+        displayName: terraform apply
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          appType: 'webApp'
+          WebAppName: 'wedding-web-test-app'
+          packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
+        displayName: deploy application
+
+- stage: DelayDestroy
+  dependsOn: [CreateTestEnvironment]
+  condition: succeeded()
+  jobs:
+  - job: Delay
+    pool: Server
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 1
+      inputs:
+        notifyUsers: 'm.borucinski@outlook.com'
+        onTimeout: 'resume'
+      displayName: Test and Approve
+
+- stage: DestoryTestEnvironment
+  dependsOn: [CreateTestEnvironment, DelayDestroy]
+  condition: succeeded()
+  displayName: Wedding.Web.TerraformDestroy
+  jobs:
+  - job: DestroyTest
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - checkout: self
+      - task: TerraformInstaller@0
+        inputs:
+          terraformVersion: $(terraformVersion)
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
+          backendAzureRmStorageAccountName: 'weddingwebterraform'
+          backendAzureRmContainerName: 'terraform'
+          backendAzureRmKey: 'terraform.tfstate'
+        displayName: terraform init
+      - task: TerraformTaskV1@0
+        inputs:
+          provider: 'azurerm'
+          command: 'destroy'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+        displayName: terraform destory
+
+

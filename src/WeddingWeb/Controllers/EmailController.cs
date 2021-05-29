@@ -1,49 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using WeddingWeb.DTO;
 using WeddingWeb.Services;
 
 namespace WeddingWeb.Controllers
 {
 	[ApiController]
+	[ApiVersion("1.0")]
+	[Route("api/email")]
 	[Produces("application/json")]
-	[Route("api/[controller]")]
 	public class EmailController : ControllerBase
 	{
-		private readonly EmailService _emailService;
+		private readonly IEmailService _emailService;
 
-		public EmailController()
+		public EmailController(IEmailService emailService)
 		{
-			_emailService = new EmailService();
+			_emailService = emailService;
 		}
 
-		[HttpGet]
-		[ProducesResponseType(StatusCodes.Status200OK)]
-		public IActionResult Get()
-		{
-			var email = new Email()
-			{
-				MainEmail = "test@kasd.pl",
-				GuestNumber = 5,
-				GuestList = new List<Guest>
-				{
-					new Guest { FirstName = "imiebakend", LastName = "nazwisko" },
-					new Guest { FirstName = "drugieImieback", LastName = "drugieNazwisko" }
-				},
-				AdditionalInfo = "jakiś tekst"
-			};
-
-			return Ok(email);
-		}
-
+		/// <summary>
+		/// Validate and send an email.
+		/// </summary>
+		/// <param name="email"></param>
 		[HttpPost]
+		[Route("")]
+		[MapToApiVersion("1.0")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public async Task<IActionResult> SendEmail(Email email)
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<IActionResult> SendEmail(EmailDTO email)
 		{
-			var statusCode = await _emailService.SendEmail(email);
-			return StatusCode((int)statusCode);
+			await _emailService.SendEmail(email);
+			return Ok();
 		}
 	}
 

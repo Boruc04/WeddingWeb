@@ -2,27 +2,47 @@
 
 Application build for the purpose of my own wedding over time evolved into small training project, where I can try and test new technologies.
 
-![](img/main_page_image.PNG)
+![Wedding web main page](img/main_page_image.PNG)
 
 ## Build Status
+
 | Application | Build Status | CodeQL |
 |-------------|--------------|--------|
-| WeddingWeb | [![Build Status](https://dev.azure.com/Boruc/WeddingWeb/_apis/build/status/Boruc04.WeddingWeb?branchName=master)](https://dev.azure.com/Boruc/WeddingWeb/_build/latest?definitionId=8&branchName=master) | ![CodeQL](https://github.com/Boruc04/WeddingWeb/workflows/CodeQL/badge.svg) |
+| WeddingWeb | [![Build Status](https://dev.azure.com/Boruc/WeddingWeb/_apis/build/status/wedding-web-master?branchName=master)](https://dev.azure.com/Boruc/WeddingWeb/_build/latest?definitionId=8&branchName=master) | ![CodeQL](https://github.com/Boruc04/WeddingWeb/workflows/CodeQL/badge.svg) |
 
 ## Technology involved
-The aim of the application is to test the latest available technology but currently it is using
+
+The aim of the project is to test and learn the latest technology. Some of those currently used:
+
 - .NET Core 3.1
 - Angular 11
-- Azure Web Apps
+- Azure
+- Terraform
 
 ## Getting Started
-Applicataion can be started with an F5 expirience right after cloning repo.
+
+### Visual Studio (F5 experience)
+
+- clone repository
+- open project in Visual Studio
+- run project
 
 ## Architecture overview
+
 TODO: provide the architecture diagram
 
+## Development
+
+The branching strategy follows the [GitHub Flow](https://guides.github.com/introduction/flow/)
+
+- `master`: Contains the latest stable code, all PRs must be against it.
+
+Any other branch is considered temporary and could be deleted at any time.
+
 ## Future plans
+
+- introduce terraform
 - gallery with authentication via AAD
 - video share with authentication via AAD
 - separate apps
-- contenerize apps
+- containerize apps

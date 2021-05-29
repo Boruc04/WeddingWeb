@@ -1,68 +1,60 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
 using SendGrid;
-using SendGrid.Helpers.Mail;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
+using WeddingWeb.Domain;
+using WeddingWeb.DTO;
+using WeddingWeb.Helpers.Exceptions;
 
 namespace WeddingWeb.Services
 {
-	public class EmailService
+	public class EmailService : IEmailService
 	{
 		private readonly SendGridClient _client;
-		public EmailService()
+
+		public EmailService(IConfiguration configuration)
 		{
-			_client = new SendGridClient("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");
+			_client = new SendGridClient(configuration["SendGrid:ApiKey"]);
 		}
 
-		public async Task<HttpStatusCode> SendEmail(Email email)
+		public async Task SendEmail(EmailDTO emailDto)
 		{
-			var msg = new SendGridMessage();
+			var email = EmailDTO.MapFromDto(emailDto);
+			var message = email.CreateSendGridMessage();
+			var response = await _client.SendEmailAsync(message);
+			await response.Validate();
+		}
+	}
 
-			msg.SetFrom(new EmailAddress("m.borucinski@outlook.com", "Paulina i Michał"));
+	/// <summary>
+	/// Service with mocked integration with Sendgrid api.
+	/// </summary>
+	public class MockEmailService : IEmailService
+	{
+		public MockEmailService() { }
 
-			var recipients = new List<EmailAddress>
+		public async Task SendEmail(EmailDTO emailDto)
+		{
+			var email = EmailDTO.MapFromDto(emailDto);
+			email.CreateSendGridMessage();
+			await Task.CompletedTask;
+		}
+	}
+
+	public static class SendGridResponseExtensions
+	{
+		public static async Task Validate(this Response response)
+		{
+			if (!response.IsSuccessStatusCode)
 			{
-				new EmailAddress("m.borucinski+slub@gmail.com")
-			};
+				var requestContent = await response.Body.ReadAsStringAsync();
 
-			msg.AddTos(recipients);
-
-			msg.SetSubject("Paulina i Michał potiwerdzenie obecności - dziękujemy.");
-
-			msg.AddContent(MimeType.Text, "Dziękujemy bardzo za potwierdzenie obecności!");
-
-			StringBuilder messageText = new StringBuilder($"Email: {email.MainEmail}, Liczba gości: {email.GuestNumber}, " +
-			                                              $"Informacje dodatkowe: {email.AdditionalInfo}, Nocleg {email.NeedHotel}, " +
-			                                              $"Transport: {email.NeedDrive}");
-
-			foreach (var guest in email.GuestList)
-			{
-				messageText.AppendLine();
-				messageText.Append($"\n Imie: {guest.FirstName}, Nazwisko: {guest.LastName}");
+				throw response.StatusCode switch
+				{
+					HttpStatusCode.BadRequest => new DomainException(requestContent),
+					_ => new ExternalServiceException(response.StatusCode)
+				};
 			}
-
-			msg.AddContent(MimeType.Html, messageText.ToString());
-			var response = await _client.SendEmailAsync(msg);
-
-			return response.StatusCode;
 		}
-	}
-
-	public class Email
-	{
-		public string MainEmail { get; set; }
-		public int GuestNumber { get; set; }
-		public List<Guest> GuestList { get; set; }
-		public string AdditionalInfo { get; set; }
-		public bool NeedHotel { get; set; }
-		public bool NeedDrive { get; set; }
-	}
-
-	public class Guest
-	{
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
 	}
 }

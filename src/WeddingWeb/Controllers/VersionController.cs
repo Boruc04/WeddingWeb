@@ -1,27 +1,24 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WeddingWeb.Services;
 using Version = WeddingWeb.Services.Version;
 
 namespace WeddingWeb.Controllers
 {
-	[Route("api/[controller]")]
 	[ApiController]
 	[ApiVersion("1.0")]
+	[Route("api/version")]
 	[Produces("application/json")]
 	public class VersionController : ControllerBase
 	{
 		private readonly VersionService _versionService;
 
-		public VersionController()
+		public VersionController(VersionService versionService)
 		{
-			_versionService = new VersionService();
+			_versionService = versionService;
 		}
 
-		
 		/// <summary>
 		/// Get the version of the application.
 		/// </summary>
