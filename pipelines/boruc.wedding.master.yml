@@ -66,5 +66,6 @@ stages:
           azureSubscription: 'WeddingWeb'
           appType: 'webApp'
           WebAppName: 'paulinaimichal'
-          packageForLinux: '$(System.DefaultWorkingDirectory)/_Boruc04.WeddingWeb/WeddingWeb/WeddingWeb.zip'
+          packageForLinux: '$(System.DefaultWorkingDirectory)/**/WeddingWeb.zip'
           AppSettings: '-ASPNETCORE_ENVIRONMENT Production'
+      
