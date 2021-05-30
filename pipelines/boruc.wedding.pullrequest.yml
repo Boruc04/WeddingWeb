@@ -118,6 +118,10 @@ stages:
         displayName: terraform apply
       - bash: echo '##vso[task.setvariable variable=WebAppName]$(TF_OUT_WEBSITE_NAME)'
         displayName: Set WebAppName variable value
+      - bash: |
+          echo $(WebAppName)
+          echo $(TF_OUT_WEBSITE_NAME)
+        displayName: Set WebAppName variable value
 
   - job: Deploy
     displayName: Deploy an application
@@ -126,6 +130,9 @@ stages:
     steps:
       - download: current
         artifact: WeddingWeb
+      - bash: |
+          echo $(WebAppName)
+          echo $(TF_OUT_WEBSITE_NAME)
       - task: AzureRmWebAppDeployment@4
         inputs:
           ConnectionType: 'AzureRM'
