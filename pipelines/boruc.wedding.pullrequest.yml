@@ -23,8 +23,12 @@ stages:
   displayName: Wedding.Web.Prepare
   pool:
       vmImage: 'ubuntu-latest'
+  variables:
+    - name: TF_OUT_WEBSITE_NAME
+      value: ''
   jobs:
   - job: Build
+    displayName: Build & Test App
     dependsOn: []
     variables:
       - name: projectPath
@@ -85,6 +89,7 @@ stages:
       displayName: Publish build artifact.
 
   - job: CreateTestEnvironment
+    displayName: Create Env - Apply Terraform
     dependsOn: []  
     steps:
       - checkout: self
@@ -112,7 +117,8 @@ stages:
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
         displayName: terraform apply
 
-  - job: CreateTest
+  - job: Deploy
+    displayName: Deploy an application
     dependsOn: [Build, CreateTestEnvironment]
     condition: succeeded()
     steps:
@@ -127,9 +133,11 @@ stages:
           packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
         displayName: deploy application
 
-- stage: DelayDestroy
+
+- stage: DestroyTestEnvironment
   dependsOn: [Prepare]
-  condition: succeeded()
+  condition: always()
+  displayName: Wedding.Web.TerraformDestroy
   jobs:
   - job: Delay
     pool: Server
@@ -141,12 +149,9 @@ stages:
         onTimeout: 'resume'
       displayName: Test and Approve
 
-- stage: DestroyTestEnvironment
-  dependsOn: [Prepare, DelayDestroy]
-  condition: always()
-  displayName: Wedding.Web.TerraformDestroy
-  jobs:
   - job: DestroyTest
+    dependsOn: [Delay]
+    condition: succeeded()
     pool:
       vmImage: 'ubuntu-latest'
     steps:

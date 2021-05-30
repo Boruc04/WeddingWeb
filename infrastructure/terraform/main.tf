@@ -97,7 +97,7 @@ resource "azurerm_app_service" "wedding-web" {
   https_only          = true
 
   app_settings = {
-    "ASPNETCORE_ENVIRONMENT" = "${var.ASPNETCORE_ENVIRONMENT}"
+    "ASPNETCORE_ENVIRONMENT" = var.ASPNETCORE_ENVIRONMENT
   }
 }
 
