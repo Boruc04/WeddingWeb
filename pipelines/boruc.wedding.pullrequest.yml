@@ -24,8 +24,6 @@ stages:
   pool:
       vmImage: 'ubuntu-latest'
   variables:
-    - name: TF_OUT_WEBSITE_NAME
-      value: ''
     - name: WebAppName
       value: ''
   jobs:
@@ -128,14 +126,12 @@ stages:
     steps:
       - download: current
         artifact: WeddingWeb
-      - script: |
-          echo $(TF_OUT_WEBSITE_NAME)
       - task: AzureRmWebAppDeployment@4
         inputs:
           ConnectionType: 'AzureRM'
           azureSubscription: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
           appType: 'webApp'
-          WebAppName: $(TF_OUT_WEBSITE_NAME)
+          WebAppName: $(WebAppName)
           packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
         displayName: deploy application
 
