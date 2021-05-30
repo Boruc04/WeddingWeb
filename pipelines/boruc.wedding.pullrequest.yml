@@ -137,7 +137,7 @@ stages:
 
 - stage: DelayDestroy
   dependsOn: [DeployApplication]
-  condition: succeeded()
+  condition: always()
   jobs:
   - job: Delay
     pool: Server
@@ -150,7 +150,7 @@ stages:
       displayName: Test and Approve
 
 - stage: DestoryTestEnvironment
-  dependsOn: [CreateTestEnvironment, DelayDestroy]
+  dependsOn: [DeployApplication, DelayDestroy]
   condition: succeeded()
   displayName: Wedding.Web.TerraformDestroy
   jobs:
