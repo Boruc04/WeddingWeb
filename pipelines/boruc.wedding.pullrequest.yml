@@ -83,17 +83,14 @@ stages:
       displayName: Publish build artifact.
 
 - stage: CreateTestEnvironment
-  dependsOn: [Build]
-  condition: succeeded()
   displayName: Wedding.Web.TerraformApply
   jobs:
-  - job: CreateTest
+  - job: CreateEnv
     pool:
       vmImage: 'ubuntu-latest'
     steps:
       - checkout: self
-      - download: current
-        artifact: WeddingWeb
+
       - task: TerraformInstaller@0
         inputs:
           terraformVersion: $(terraformVersion)
@@ -117,6 +114,18 @@ stages:
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
         displayName: terraform apply
+
+- stage: DeployApplication
+  dependsOn: [Build, CreateTestEnvironment]
+  condition: succeeded()
+  displayName: Wedding.Web.Deploy
+  jobs:
+  - job: CreateTest
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - download: current
+        artifact: WeddingWeb
       - task: AzureRmWebAppDeployment@4
         inputs:
           ConnectionType: 'AzureRM'
@@ -127,7 +136,7 @@ stages:
         displayName: deploy application
 
 - stage: DelayDestroy
-  dependsOn: [CreateTestEnvironment]
+  dependsOn: [DeployApplication]
   condition: succeeded()
   jobs:
   - job: Delay
