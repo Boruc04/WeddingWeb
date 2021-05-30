@@ -6,6 +6,10 @@ pr:
   branches:
     include:
       - master
+  paths:
+    include:
+      - src/*
+      - infrastructure/*
   drafts: false
 
 variables:
