@@ -97,7 +97,7 @@ stages:
         inputs:
           terraformVersion: $(terraformVersion)
         displayName: install terraform
-      - task: TerraformTaskV1@0
+      - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'init'
@@ -108,7 +108,7 @@ stages:
           backendAzureRmContainerName: 'terraform'
           backendAzureRmKey: 'terraform.tfstate'
         displayName: terraform init
-      - task: TerraformTaskV1@0
+      - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'apply'
@@ -172,7 +172,7 @@ stages:
       - task: TerraformInstaller@0
         inputs:
           terraformVersion: $(terraformVersion)
-      - task: TerraformTaskV1@0
+      - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'init'
@@ -183,7 +183,7 @@ stages:
           backendAzureRmContainerName: 'terraform'
           backendAzureRmKey: 'terraform.tfstate'
         displayName: terraform init
-      - task: TerraformTaskV1@0
+      - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'destroy'
