@@ -116,12 +116,16 @@ stages:
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
         displayName: terraform apply
+      - bash: |
+          echo WebAppName valu: $(WebAppName).
+          echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
+        displayName: Check values before
       - bash: echo '##vso[task.setvariable variable=WebAppName]$(TF_OUT_WEBSITE_NAME)'
         displayName: Set WebAppName variable value
       - bash: |
-          echo $(WebAppName)
-          echo $(TF_OUT_WEBSITE_NAME)
-        displayName: Set WebAppName variable value
+          echo WebAppName valu: $(WebAppName).
+          echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
+        displayName: Check values after
 
   - job: Deploy
     displayName: Deploy an application
