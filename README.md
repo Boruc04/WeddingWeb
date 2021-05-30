@@ -39,6 +39,10 @@ The branching strategy follows the [GitHub Flow](https://guides.github.com/intro
 
 Any other branch is considered temporary and could be deleted at any time.
 
+### Renew TLS/SSL certificate
+
+Please follow [the instruction](infrastructure/cert/renew-certificate.md) to be able to renew certificate.
+
 ## Future plans
 
 - introduce terraform
@@ -46,3 +50,4 @@ Any other branch is considered temporary and could be deleted at any time.
 - video share with authentication via AAD
 - separate apps
 - containerize apps
+- introduce automatic TLS/SSL cert renewal
