@@ -119,6 +119,7 @@ stages:
         inputs:
           command: 'output'
           allowTelemetryCollection: true
+        displayName: terraform output to variables
       - bash: |
           echo WebAppName valu: $(WebAppName).
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
