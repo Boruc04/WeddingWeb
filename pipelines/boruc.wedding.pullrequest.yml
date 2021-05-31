@@ -93,7 +93,7 @@ stages:
     dependsOn: []  
     steps:
       - checkout: self
-      - task: TerraformInstaller@0
+      - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
         inputs:
           terraformVersion: 'latest'
       - task: TerraformTaskV2@2
@@ -172,7 +172,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
       - checkout: self
-      - task: TerraformInstaller@0
+      - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
         inputs:
           terraformVersion: 'latest'
       - task: TerraformTaskV2@2
