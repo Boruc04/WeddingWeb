@@ -116,6 +116,10 @@ stages:
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
         displayName: terraform apply
+      - task: TerraformCLI@0
+        inputs:
+          command: 'output'
+          allowTelemetryCollection: true
       - bash: |
           echo WebAppName valu: $(WebAppName).
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
