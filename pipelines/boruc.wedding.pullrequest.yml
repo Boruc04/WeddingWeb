@@ -139,8 +139,10 @@ stages:
       - task: TerraformCLI@0
         inputs:
           command: 'output'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
           allowTelemetryCollection: true
         displayName: terraform output to variables
+
       - bash: |
           echo WebAppName valu: $(WebAppName).
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
