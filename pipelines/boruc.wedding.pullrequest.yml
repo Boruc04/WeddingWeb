@@ -23,9 +23,6 @@ stages:
   displayName: Wedding.Web.Prepare
   pool:
       vmImage: 'ubuntu-latest'
-  variables:
-    - name: WebAppName
-      value: ''
   jobs:
   - job: Build
     displayName: Build & Test App
@@ -158,7 +155,7 @@ stages:
     displayName: Deploy an application
     dependsOn: [Build, CreateTestEnvironment]
     variables:
-      WebAppName2: $[ dependencies.A.outputs['TerraformOutput.TF_OUT_WEBSITE_NAME'] ]
+      WebAppName2: $[ dependencies.CreateTestEnvironment.outputs['TerraformOutput.TF_OUT_WEBSITE_NAME'] ]
     condition: succeeded()
     steps:
       - download: current
