@@ -96,25 +96,46 @@ stages:
       - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
         inputs:
           terraformVersion: 'latest'
-      - task: TerraformTaskV2@2
+      - task: TerraformCLI@0
         inputs:
-          provider: 'azurerm'
           command: 'init'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          backendType: 'azurerm'
           backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
           backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
           backendAzureRmStorageAccountName: 'weddingwebterraform'
           backendAzureRmContainerName: 'terraform'
           backendAzureRmKey: 'terraform.tfstate'
+          allowTelemetryCollection: true
         displayName: terraform init
-      - task: TerraformTaskV2@2
+      # - task: TerraformTaskV2@2
+      #   inputs:
+      #     provider: 'azurerm'
+      #     command: 'init'
+      #     workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+      #     backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+      #     backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
+      #     backendAzureRmStorageAccountName: 'weddingwebterraform'
+      #     backendAzureRmContainerName: 'terraform'
+      #     backendAzureRmKey: 'terraform.tfstate'
+      #   displayName: terraform init
+      - task: TerraformCLI@0
         inputs:
-          provider: 'azurerm'
           command: 'apply'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          environmentServiceName: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
-          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          allowTelemetryCollection: true
         displayName: terraform apply
+
+      # - task: TerraformTaskV2@2
+      #   inputs:
+      #     provider: 'azurerm'
+      #     command: 'apply'
+      #     workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+      #     commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
+      #     environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+      #   displayName: terraform apply
       - task: TerraformCLI@0
         inputs:
           command: 'output'
