@@ -141,13 +141,13 @@ stages:
           command: 'output'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
           allowTelemetryCollection: true
-        displayName: terraform output to variables
+        displayName: TerraformOutput
 
       - bash: |
           echo WebAppName valu: $(WebAppName).
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
         displayName: Check values before
-      - bash: echo '##vso[task.setvariable variable=WebAppName;isOutput=true;]$(TF_OUT_WEBSITE_NAME)'
+      - bash: echo '##vso[task.setvariable variable=WebAppName]$(TF_OUT_WEBSITE_NAME)'
         displayName: Set WebAppName variable value
       - bash: |
           echo WebAppName valu: $(WebAppName).
@@ -157,13 +157,16 @@ stages:
   - job: Deploy
     displayName: Deploy an application
     dependsOn: [Build, CreateTestEnvironment]
+    variables:
+      WebAppName2: $[ dependencies.A.outputs['TerraformOutput.TF_OUT_WEBSITE_NAME'] ]
     condition: succeeded()
     steps:
       - download: current
         artifact: WeddingWeb
       - bash: |
-          echo $(WebAppName)
-          echo $(TF_OUT_WEBSITE_NAME)
+          echo WebAppName valu: $(WebAppName).
+          echo WebAppName valu: $(WebAppName2).
+          echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
       - task: AzureRmWebAppDeployment@4
         inputs:
           ConnectionType: 'AzureRM'
