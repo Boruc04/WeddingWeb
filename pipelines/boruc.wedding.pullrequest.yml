@@ -138,6 +138,7 @@ stages:
           command: 'output'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
           allowTelemetryCollection: true
+        name: TerraformOutput
         displayName: TerraformOutput
 
       - bash: |
@@ -147,6 +148,7 @@ stages:
       - bash: echo '##vso[task.setvariable variable=WebAppName;isOutput=true]$(TF_OUT_WEBSITE_NAME)'
         displayName: Set WebAppName variable value
       - bash: echo '##vso[task.setvariable variable=WebAppName2;isOutput=true]testValue'
+        name: setvalue
         displayName: setvalue
       - bash: |
           echo WebAppName valu: $(WebAppName).
