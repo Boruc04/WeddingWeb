@@ -146,6 +146,8 @@ stages:
         displayName: Check values before
       - bash: echo '##vso[task.setvariable variable=WebAppName]$(TF_OUT_WEBSITE_NAME)'
         displayName: Set WebAppName variable value
+      - bash: echo '##vso[task.setvariable variable=WebAppName2]testValue'
+        displayName: setvalue
       - bash: |
           echo WebAppName valu: $(WebAppName).
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
@@ -156,6 +158,7 @@ stages:
     dependsOn: [Build, CreateTestEnvironment]
     variables:
       WebAppName2: $[ dependencies.CreateTestEnvironment.outputs['TerraformOutput.TF_OUT_WEBSITE_NAME'] ]
+      WebAppName3: $[ dependencies.CreateTestEnvironment.outputs['setvalue.WebAppName2'] ]
     condition: succeeded()
     steps:
       - download: current
@@ -163,6 +166,7 @@ stages:
       - bash: |
           echo WebAppName valu: $(WebAppName).
           echo WebAppName valu: $(WebAppName2).
+          echo WebAppName valu: $(WebAppName3).
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
       - task: AzureRmWebAppDeployment@4
         inputs:
