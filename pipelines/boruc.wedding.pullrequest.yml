@@ -160,15 +160,16 @@ stages:
     dependsOn: [Build, CreateTestEnvironment]
     variables:
       WebAppName2: $[ dependencies.CreateTestEnvironment.outputs['TerraformOutput.TF_OUT_WEBSITE_NAME'] ]
+      WebAppName4: $[ dependencies.CreateTestEnvironment.outputs['setvalue.WebAppName'] ]
       WebAppName3: $[ dependencies.CreateTestEnvironment.outputs['setvalue.WebAppName2'] ]
     condition: succeeded()
     steps:
       - download: current
         artifact: WeddingWeb
       - bash: |
-          echo WebAppName valu: $(WebAppName).
-          echo WebAppName valu: $(WebAppName2).
-          echo WebAppName valu: $(WebAppName3).
+          echo WebAppName4 valu: $(WebAppName4).
+          echo WebAppName2 valu: $(WebAppName2).
+          echo WebAppName3 valu: $(WebAppName3).
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
       - task: AzureRmWebAppDeployment@4
         inputs:
