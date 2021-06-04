@@ -177,7 +177,7 @@ stages:
           ConnectionType: 'AzureRM'
           azureSubscription: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
           appType: 'webApp'
-          WebAppName: $(WebAppName)
+          WebAppName: $(WebAppName4)
           packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
         displayName: deploy application
 
