@@ -146,6 +146,7 @@ stages:
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
         displayName: Check values before
       - bash: echo '##vso[task.setvariable variable=WebAppName;isOutput=true]$(TF_OUT_WEBSITE_NAME)'
+        name: tfoutvalue
         displayName: Set WebAppName variable value
       - bash: echo '##vso[task.setvariable variable=WebAppName2;isOutput=true]testValue'
         name: setvalue
@@ -160,7 +161,7 @@ stages:
     dependsOn: [Build, CreateTestEnvironment]
     variables:
       WebAppName2: $[ dependencies.CreateTestEnvironment.outputs['TerraformOutput.TF_OUT_WEBSITE_NAME'] ]
-      WebAppName4: $[ dependencies.CreateTestEnvironment.outputs['setvalue.WebAppName'] ]
+      WebAppName4: $[ dependencies.CreateTestEnvironment.outputs['tfoutvalue.WebAppName'] ]
       WebAppName3: $[ dependencies.CreateTestEnvironment.outputs['setvalue.WebAppName2'] ]
     condition: succeeded()
     steps:
