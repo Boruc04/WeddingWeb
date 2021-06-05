@@ -132,6 +132,7 @@ stages:
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+        name: TerraformApply
         displayName: terraform apply
       # - task: TerraformCLI@0
       #   inputs:
@@ -140,12 +141,15 @@ stages:
       #     allowTelemetryCollection: true
       #   name: TerraformOutput
       #   displayName: TerraformOutput
+      - bash: |
+          echo $(TerraformApply.jsonOutputVariablesPath)
+          echo $(jsonOutputVariablesPath)
       - task: PowerShell@2
         inputs:
           targetType: 'inline'
           script: |
-              Write-Host $(jsonOutputVariablesPath)
-              $json = Get-Content $(jsonOutputVariablesPath) | Out-String | ConvertFrom-Json
+              Write-Host $(TerraformApply.jsonOutputVariablesPath)
+              $json = Get-Content $(TerraformApply.jsonOutputVariablesPath) | Out-String | ConvertFrom-Json
               foreach($prop in $json.psobject.properties) {
                 Write-Host("##vso[task.setvariable variable=$($prop.Name);]$($prop.Value.value)")
                 Write-Host variable
