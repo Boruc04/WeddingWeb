@@ -144,8 +144,8 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-              Write-Host $(TerraformOutput.jsonOutputVariablesPath)
-              $json = Get-Content $(TerraformOutput.jsonOutputVariablesPath) | Out-String | ConvertFrom-Json
+              Write-Host $(jsonOutputVariablesPath)
+              $json = Get-Content $(jsonOutputVariablesPath) | Out-String | ConvertFrom-Json
               foreach($prop in $json.psobject.properties) {
                 Write-Host("##vso[task.setvariable variable=$($prop.Name);]$($prop.Value.value)")
                 Write-Host variable
