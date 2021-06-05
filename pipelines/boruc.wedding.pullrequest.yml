@@ -140,7 +140,18 @@ stages:
           allowTelemetryCollection: true
         name: TerraformOutput
         displayName: TerraformOutput
-
+      - task: PowerShell@2
+        inputs:
+          targetType: 'inline'
+          script: |
+              Write-Host $(TerraformOutput.jsonOutputVariablesPath)
+              $json = Get-Content $(TerraformOutput.jsonOutputVariablesPath) | Out-String | ConvertFrom-Json
+              foreach($prop in $json.psobject.properties) {
+                Write-Host("##vso[task.setvariable variable=$($prop.Name);]$($prop.Value.value)")
+                Write-Host variable
+              }
+          failOnStderr: true
+          showWarnings: true
       - bash: |
           echo WebAppName valu: $(WebAppName).
           echo TF OUT WEBSITE NAME value: $(TF_OUT_WEBSITE_NAME).
