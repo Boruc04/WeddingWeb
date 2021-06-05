@@ -6,9 +6,9 @@ Application build for the purpose of my own wedding over time evolved into small
 
 ## Build Status
 
-| Application | Build Status | CodeQL |
-|-------------|--------------|--------|
-| WeddingWeb | [![Build Status](https://dev.azure.com/Boruc/WeddingWeb/_apis/build/status/wedding-web-master?branchName=master)](https://dev.azure.com/Boruc/WeddingWeb/_build/latest?definitionId=8&branchName=master) | ![CodeQL](https://github.com/Boruc04/WeddingWeb/workflows/CodeQL/badge.svg) |
+| Application | Build Status |
+|-------------|--------------|
+| WeddingWeb | [![Build Status](https://dev.azure.com/Boruc/WeddingWeb/_apis/build/status/wedding-web-master?branchName=master)](https://dev.azure.com/Boruc/WeddingWeb/_build/latest?definitionId=31&branchName=master) | 
 
 ## Technology involved
 
@@ -39,6 +39,10 @@ The branching strategy follows the [GitHub Flow](https://guides.github.com/intro
 
 Any other branch is considered temporary and could be deleted at any time.
 
+### Renew TLS/SSL certificate
+
+Please follow [the instruction](infrastructure/cert/renew-certificate.md) to be able to renew certificate.
+
 ## Future plans
 
 - introduce terraform
@@ -46,3 +50,4 @@ Any other branch is considered temporary and could be deleted at any time.
 - video share with authentication via AAD
 - separate apps
 - containerize apps
+- introduce automatic TLS/SSL cert renewal

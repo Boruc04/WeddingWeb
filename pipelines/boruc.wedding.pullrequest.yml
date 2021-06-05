@@ -6,20 +6,27 @@ pr:
   branches:
     include:
       - master
+  paths:
+    include:
+      - src/*
+      - infrastructure/*
   drafts: false
 
 variables:
   - name: terraformVersion
     value: '0.14.7'
+  - name: tfvarsFileName
+    value: 'test.tfvars' 
 
 stages:
-- stage: Build
-  displayName: Wedding.Web.Build
+- stage: Prepare
+  displayName: Wedding.Web.Prepare
+  pool:
+      vmImage: 'ubuntu-latest'
   jobs:
   - job: Build
-    pool:
-      vmImage: 'ubuntu-latest'
-    
+    displayName: Build & Test App
+    dependsOn: []
     variables:
       - name: projectPath
         value: 'src/**/WeddingWeb.csproj'
@@ -27,7 +34,6 @@ stages:
         value: 'Release'
       - name: testProjectPath
         value: 'test/**/*Tests.csproj'
-
     steps:
     - checkout: self
     - task: UseDotNet@2
@@ -79,23 +85,15 @@ stages:
         artifactName: 'WeddingWeb'
       displayName: Publish build artifact.
 
-- stage: CreateTestEnvironment
-  dependsOn: [Build]
-  condition: succeeded()
-  displayName: Wedding.Web.TerraformApply
-  jobs:
-  - job: CreateTest
-    pool:
-      vmImage: 'ubuntu-latest'
+  - job: CreateTestEnvironment
+    displayName: Create Env - Apply Terraform
+    dependsOn: []  
     steps:
       - checkout: self
-      - download: current
-        artifact: WeddingWeb
       - task: TerraformInstaller@0
         inputs:
           terraformVersion: $(terraformVersion)
-        displayName: install terraform
-      - task: TerraformTaskV1@0
+      - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'init'
@@ -105,27 +103,53 @@ stages:
           backendAzureRmStorageAccountName: 'weddingwebterraform'
           backendAzureRmContainerName: 'terraform'
           backendAzureRmKey: 'terraform.tfstate'
+        name: TerraformInit
         displayName: terraform init
-      - task: TerraformTaskV1@0
+      - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'apply'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-          commandOptions: '-auto-approve'
+          commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+        name: TerraformApply
         displayName: terraform apply
+      - task: PowerShell@2
+        inputs:
+          targetType: 'inline'
+          script: |
+              $json = Get-Content $(TerraformApply.jsonOutputVariablesPath) | Out-String | ConvertFrom-Json
+              foreach($prop in $json.psobject.properties) {
+                Write-Host("##vso[task.setvariable variable=$($prop.Name);isOutput=true]$($prop.Value.value)")
+              }
+          failOnStderr: true
+          showWarnings: true
+        name: TerraformOutput
+        displayName: terraform output
+
+  - job: Deploy
+    displayName: Deploy an application
+    dependsOn: [Build, CreateTestEnvironment]
+    variables:
+      WebAppName: $[ dependencies.CreateTestEnvironment.outputs['TerraformOutput.website_name'] ]
+    condition: succeeded()
+    steps:
+      - download: current
+        artifact: WeddingWeb
       - task: AzureRmWebAppDeployment@4
         inputs:
           ConnectionType: 'AzureRM'
           azureSubscription: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
           appType: 'webApp'
-          WebAppName: 'wedding-web-test-app'
+          WebAppName: $(WebAppName)
           packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
         displayName: deploy application
 
-- stage: DelayDestroy
-  dependsOn: [CreateTestEnvironment]
-  condition: succeeded()
+
+- stage: DestroyTestEnvironment
+  dependsOn: [Prepare]
+  condition: always()
+  displayName: Wedding.Web.TerraformDestroy
   jobs:
   - job: Delay
     pool: Server
@@ -137,12 +161,9 @@ stages:
         onTimeout: 'resume'
       displayName: Test and Approve
 
-- stage: DestoryTestEnvironment
-  dependsOn: [CreateTestEnvironment, DelayDestroy]
-  condition: succeeded()
-  displayName: Wedding.Web.TerraformDestroy
-  jobs:
   - job: DestroyTest
+    dependsOn: [Delay]
+    condition: succeeded()
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -150,7 +171,7 @@ stages:
       - task: TerraformInstaller@0
         inputs:
           terraformVersion: $(terraformVersion)
-      - task: TerraformTaskV1@0
+      - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'init'
@@ -161,10 +182,11 @@ stages:
           backendAzureRmContainerName: 'terraform'
           backendAzureRmKey: 'terraform.tfstate'
         displayName: terraform init
-      - task: TerraformTaskV1@0
+      - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'destroy'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
+          commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
           environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
         displayName: terraform destory
