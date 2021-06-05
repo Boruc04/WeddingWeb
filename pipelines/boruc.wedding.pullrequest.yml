@@ -92,7 +92,7 @@ stages:
       - checkout: self
       - task: TerraformInstaller@0
         inputs:
-          terraformVersion: '15.x'
+          terraformVersion: $(terraformVersion)
       - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
@@ -170,7 +170,7 @@ stages:
       - checkout: self
       - task: TerraformInstaller@0
         inputs:
-          terraformVersion: '15.x'
+          terraformVersion: $(terraformVersion)
       - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
