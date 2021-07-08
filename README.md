@@ -14,7 +14,7 @@ Application build for the purpose of my own wedding over time evolved into small
 
 The aim of the project is to test and learn the latest technology. Some of those currently used:
 
-- .NET Core 3.1
+- .NET 5.0
 - Angular 11
 - Azure
 - Terraform
