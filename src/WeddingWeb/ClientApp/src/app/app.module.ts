@@ -14,14 +14,13 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { FrameworkModule } from './framework/framework.module';
 import { AppInjector } from './app-injector.service';
-import { GalleryComponent } from './gallery/gallery/gallery.component';
+import { GalleryModule } from './gallery/gallery.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent,
-    GalleryComponent
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +30,8 @@ import { GalleryComponent } from './gallery/gallery/gallery.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     AddressModule,
-    ConfirmModule
+    ConfirmModule,
+    GalleryModule
   ],
   providers: []
 })

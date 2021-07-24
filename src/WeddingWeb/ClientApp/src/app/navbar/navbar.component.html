@@ -6,14 +6,19 @@
 
         <div class="navbar-hide-small flex-spacer"></div>
 
-        <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/confirm']">Potwierdź obecność</a>
+        <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/confirm']">Potwierdź
+            obecność</a>
         <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/address']">Mapka dojazdowa</a>
         <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/contact']"
             routerLinkActive="active">Kontakt</a>
+        <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/gallery']">Zdjęcia</a>
+        <a mat-button class="navbar-hide-small navbar-button flex-end" [routerLink]="['/video']">Wideo</a>
     </mat-toolbar>
 </nav>
 <nav class="navbar navbar-show-small">
     <a mat-button class="navbar-link" [routerLink]="['/confirm']">Potwierdź obecność</a>
     <a mat-button class="navbar-link" [routerLink]="['/address']">Mapka dojazdowa</a>
     <a mat-button class="navbar-link" [routerLink]="['/contact']" routerLinkActive="active">Kontakt</a>
+    <a mat-button class="navbar-link" [routerLink]="['/gallery']">Zdjęcia</a>
+    <a mat-button class="navbar-link" [routerLink]="['/video']">Wideo</a>
 </nav>
