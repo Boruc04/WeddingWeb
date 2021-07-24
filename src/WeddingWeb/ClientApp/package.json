@@ -33,16 +33,16 @@
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1100.7",
-    "@angular/cli": "^11.1.2",
+    "@angular-devkit/build-angular": "^0.1102.14",
+    "@angular/cli": "^11.2.14",
     "@angular/compiler-cli": "^11.2.14",
     "@angular/language-service": "^11.2.14",
-    "@schematics/angular": "^12.0.3",
-    "@types/node": "^12.19.15",
+    "@schematics/angular": "^11.2.14",
+    "@types/node": "^16.4.1",
+    "gm": "^1.23.1",
+    "onecolor": "^3.1.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.5",
-    "gm": "^1.23.1",
-    "onecolor": "^3.1.0"
+    "typescript": "~4.0.5"
   }
 }
