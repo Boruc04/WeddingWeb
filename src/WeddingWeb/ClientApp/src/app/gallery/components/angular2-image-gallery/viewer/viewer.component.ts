@@ -5,7 +5,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 @Component({
     selector: 'viewer',
     templateUrl: './viewer.component.html',
-    styleUrls: ['./viewer.component.css'],
+    styleUrls: ['./viewer.component.scss'],
     host: {
         '(document:keydown)': 'onKeydown($event)'
     },

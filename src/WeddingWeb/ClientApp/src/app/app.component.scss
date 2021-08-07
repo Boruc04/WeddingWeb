@@ -23,10 +23,12 @@ app-footer {
 app-root > app-home,
 app-root > app-address,
 app-root > app-contact,
+app-root > app-photo,
+app-root > app-video,
 app-root > app-confirm {
     overflow-y: auto;
     height: 100%;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 @media (max-width: 720px) {
@@ -37,6 +39,8 @@ app-root > app-confirm {
     app-root > app-home,
     app-root > app-address,
     app-root > app-contact,
+    app-root > app-photo,
+    app-root > app-video,
     app-root > app-confirm {
         overflow-y: visible;
     }

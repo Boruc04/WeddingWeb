@@ -11,7 +11,7 @@ var sortFunction;
 var projectRoot = appRoot.path;
 var toConvertAbsoluteBasePath;
 var assetsAbsoluteBasePath = projectRoot + "/src/assets/gallery/";
-var previewRelativePath = "assets/img/gallery/";
+var previewRelativePath = "assets/img/";
 var imageMetadataArray = [];
 var resolutions = [
     {name: 'preview_xxs', height: 375},
