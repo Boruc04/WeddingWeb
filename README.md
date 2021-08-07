@@ -54,5 +54,5 @@ Please follow [the instruction](infrastructure/cert/renew-certificate.md) to be 
 
 ## Credits
 
-- [BenjaminBrandmeier/angular2-image-gallery](https://github.com/BenjaminBrandmeier/angular2-image-gallery) I've used the source code from the angular2-image-gallery rather than npm package because of lack of compatibility with the Angular@11.
 - [.NET Microservices Sample Reference Application - eShopOnContainers](https://github.com/dotnet-architecture/eShopOnContainers/) it is a great inspiration for all the work that I'm doing.
+- [BenjaminBrandmeier/angular2-image-gallery](https://github.com/BenjaminBrandmeier/angular2-image-gallery) I've used the source code from the angular2-image-gallery rather than npm package because of lack of compatibility with the Angular@11.
