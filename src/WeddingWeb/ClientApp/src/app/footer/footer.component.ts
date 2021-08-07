@@ -12,7 +12,8 @@ import { Version } from './service/version';
 })
 export class FooterComponent implements OnInit {
     version = '0.0.0.0';
-
+    dateNow: number = Date.now();
+    
     constructor(private versionService: VersionService) { }
 
     ngOnInit(): void {

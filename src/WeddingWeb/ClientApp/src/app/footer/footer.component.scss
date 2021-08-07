@@ -1,10 +1,15 @@
 .footer-header {
     padding: 12px;
-    font-size: 12px;
+    font-size: 0.75em;
     display: flex;
+    align-items: stretch;
 
     .flex-spacer {
         flex-grow: 1;
     }
-}
 
+    .footer-github-logo {
+        height: 20px;
+        width: 20px;
+    }
+}
