@@ -10,11 +10,11 @@ import { HttpClient } from '@angular/common/http'
 @Component({
     selector: 'gallery',
     templateUrl: './gallery.component.html',
-    styleUrls: ['./gallery.component.css']
+    styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit, OnDestroy, OnChanges {
     gallery: Array<any> = []
-    imageDataStaticPath: string = 'assets/img/gallery/'
+    imageDataStaticPath: string = 'assets/img/'
     imageDataCompletePath: string = ''
     dataFileName: string = 'data.json'
     images: Array<any> = []
