@@ -43,6 +43,15 @@ Any other branch is considered temporary and could be deleted at any time.
 
 Please follow [the instruction](infrastructure/cert/renew-certificate.md) to be able to renew certificate.
 
+### Prepare photo gallery
+
+- Adjust dates on photos so they can be easily sorted, download [BulkFileChanger](https://www.nirsoft.net/utils/bulk_file_changer.html).
+- Rename files so they will all use guid, use command bellow.
+
+```ps
+ ls | %{Rename-Item $_ -NewName ("$(New-Guid).jpg")}
+```
+
 ## Future plans
 
 - introduce terraform
