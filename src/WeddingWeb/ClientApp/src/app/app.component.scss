@@ -31,7 +31,7 @@ app-root > app-confirm {
     padding-top: 10px;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1000px) {
     app-root {
         top: 124px;
     }
@@ -49,8 +49,8 @@ app-root > app-confirm {
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 720px) {
     app-root {
-        top: 196px;
+        top: 276px;
     }
 }

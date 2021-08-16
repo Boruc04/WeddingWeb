@@ -30,9 +30,9 @@
 
 /**
   * Rules for when the device is detected to be a small screen.
-  * Moves content two rows instead of one.
+  * Moves content into two rows instead of one.
   */
-@media (max-width: 720px) {
+@media (max-width: 1000px) {
     .navbar-hide-small {
         display: none;
     }
@@ -53,8 +53,7 @@
     }
 }
 
-@media (max-width: 450px) {
-   
+@media (max-width: 720px) {
     .navbar {
         flex-flow: column wrap;
         align-content: center;
