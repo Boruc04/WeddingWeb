@@ -1,14 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Version } from './version';
-
-const API_URL = environment.apiUrl;
 
 @Injectable()
 export class VersionService {
-  private AppVersionUrl = API_URL + '/version'
+  private AppVersionUrl = '/api/version'
   
   constructor(private http: HttpClient) { }
 

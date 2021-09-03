@@ -4,11 +4,9 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import { Email, CustomResponse } from './email';
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
-const API_URL = environment.apiUrl;
 const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -18,7 +16,7 @@ const httpOptions = {
 
 @Injectable()
 export class EmailService {
-    private EmailUrl = API_URL + '/email';
+    private EmailUrl = '/api/email';
     private handleError: HandleError;
 
     constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
