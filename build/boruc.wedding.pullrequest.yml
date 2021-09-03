@@ -30,7 +30,7 @@ stages:
     dependsOn: []
     variables:
       - name: projectPath
-        value: 'src/**/WeddingWeb.csproj'
+        value: 'src/Web/**/WeddingWeb.csproj'
       - name: buildConfiguration
         value: 'Release'
       - name: testProjectPath
