@@ -16,7 +16,7 @@ const httpOptions = {
 
 @Injectable()
 export class EmailService {
-    private EmailUrl = API_URL + '/api/email';
+    private EmailUrl = '/api/email';
     private handleError: HandleError;
 
     constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
