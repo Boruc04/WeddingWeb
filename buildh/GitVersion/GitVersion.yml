@@ -1,0 +1,7 @@
+mode: ContinuousDelivery
+branches:
+  master:
+    increment: Patch
+    mode: ContinuousDeployment
+    is-release-branch: true 
+  feature: {}

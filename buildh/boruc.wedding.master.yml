@@ -1,0 +1,71 @@
+name: Boruc.WeddingWeb.Master-$(FullSemVer)
+
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - src/*
+
+pr: none
+
+stages:
+- stage: Build
+  displayName: Wedding.Web.Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    variables:
+      - name: projectPath
+        value: 'src/**/WeddingWeb.csproj'
+      - name: buildConfiguration
+        value: 'Release'
+    steps:
+    - checkout: self
+    - task: UseDotNet@2
+      inputs:
+        version: '5.x'
+      displayName: Use Dot Net.
+    - task: gitversion/setup@0
+      inputs:
+        versionSpec: '5.x'
+    - task: gitversion/execute@0
+      inputs:
+        useConfigFile: true
+        configFilePath: './pipelines/GitVersion/GitVersion.yml'
+        additionalArguments: '/updateprojectfiles'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: '$(projectPath)'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      displayName: Create build artifact
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'WeddingWeb'
+      displayName: Publish build artifact.
+
+- stage: Release
+  displayName: Wedding.Web.Release.Prod
+  dependsOn: [Build]
+  condition: succeeded()
+  jobs:
+  - job: Production
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - download: current
+        artifact: WeddingWeb
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'WeddingWeb'
+          appType: 'webApp'
+          WebAppName: 'paulinaimichal'
+          packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
+          AppSettings: '-ASPNETCORE_ENVIRONMENT Production'
+      
