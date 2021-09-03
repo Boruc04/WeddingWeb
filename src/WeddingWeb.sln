@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingWeb", "WeddingWeb\WeddingWeb.csproj", "{299C7429-5031-4767-9C3A-33263D8AE6B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingWeb", "Web\WeddingWeb\WeddingWeb.csproj", "{299C7429-5031-4767-9C3A-33263D8AE6B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68A89476-4DAD-405B-98FF-C0483DB1398B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1F967C92-AA1C-4753-AFF9-5A7219B061F2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1F967C92-AA1C-4753-AFF9-5A7219B061F2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingWeb.Domain.Tests", "..\test\WeddingWeb.Domain.Tests\WeddingWeb.Domain.Tests.csproj", "{9DAD74D2-B9A1-4AC0-934D-57BE4C03A9E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingWeb.Tests", "Tests\WeddingWeb.Tests\WeddingWeb.Tests.csproj", "{9DAD74D2-B9A1-4AC0-934D-57BE4C03A9E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingWeb.Domain", "WeddingWeb.Domain\WeddingWeb.Domain.csproj", "{B53C470A-246A-4683-9604-B8E7BBA3A472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingWeb.Domain", "Web\WeddingWeb.Domain\WeddingWeb.Domain.csproj", "{B53C470A-246A-4683-9604-B8E7BBA3A472}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

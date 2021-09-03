@@ -19,11 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WeddingWeb.Domain\WeddingWeb.Domain.csproj" />
+    <Folder Include="Application\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
+    <ProjectReference Include="..\..\Web\WeddingWeb\WeddingWeb.csproj" />
   </ItemGroup>
 
 </Project>
