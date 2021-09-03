@@ -33,8 +33,8 @@ stages:
         value: 'src/**/WeddingWeb.csproj'
       - name: buildConfiguration
         value: 'Release'
-      - name: testProject
-        value: 'WeddingWeb.Domain.Tests'
+      - name: testProjectPath
+        value: 'test/**/WeddingWeb.Domain.Tests.csproj'
       - name: codecovVersion
         value: '1.12.4'
     steps:
@@ -56,7 +56,7 @@ stages:
         command: 'restore'
         projects: |
           $(projectPath)
-          './test/$(testProject)/$(testProject).csproj'
+          $(testProjectPath)
         feedsToUse: 'select'
       displayName: restore projects
     - task: DotNetCoreCLI@2
@@ -64,19 +64,20 @@ stages:
         command: 'build'
         projects: |
           $(projectPath)
-          './test/$(testProject)/$(testProject).csproj'
+          $(testProjectPath)
         configuration: $(buildConfiguration)
         arguments: '--no-restore'
       displayName: build projects
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
-        projects: './test/$(testProject)/$(testProject).csproj'
-        arguments: '--no-build --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+        projects: $(testProjectPath)
+        arguments: '-c Debug /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+        publishTestResults: false
         testRunTitle: 'Wedding Web Tests'
       displayName: run tests
     - script: |
-        %USERPROFILE%\.nuget\packages\codecov\$(codecovVersion)\tools\codecov.exe -f "./test/$(testProject)/coverage.opencover.xml" -t $(CODECOV_TOKEN)
+        %USERPROFILE%\.nuget\packages\codecov\$(codecovVersion)\tools\codecov.exe -f "./test/WeddingWeb.Domain.Tests/coverage.opencover.xml" -t $(CODECOV_TOKEN)
       displayName: 'Codecov'
     - task: DotNetCoreCLI@2
       inputs:
