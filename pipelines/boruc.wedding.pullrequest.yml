@@ -22,7 +22,7 @@ stages:
 - stage: Prepare
   displayName: Wedding.Web.Prepare
   pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'windows-latest'
   jobs:
   - job: Build
     displayName: Build & Test App
@@ -69,9 +69,12 @@ stages:
       inputs:
         command: 'test'
         projects: '$(testProjectPath)'
-        arguments: '--no-build'
+        arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
         testRunTitle: 'Wedding Web Tests'
       displayName: run tests
+    - script: |
+        %USERPROFILE%\.nuget\packages\codecov\$(codecovVersion)\tools\codecov.exe -f "./test/$(testProject)/coverage.opencover.xml" -t $(CODECOV_TOKEN)
+      displayName: 'Codecov'
     - task: DotNetCoreCLI@2
       inputs:
         command: publish
