@@ -155,7 +155,7 @@ stages:
     pool: Server
     steps:
     - task: ManualValidation@0
-      timeoutInMinutes: 1
+      timeoutInMinutes: 10
       inputs:
         notifyUsers: 'm.borucinski@outlook.com'
         onTimeout: 'resume'
