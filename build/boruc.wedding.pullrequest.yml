@@ -23,14 +23,14 @@ stages:
 - stage: Prepare
   displayName: Wedding.Web.Prepare
   pool:
-      vmImage: 'windows-latest'
+      vmImage: 'ubuntu-latest'
   jobs:
   - job: Build
     displayName: Build & Test App
     dependsOn: []
     variables:
       - name: projectPath
-        value: 'src/**/WeddingWeb.csproj'
+        value: 'src/Web/**/WeddingWeb.csproj'
       - name: buildConfiguration
         value: 'Release'
       - name: testProjectPath
