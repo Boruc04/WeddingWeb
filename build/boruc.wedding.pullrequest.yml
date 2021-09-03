@@ -23,7 +23,7 @@ stages:
 - stage: Prepare
   displayName: Wedding.Web.Prepare
   pool:
-      vmImage: 'windows-latest'
+      vmImage: 'ubuntu-latest'
   jobs:
   - job: Build
     displayName: Build & Test App
