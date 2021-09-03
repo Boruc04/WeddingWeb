@@ -36,7 +36,7 @@ stages:
       - name: testProjectPath
         value: 'test/**/WeddingWeb.Domain.Tests.csproj'
       - name: codecovVersion
-        value: '1.12.4'
+        value: '1.13.0'
     steps:
     - checkout: self
     - task: UseDotNet@2
