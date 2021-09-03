@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { FrameworkModule } from './framework/framework.module';
 import { AppInjector } from './app-injector.service';
+import { GalleryModule } from './gallery/gallery.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AppInjector } from './app-injector.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     AddressModule,
-    ConfirmModule
+    ConfirmModule,
+    GalleryModule
   ],
   providers: []
 })

@@ -1,10 +1,29 @@
 .footer-header {
     padding: 12px;
-    font-size: 12px;
+    font-size: 0.75em;
     display: flex;
+    align-content: center;
+    justify-content: center;
 
-    .flex-spacer {
+    .footer-copyrights {
         flex-grow: 1;
+        text-align: left;
+        width: 33%;
+    }
+
+    .footer-github-logo {
+        flex-grow: 1;
+        text-align: center;
+        width: 33%;
+        > a > svg {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    .footer-version {
+        flex-grow: 1;
+        text-align: right;
+        width: 33%;
     }
 }
-
