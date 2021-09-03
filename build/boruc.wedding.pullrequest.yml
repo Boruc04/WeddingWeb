@@ -34,7 +34,7 @@ stages:
       - name: buildConfiguration
         value: 'Release'
       - name: testProjectPath
-        value: 'test/**/WeddingWeb.Domain.Tests.csproj'
+        value: 'src/Tests/**/*.Tests.csproj'
       - name: codecovVersion
         value: '1.13.0'
     steps:
@@ -77,7 +77,7 @@ stages:
         testRunTitle: 'Wedding Web Tests'
       displayName: run tests
     - script: |
-        %USERPROFILE%\.nuget\packages\codecov\$(codecovVersion)\tools\codecov.exe -f "./test/WeddingWeb.Domain.Tests/coverage.opencover.xml" -t $(CODECOV_TOKEN)
+        %USERPROFILE%\.nuget\packages\codecov\$(codecovVersion)\tools\codecov.exe -f "./src/Tests/WeddingWeb.Domain.Tests/coverage.opencover.xml" -t $(CODECOV_TOKEN)
       displayName: 'Codecov'
     - task: DotNetCoreCLI@2
       inputs:
