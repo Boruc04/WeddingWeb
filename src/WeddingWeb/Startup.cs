@@ -58,6 +58,7 @@ namespace WeddingWeb
 				services.AddTransient<IEmailService, MockEmailService>();
 			}
 			services.AddSingleton<VersionService>();
+			services.AddTransient<GalleryService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
