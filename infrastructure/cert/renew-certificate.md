@@ -15,8 +15,8 @@ Open powershell console with and admin rights, run bellow command and respond to
 ```powershell
 certbot certonly -d www.paulinaimichal.borucinscy.pl --manual --preferred-challenges dns 
 ```
+Go to `C:\Certbot\live\www.paulinaimichal.borucinscy.pl` following files should be generated.
 
-Following files should be generated
 ![Certbot Certs](certbot_certificates.png)
 
 Go to the cert folder.
@@ -39,6 +39,7 @@ pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile ch
 ```
 
 Certificate should looks like bellow.
+
 ![pkcs12 cert](pkcs12_certificate.png)
 
 ### Upload to the KeyVault
