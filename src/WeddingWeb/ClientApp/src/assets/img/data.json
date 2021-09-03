@@ -1,0 +1,236 @@
+[
+    {
+        "name": "66bf31d1-8c71-444f-b462-6b59aae7111d",
+        "preview_xxs": {
+            "path": "api/image/preview_xxs/66bf31d1-8c71-444f-b462-6b59aae7111d",
+            "width": 250,
+            "height": 375
+        },
+        "preview_xs": {
+            "path": "api/image/preview_xs/66bf31d1-8c71-444f-b462-6b59aae7111d",
+            "width": 512,
+            "height": 768
+        },
+        "preview_s": {
+            "path": "api/image/preview_s/66bf31d1-8c71-444f-b462-6b59aae7111d",
+            "width": 720,
+            "height": 1080
+        },
+        "preview_m": {
+            "path": "api/image/preview_m/66bf31d1-8c71-444f-b462-6b59aae7111d",
+            "width": 1067,
+            "height": 1600
+        },
+        "preview_l": {
+            "path": "api/image/preview_l/66bf31d1-8c71-444f-b462-6b59aae7111d",
+            "width": 1440,
+            "height": 2160
+        },
+        "preview_xl": {
+            "path": "api/image/preview_xl/66bf31d1-8c71-444f-b462-6b59aae7111d",
+            "width": 1920,
+            "height": 2880
+        },
+        "raw": {
+            "path": "api/image/raw/66bf31d1-8c71-444f-b462-6b59aae7111d",
+            "width": 4000,
+            "height": 6000
+        },
+        "dominantColor": "#5c472b"
+    },
+    {
+        "name": "83645c78-cf35-429f-8300-c4d547142dc6",
+        "preview_xxs": {
+            "path": "api/image/preview_xxs/83645c78-cf35-429f-8300-c4d547142dc6",
+            "width": 250,
+            "height": 375
+        },
+        "preview_xs": {
+            "path": "api/image/preview_xs/83645c78-cf35-429f-8300-c4d547142dc6",
+            "width": 512,
+            "height": 768
+        },
+        "preview_s": {
+            "path": "api/image/preview_s/83645c78-cf35-429f-8300-c4d547142dc6",
+            "width": 720,
+            "height": 1080
+        },
+        "preview_m": {
+            "path": "api/image/preview_m/83645c78-cf35-429f-8300-c4d547142dc6",
+            "width": 1067,
+            "height": 1600
+        },
+        "preview_l": {
+            "path": "api/image/preview_l/83645c78-cf35-429f-8300-c4d547142dc6",
+            "width": 1440,
+            "height": 2160
+        },
+        "preview_xl": {
+            "path": "api/image/preview_xl/83645c78-cf35-429f-8300-c4d547142dc6",
+            "width": 1920,
+            "height": 2880
+        },
+        "raw": {
+            "path": "api/image/raw/83645c78-cf35-429f-8300-c4d547142dc6",
+            "width": 4000,
+            "height": 6000
+        },
+        "dominantColor": "#6c4629"
+    },
+    {
+        "name": "8a675a01-ba39-4407-9526-9502550db218",
+        "preview_xxs": {
+            "path": "api/image/preview_xxs/8a675a01-ba39-4407-9526-9502550db218",
+            "width": 563,
+            "height": 375
+        },
+        "preview_xs": {
+            "path": "api/image/preview_xs/8a675a01-ba39-4407-9526-9502550db218",
+            "width": 1152,
+            "height": 768
+        },
+        "preview_s": {
+            "path": "api/image/preview_s/8a675a01-ba39-4407-9526-9502550db218",
+            "width": 1620,
+            "height": 1080
+        },
+        "preview_m": {
+            "path": "api/image/preview_m/8a675a01-ba39-4407-9526-9502550db218",
+            "width": 2400,
+            "height": 1600
+        },
+        "preview_l": {
+            "path": "api/image/preview_l/8a675a01-ba39-4407-9526-9502550db218",
+            "width": 3240,
+            "height": 2160
+        },
+        "preview_xl": {
+            "path": "api/image/preview_xl/8a675a01-ba39-4407-9526-9502550db218",
+            "width": 4320,
+            "height": 2880
+        },
+        "raw": {
+            "path": "api/image/raw/8a675a01-ba39-4407-9526-9502550db218",
+            "width": 6000,
+            "height": 4000
+        },
+        "dominantColor": "#492e1b"
+    },
+    {
+        "name": "ad71a9f0-f1f3-407b-9492-402548b9afe9",
+        "preview_xxs": {
+            "path": "api/image/preview_xxs/ad71a9f0-f1f3-407b-9492-402548b9afe9",
+            "width": 563,
+            "height": 375
+        },
+        "preview_xs": {
+            "path": "api/image/preview_xs/ad71a9f0-f1f3-407b-9492-402548b9afe9",
+            "width": 1152,
+            "height": 768
+        },
+        "preview_s": {
+            "path": "api/image/preview_s/ad71a9f0-f1f3-407b-9492-402548b9afe9",
+            "width": 1620,
+            "height": 1080
+        },
+        "preview_m": {
+            "path": "api/image/preview_m/ad71a9f0-f1f3-407b-9492-402548b9afe9",
+            "width": 2400,
+            "height": 1600
+        },
+        "preview_l": {
+            "path": "api/image/preview_l/ad71a9f0-f1f3-407b-9492-402548b9afe9",
+            "width": 3240,
+            "height": 2160
+        },
+        "preview_xl": {
+            "path": "api/image/preview_xl/ad71a9f0-f1f3-407b-9492-402548b9afe9",
+            "width": 4320,
+            "height": 2880
+        },
+        "raw": {
+            "path": "api/image/raw/ad71a9f0-f1f3-407b-9492-402548b9afe9",
+            "width": 6000,
+            "height": 4000
+        },
+        "dominantColor": "#3a220f"
+    },
+    {
+        "name": "ae8b7c61-6464-45c3-a4dd-e29210e3e9f2",
+        "preview_xxs": {
+            "path": "api/image/preview_xxs/ae8b7c61-6464-45c3-a4dd-e29210e3e9f2",
+            "width": 563,
+            "height": 375
+        },
+        "preview_xs": {
+            "path": "api/image/preview_xs/ae8b7c61-6464-45c3-a4dd-e29210e3e9f2",
+            "width": 1152,
+            "height": 768
+        },
+        "preview_s": {
+            "path": "api/image/preview_s/ae8b7c61-6464-45c3-a4dd-e29210e3e9f2",
+            "width": 1620,
+            "height": 1080
+        },
+        "preview_m": {
+            "path": "api/image/preview_m/ae8b7c61-6464-45c3-a4dd-e29210e3e9f2",
+            "width": 2400,
+            "height": 1600
+        },
+        "preview_l": {
+            "path": "api/image/preview_l/ae8b7c61-6464-45c3-a4dd-e29210e3e9f2",
+            "width": 3240,
+            "height": 2160
+        },
+        "preview_xl": {
+            "path": "api/image/preview_xl/ae8b7c61-6464-45c3-a4dd-e29210e3e9f2",
+            "width": 4320,
+            "height": 2880
+        },
+        "raw": {
+            "path": "api/image/raw/ae8b7c61-6464-45c3-a4dd-e29210e3e9f2",
+            "width": 6000,
+            "height": 4000
+        },
+        "dominantColor": "#777876"
+    },
+    {
+        "name": "b1c340d1-ef99-48f4-a38a-70dc40077fdc",
+        "preview_xxs": {
+            "path": "api/image/preview_xxs/b1c340d1-ef99-48f4-a38a-70dc40077fdc",
+            "width": 563,
+            "height": 375
+        },
+        "preview_xs": {
+            "path": "api/image/preview_xs/b1c340d1-ef99-48f4-a38a-70dc40077fdc",
+            "width": 1152,
+            "height": 768
+        },
+        "preview_s": {
+            "path": "api/image/preview_s/b1c340d1-ef99-48f4-a38a-70dc40077fdc",
+            "width": 1620,
+            "height": 1080
+        },
+        "preview_m": {
+            "path": "api/image/preview_m/b1c340d1-ef99-48f4-a38a-70dc40077fdc",
+            "width": 2400,
+            "height": 1600
+        },
+        "preview_l": {
+            "path": "api/image/preview_l/b1c340d1-ef99-48f4-a38a-70dc40077fdc",
+            "width": 3240,
+            "height": 2160
+        },
+        "preview_xl": {
+            "path": "api/image/preview_xl/b1c340d1-ef99-48f4-a38a-70dc40077fdc",
+            "width": 4320,
+            "height": 2880
+        },
+        "raw": {
+            "path": "api/image/raw/b1c340d1-ef99-48f4-a38a-70dc40077fdc",
+            "width": 6000,
+            "height": 4000
+        },
+        "dominantColor": "#6c6c6c"
+    }
+]

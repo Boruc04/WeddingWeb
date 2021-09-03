@@ -8,5 +8,4 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
-environment.apiUrl = window.location.href + "/api";
 platformBrowserDynamic().bootstrapModule(AppModule);
