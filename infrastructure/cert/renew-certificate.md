@@ -15,8 +15,7 @@ Open powershell console with and admin rights, run bellow command and respond to
 ```powershell
 certbot certonly -d www.paulinaimichal.borucinscy.pl --manual --preferred-challenges dns 
 ```
-
-Following files should be generated
+Go to `C:\Certbot\live\www.paulinaimichal.borucinscy.pl` following files should be generated.
 
 ![Certbot Certs](certbot_certificates.png)
 
