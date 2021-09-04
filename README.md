@@ -6,9 +6,9 @@ Application build for the purpose of my own wedding over time evolved into small
 
 ## Build Status
 
-| Application | Build Status |
-|-------------|--------------|
-| WeddingWeb | [![Build Status](https://dev.azure.com/Boruc/WeddingWeb/_apis/build/status/wedding-web-master?branchName=master)](https://dev.azure.com/Boruc/WeddingWeb/_build/latest?definitionId=31&branchName=master) | 
+| Application | Build Status | Codecov |
+|-------------|--------------| ------- |
+| WeddingWeb | [![Build Status](https://dev.azure.com/Boruc/WeddingWeb/_apis/build/status/wedding-web-master?branchName=master)](https://dev.azure.com/Boruc/WeddingWeb/_build/latest?definitionId=31&branchName=master) | [![codecov](https://codecov.io/gh/Boruc04/WeddingWeb/branch/master/graph/badge.svg?token=Y2JT3YQWJL)](https://codecov.io/gh/Boruc04/WeddingWeb) |
 
 ## Technology involved
 
