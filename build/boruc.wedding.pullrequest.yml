@@ -126,7 +126,7 @@ stages:
           command: 'apply'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
-          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          environmentServiceNameAzureRM: 'WeddingWeb'
         name: TerraformApply
         displayName: terraform apply
       - task: PowerShell@2
@@ -154,9 +154,9 @@ stages:
       - task: AzureRmWebAppDeployment@4
         inputs:
           ConnectionType: 'AzureRM'
-          azureSubscription: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          azureSubscription: 'WeddingWeb'
           appType: 'webApp'
-          WebAppName: $(WebAppName)
+          WebAppName: '$(WebAppName)'
           packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
         displayName: deploy application
 
@@ -191,7 +191,7 @@ stages:
           provider: 'azurerm'
           command: 'init'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-          backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          backendServiceArm: 'WeddingWeb'
           backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
           backendAzureRmStorageAccountName: 'weddingwebterraform'
           backendAzureRmContainerName: 'terraform'
@@ -203,5 +203,5 @@ stages:
           command: 'destroy'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
-          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          environmentServiceNameAzureRM: 'WeddingWeb'
         displayName: terraform destory
