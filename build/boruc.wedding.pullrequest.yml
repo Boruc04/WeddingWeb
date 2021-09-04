@@ -77,7 +77,10 @@ stages:
         testRunTitle: 'Wedding Web Tests'
       displayName: run tests
     - script: |
-        %USERPROFILE%\.nuget\packages\codecov\$(codecovVersion)\tools\codecov.exe -f "./src/Tests/WeddingWeb.Domain.Tests/coverage.opencover.xml" -t $(CODECOV_TOKEN)
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+
+        chmod +x codecov
+        ./codecov -t ${CODECOV_TOKEN}
       displayName: 'Codecov'
     - task: DotNetCoreCLI@2
       inputs:
