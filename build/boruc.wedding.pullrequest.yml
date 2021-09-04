@@ -13,6 +13,7 @@ pr:
   drafts: false
 
 variables:
+
   - name: terraformVersion
     value: '0.14.7'
   - name: tfvarsFileName
@@ -29,11 +30,13 @@ stages:
     dependsOn: []
     variables:
       - name: projectPath
-        value: 'src/**/WeddingWeb.csproj'
+        value: 'src/Web/**/WeddingWeb.csproj'
       - name: buildConfiguration
         value: 'Release'
       - name: testProjectPath
-        value: 'test/**/*Tests.csproj'
+        value: 'src/Tests/**/*.Tests.csproj'
+      - name: codecovVersion
+        value: '1.13.0'
     steps:
     - checkout: self
     - task: UseDotNet@2
@@ -46,7 +49,7 @@ stages:
     - task: gitversion/execute@0
       inputs:
         useConfigFile: true
-        configFilePath: './pipelines/GitVersion/GitVersion.yml'
+        configFilePath: './build/GitVersion/GitVersion.yml'
         additionalArguments: '/updateprojectfiles'
     - task: DotNetCoreCLI@2
       inputs:
@@ -68,10 +71,22 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
-        projects: '$(testProjectPath)'
-        arguments: '--no-build'
+        projects: $(testProjectPath)
+        arguments: '-c Debug /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+        publishTestResults: false
         testRunTitle: 'Wedding Web Tests'
       displayName: run tests
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'WeddingWeb'
+        KeyVaultName: 'wedding-web-eu-q-kv'
+        SecretsFilter: 'CODECOVTOKEN'
+        RunAsPreJob: false
+    - script: |
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -t $(CODECOVTOKEN)
+      displayName: 'Codecov'
     - task: DotNetCoreCLI@2
       inputs:
         command: publish
@@ -98,7 +113,7 @@ stages:
           provider: 'azurerm'
           command: 'init'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-          backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          backendServiceArm: 'WeddingWeb'
           backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
           backendAzureRmStorageAccountName: 'weddingwebterraform'
           backendAzureRmContainerName: 'terraform'
@@ -111,7 +126,7 @@ stages:
           command: 'apply'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
-          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          environmentServiceNameAzureRM: 'WeddingWeb'
         name: TerraformApply
         displayName: terraform apply
       - task: PowerShell@2
@@ -139,9 +154,9 @@ stages:
       - task: AzureRmWebAppDeployment@4
         inputs:
           ConnectionType: 'AzureRM'
-          azureSubscription: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          azureSubscription: 'WeddingWeb'
           appType: 'webApp'
-          WebAppName: $(WebAppName)
+          WebAppName: '$(WebAppName)'
           packageForLinux: '$(Pipeline.Workspace)/**/WeddingWeb.zip'
         displayName: deploy application
 
@@ -176,7 +191,7 @@ stages:
           provider: 'azurerm'
           command: 'init'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
-          backendServiceArm: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          backendServiceArm: 'WeddingWeb'
           backendAzureRmResourceGroupName: 'boruc-common-eu-rg'
           backendAzureRmStorageAccountName: 'weddingwebterraform'
           backendAzureRmContainerName: 'terraform'
@@ -188,5 +203,5 @@ stages:
           command: 'destroy'
           workingDirectory: '$(System.DefaultWorkingDirectory)/infrastructure/terraform'
           commandOptions: '-auto-approve -var-file="$(tfvarsFileName)"'
-          environmentServiceNameAzureRM: 'Subskrypcja programu Visual Studio Professional(a8f64608-16de-41a8-880a-c0b812cebad3)'
+          environmentServiceNameAzureRM: 'WeddingWeb'
         displayName: terraform destory

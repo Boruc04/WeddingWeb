@@ -26,7 +26,7 @@ namespace WeddingWeb.Controllers
 		[Produces("image/jpeg")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<IActionResult> GetImage(string imageSize, string imageName)
+		public IActionResult GetImage(string imageSize, string imageName)
 		{
 			var imagePath = _galleryService.BuildImagePath(imageSize, imageName);
 			return File(imagePath, "image/jpeg");
