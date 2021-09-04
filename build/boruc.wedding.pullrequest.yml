@@ -85,7 +85,7 @@ stages:
     - script: |
         curl -Os https://uploader.codecov.io/latest/linux/codecov
         chmod +x codecov
-        ./codecov -t $env:CODECOVTOKEN
+        ./codecov -t $(CODECOVTOKEN)
       displayName: 'Codecov'
     - task: DotNetCoreCLI@2
       inputs:
