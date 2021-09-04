@@ -76,10 +76,16 @@ stages:
         publishTestResults: false
         testRunTitle: 'Wedding Web Tests'
       displayName: run tests
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'WeddingWeb'
+        KeyVaultName: 'wedding-web-eu-q-kv'
+        SecretsFilter: 'CODECOVTOKEN'
+        RunAsPreJob: false
     - script: |
         curl -Os https://uploader.codecov.io/latest/linux/codecov
         chmod +x codecov
-        ./codecov -t ${env:CODECOV_TOKEN}
+        ./codecov -t ${CODECOVTOKEN}
       displayName: 'Codecov'
     - task: DotNetCoreCLI@2
       inputs:
