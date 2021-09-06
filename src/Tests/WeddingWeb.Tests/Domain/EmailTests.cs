@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using WeddingWeb.Domain.Email;
 
-namespace WeddingWeb.Domain.Tests
+namespace WeddingWeb.Tests.Domain
 {
 
 	public class EmailTests
@@ -16,7 +16,7 @@ namespace WeddingWeb.Domain.Tests
 			var validNeedHotel = new NeedHotel { Value = true };
 			var validNeedDrive = new NeedDrive { Value = true };
 
-			Assert.DoesNotThrow(() => new Email.Email(validEmail, validGuestNumber, validGuestList, validAdditionalInfo,
+			Assert.DoesNotThrow(() => new WeddingWeb.Domain.Email.Email(validEmail, validGuestNumber, validGuestList, validAdditionalInfo,
 				validNeedHotel, validNeedDrive));
 		}
 	}
