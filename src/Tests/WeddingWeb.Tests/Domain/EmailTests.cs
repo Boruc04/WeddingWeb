@@ -12,11 +12,11 @@ namespace WeddingWeb.Tests.Domain
 			var validEmail = MainEmailTests.CreateValidMainEmail();
 			var validGuestNumber = GuestNumberTests.CreateValidGuestNumber();
 			var validGuestList = GuestTests.CreateValidGuestList();
-			var validAdditionalInfo = new AdditionalInfo() { Value = "test" };
+			var validAdditionalInfo = new AdditionalInfo { Value = "test" };
 			var validNeedHotel = new NeedHotel { Value = true };
 			var validNeedDrive = new NeedDrive { Value = true };
 
-			Assert.DoesNotThrow(() => new WeddingWeb.Domain.Email.Email(validEmail, validGuestNumber, validGuestList, validAdditionalInfo,
+			Assert.DoesNotThrow(() => new Email(validEmail, validGuestNumber, validGuestList, validAdditionalInfo,
 				validNeedHotel, validNeedDrive));
 		}
 	}
