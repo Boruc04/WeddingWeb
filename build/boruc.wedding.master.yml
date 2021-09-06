@@ -34,7 +34,7 @@ stages:
     - task: gitversion/execute@0
       inputs:
         useConfigFile: true
-        configFilePath: './pipelines/GitVersion/GitVersion.yml'
+        configFilePath: './build/GitVersion/GitVersion.yml'
         additionalArguments: '/updateprojectfiles'
     - task: DotNetCoreCLI@2
       inputs:
