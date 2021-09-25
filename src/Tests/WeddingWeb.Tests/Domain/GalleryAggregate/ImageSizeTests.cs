@@ -26,9 +26,9 @@ namespace WeddingWeb.Tests.Domain.GalleryAggregate
 
 		private static IEnumerable<string> InvalidImageSize()
 		{
-			yield return "preview_L";
-			yield return "preView_M";
-			yield return "peView_M";
+			yield return "previedw_L";
+			yield return "prdeView_M";
+			yield return "peVsiew_M";
 			yield return "preVieasdw_M";
 			yield return "asd";
 		}
