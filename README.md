@@ -54,12 +54,17 @@ Please follow [the instruction](infrastructure/cert/renew-certificate.md) to be 
 
 ## Future plans
 
-- introduce terraform
-- gallery with authentication via AAD
-- video share with authentication via AAD
-- separate apps
-- containerize apps
-- introduce automatic TLS/SSL cert renewal
+- [x] introduce Key Vault
+- [x] introduce CI/CD.
+- [x] introduce terraform
+- [ ] gallery with authentication via AAD
+- [ ] video share with authentication via AAD
+- [ ] separate apps
+- [ ] containerize apps
+- [ ] introduce automatic TLS/SSL cert renewal
+- [ ] health checks
+- [ ] customize swagger
+- [ ] introduce fronted unit tests
 
 ## Credits
 
