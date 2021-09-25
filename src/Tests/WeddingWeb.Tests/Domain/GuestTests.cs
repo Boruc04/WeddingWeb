@@ -1,8 +1,9 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
+using WeddingWeb.Domain;
 using WeddingWeb.Domain.Email;
 
-namespace WeddingWeb.Domain.Tests
+namespace WeddingWeb.Tests.Domain
 {
 	public class GuestTests
 	{
