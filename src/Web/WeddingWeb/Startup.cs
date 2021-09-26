@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
@@ -29,13 +31,12 @@ namespace WeddingWeb
 		/// <param name="services"></param>
 		public void ConfigureServices(IServiceCollection services)
 		{
-
 			services.AddApplicationInsightsTelemetry(_configuration["ApplicationInsights:InstrumentationKey"]);
 			services.AddCors(options =>
 			{
 				options.AddPolicy("AllowOrigin", builder =>
 				{
-					builder 
+					builder
 						.WithOrigins(_configuration["AllowCORSOrigins:Uri"])
 						.AllowAnyMethod()
 						.AllowAnyHeader();
@@ -43,6 +44,7 @@ namespace WeddingWeb
 			});
 
 			services
+				.AddCustomAuthentication(_configuration)
 				.AddCustomRouting()
 				.AddCustomSwagger();
 
@@ -91,12 +93,15 @@ namespace WeddingWeb
 				app.UseSpaStaticFiles();
 			}
 
-			app.UseRouting()
-				.UseEndpoints(endpoints =>
-				{
-					endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
-				});
+			app.UseRouting();
 
+			app.UseAuthentication();
+			app.UseAuthorization();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
+			});
 
 			app.UseSpa(spa =>
 			{
@@ -114,6 +119,18 @@ namespace WeddingWeb
 
 	internal static class CustomStartupExtensionsMethods
 	{
+		public static IServiceCollection AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
+		{
+			services.AddAuthentication(options =>
+				{
+					options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+					options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				})
+			.AddMicrosoftIdentityWebApi(configuration, "AzureAd");
+
+			return services;
+		}
+
 		public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
 		{
 			var version = Assembly.GetExecutingAssembly()
@@ -139,6 +156,14 @@ namespace WeddingWeb
 				options.IncludeXmlComments($@"{AppDomain.CurrentDomain.BaseDirectory}\{Assembly.GetExecutingAssembly()
 					.GetName()
 					.Name}.xml");
+
+				options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+				{
+					Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+					Name = "Authorization",
+					In = ParameterLocation.Header,
+					Type = SecuritySchemeType.ApiKey
+				});
 			});
 			return services;
 		}
