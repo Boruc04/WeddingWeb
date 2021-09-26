@@ -52,8 +52,8 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     variables:
-    - name: projectPath
-      value: 'src/**/WeddingWeb.csproj'
+    - name: testProjectPath
+      value: 'src/Tests/**/*.Tests.csproj'
     steps:
     - checkout: self
     - task: UseDotNet@2
