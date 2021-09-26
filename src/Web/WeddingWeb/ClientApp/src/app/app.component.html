@@ -1,3 +1,7 @@
+
+<a mat-button class="navbar-hide-small navbar-button flex-end" (click)="login()">Login</a>
+<a mat-button class="navbar-hide-small navbar-button flex-end" (click)="logout()">Logout</a>
 <app-navbar class="mat-elevation-z6"></app-navbar>
-<router-outlet></router-outlet>
+<!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
+<router-outlet *ngIf="!isIframe"></router-outlet>
 <app-footer class="mat-elevation-z3"></app-footer>

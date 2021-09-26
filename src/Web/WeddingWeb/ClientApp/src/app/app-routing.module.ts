@@ -6,18 +6,24 @@ import { ContactComponent } from './contact/contact.component';
 import { AddressComponent } from './address/address.component';
 import { PhotoComponent } from './gallery/photo/photo.component';
 import { VideoComponent } from './gallery/video/video.component';
+import { MsalGuard } from '@azure/msal-angular';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'confirm', component: ConfirmComponent },
   { path: 'address', component: AddressComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'gallery', component: PhotoComponent },
-  { path: 'video', component: VideoComponent }
+  { path: 'gallery', component: PhotoComponent, canActivate: [MsalGuard] },
+  { path: 'video', component: VideoComponent, canActivate: [MsalGuard] }
 ];
 
+const isIframe = window !== window.parent && !window.opener;
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: !isIframe ? 'enabled' : 'disabled', // Don't perform initial navigation in iframes
+    relativeLinkResolution: 'legacy'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
