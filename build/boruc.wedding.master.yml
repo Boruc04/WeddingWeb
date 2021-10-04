@@ -48,6 +48,37 @@ stages:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
         artifactName: 'WeddingWeb'
       displayName: Publish build artifact.
+  - job: Test
+    pool:
+      vmImage: 'ubuntu-latest'
+    variables:
+    - name: testProjectPath
+      value: 'src/Tests/**/*.Tests.csproj'
+    steps:
+    - checkout: self
+    - task: UseDotNet@2
+      inputs:
+        version: '5.x'
+      displayName: Use Dot Net.
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        projects: $(testProjectPath)
+        arguments: '-c Debug /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+        publishTestResults: false
+        testRunTitle: 'Wedding Web Tests'
+      displayName: run tests
+    - task: AzureKeyVault@2
+      inputs:
+        azureSubscription: 'WeddingWeb'
+        KeyVaultName: 'wedding-web-eu-q-kv'
+        SecretsFilter: 'CODECOVTOKEN'
+        RunAsPreJob: false
+    - script: |
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -t $(CODECOVTOKEN)
+      displayName: 'Codecov'
 
 - stage: Release
   displayName: Wedding.Web.Release.Prod
