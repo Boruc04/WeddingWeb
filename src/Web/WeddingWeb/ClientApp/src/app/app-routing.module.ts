@@ -7,14 +7,15 @@ import { AddressComponent } from './address/address.component';
 import { PhotoComponent } from './gallery/photo/photo.component';
 import { VideoComponent } from './gallery/video/video.component';
 import { MsalGuard } from '@azure/msal-angular';
+import { CanLoadPhotoAndVideoGuard } from './framework/guards/CanLoadPhotoAndVideoGuard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'confirm', component: ConfirmComponent },
   { path: 'address', component: AddressComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'gallery', component: PhotoComponent, canActivate: [MsalGuard] },
-  { path: 'video', component: VideoComponent, canActivate: [MsalGuard] }
+  { path: 'gallery', component: PhotoComponent, canActivate: [MsalGuard], canLoad: [] },
+  { path: 'video', component: VideoComponent, canActivate: [CanLoadPhotoAndVideoGuard] }
 ];
 
 const isIframe = window !== window.parent && !window.opener;
