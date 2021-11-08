@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent } from '@azure/msal-angular';
-import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
+import { BrowserCacheLocation, InteractionType, PublicClientApplication } from '@azure/msal-browser';
 
 import { NavBarModule } from './navbar/navbar.component';
 import { FooterModule } from './footer/footer.component';
@@ -41,21 +41,21 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       auth: {
         clientId: 'a83cd422-8341-438b-a4cb-81b855b705bd', // This is your client ID
         authority: 'https://login.microsoftonline.com/c5ee535a-1291-4ccd-a095-a993352febf4', // This is your tenant ID
-        redirectUri: 'https://localhost:5001/'// This is your redirect URI
+        redirectUri: '/'// This is your redirect URI
       },
       cache: {
-        cacheLocation: 'localStorage',
+        cacheLocation: BrowserCacheLocation.LocalStorage,
         storeAuthStateInCookie: isIE, // Set to true for Internet Explorer 11
       }
     }), {
       interactionType: InteractionType.Redirect,
       authRequest: {
-        scopes: ['user.read']
+        scopes: ['user.read','api://a83cd422-8341-438b-a4cb-81b855b705bd/access_as_user']
       }
     }, {
       interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
       protectedResourceMap: new Map([
-        ['https://localhost:5001/api/image/', ['api://a83cd422-8341-438b-a4cb-81b855b705bd/access_as_user']],
+        ['https://localhost:5001/api/image', ['api://a83cd422-8341-438b-a4cb-81b855b705bd/access_as_user']],
         ['https://graph.microsoft.com/v1.0/me', ['user.read']]
       ])
     })

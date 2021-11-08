@@ -31,7 +31,7 @@ namespace WeddingWeb.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult GetImage(string imageSize, string imageName)
 		{
-			 HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+			HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
 
 			var imagePath = _galleryService.BuildImagePath(imageSize, imageName);
 			return File(imagePath, "image/jpeg");

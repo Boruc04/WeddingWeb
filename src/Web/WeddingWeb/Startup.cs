@@ -126,8 +126,9 @@ namespace WeddingWeb
 					options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 					options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 				})
-			.AddMicrosoftIdentityWebApi(configuration, "AzureAd");
+			.AddMicrosoftIdentityWebApi(configuration);
 
+			services.AddAuthorization();
 			return services;
 		}
 
