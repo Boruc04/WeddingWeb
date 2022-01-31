@@ -7,6 +7,7 @@
 @import "app/home/home-theme";
 @import "app/address/address-theme";
 @import "app/confirm/confirmation-theme";
+@import "app/gallery/components/angular2-image-gallery/viewer/_viewer-theme.scss";
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -38,6 +39,8 @@ $wedding-web-app-theme: mat-light-theme($wedding-web-app-primary, $wedding-web-a
 @include home-theme($wedding-web-app-theme);
 @include address-theme($wedding-web-app-theme);
 @include confirmation-theme($wedding-web-app-theme);
+@include viewer-theme($wedding-web-app-theme);
+
 
 @font-face {
   font-family: "Magnolia-Script";

@@ -9,7 +9,7 @@
                  [style.width.px]="img['width']"
                  [style.height.px]="img['height']"
                  (click)="openImageViewer(img)"
-                 [src]="img['srcAfterFocus'] | protectImage | async"
+                 [src]="img['srcAfterFocus'] | protectImage: 'url' | async"
                  [style.background]="img.dominantColor"
                  [style.margin-right.px]="calcImageMargin()"/>
         </div>
