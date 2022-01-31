@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Microsoft.Identity.Web.Resource;
 using WeddingWeb.Services;
 
 namespace WeddingWeb.Controllers
 {
+	[Authorize]
 	[ApiController]
 	[ApiVersion("1.0")]
 	[Route("api/image")]
 	public class GalleryController : ControllerBase
 	{
 		private readonly GalleryService _galleryService;
+		static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
 
 		public GalleryController(GalleryService galleryService)
 		{
@@ -28,6 +31,8 @@ namespace WeddingWeb.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public IActionResult GetImage(string imageSize, string imageName)
 		{
+			HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+
 			var imagePath = _galleryService.BuildImagePath(imageSize, imageName);
 			return File(imagePath, "image/jpeg");
 		}

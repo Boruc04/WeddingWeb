@@ -1,0 +1,7 @@
+@mixin viewer-theme($theme) {
+  viewer {
+    .outerContainer {
+      background-color: rgba(0, 0, 0, 0.95);
+    }
+  }
+}
