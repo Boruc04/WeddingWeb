@@ -44,7 +44,7 @@ Certificate should looks like bellow.
 
 ### Upload to the KeyVault
 
-- Login to the <portal.azure.com>
+- Login to the [portal.azure.com](https://portal.azure.com/#home)
 - Import the certificate into the Key Vault.
 - Go to the App Service -> TLS/SSL settings tab -> Private Key Certificates and import cert from the Key Vault.
 
