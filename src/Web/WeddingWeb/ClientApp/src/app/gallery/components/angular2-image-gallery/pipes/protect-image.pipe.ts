@@ -1,12 +1,5 @@
-import {
-    Pipe,
-    PipeTransform,
-    OnDestroy
-} from '@angular/core';
-
+import { Pipe, PipeTransform, OnDestroy } from '@angular/core';
 import { Subscription, Observable, BehaviorSubject } from 'rxjs';
-
-
 import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
@@ -27,7 +20,7 @@ export class ProtectImagePipe implements PipeTransform, OnDestroy {
     ) { }
 
     ngOnDestroy(): void {
-        if (this._internalSubscription){
+        if (this._internalSubscription) {
             this._internalSubscription.unsubscribe();
             this._internalSubscription = null;
         }

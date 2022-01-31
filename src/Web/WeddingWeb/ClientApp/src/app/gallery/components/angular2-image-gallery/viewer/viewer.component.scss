@@ -82,6 +82,7 @@
     right: 0px;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     & .image,
     & .preloading-image {
@@ -91,7 +92,9 @@
     .image.active {
       position: absolute;
       visibility: visible;
-      height: 100%;
+      height: auto;
+      max-height: 95%;
+      max-width: 95%;
     }
   }
 }
