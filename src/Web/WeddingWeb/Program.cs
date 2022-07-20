@@ -1,22 +1,14 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using WeddingWeb.Helpers.Extensions;
+using Microsoft.AspNetCore.Builder;
+using WeddingWeb;
 
-namespace WeddingWeb
-{
-	public class Program
-	{
-		public static void Main(string[] args)
-		{
-			CreateHostBuilder(args).Build().Run();
-		}
+var builder = WebApplication.CreateBuilder(args);
 
-		public static IHostBuilder CreateHostBuilder(string[] args) =>
-			Host.CreateDefaultBuilder(args)
-				.AddKeyVault()
-				.ConfigureWebHostDefaults(webBuilder =>
-				{
-					webBuilder.UseStartup<Startup>();
-				});
-	}
-}
+var startup = new Startup(builder.Configuration, builder.Environment);
+
+startup.ConfigureServices(builder.Services);
+
+var app = builder.Build();
+
+startup.Configure(app, app.Environment);
+
+app.Run();
