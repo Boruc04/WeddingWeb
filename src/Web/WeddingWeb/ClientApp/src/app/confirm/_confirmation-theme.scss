@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @mixin confirmation-theme($theme) {
     $primary: map-get($theme, primary);
     $foreground: map-get($theme, foreground);
@@ -6,20 +7,20 @@
     $background: map-get($theme, background);
 
     .snackbar-success {
-        background-color: mat-color($background, status-bar);
-        color: mat-color($foreground, base);
+        background-color: mat.get-color-from-palette($background, status-bar);
+        color: mat.get-color-from-palette($foreground, base);
         
         button {
-            color: mat-color($foreground, base);
+            color: mat.get-color-from-palette($foreground, base);
         }
     }
 
     .snackbar-error {
-        background-color: mat-color($warn);
-        color: mat-color($warn, default-contrast);
+        background-color: mat.get-color-from-palette($warn);
+        color: mat.get-color-from-palette($warn, default-contrast);
 
         button {
-            color: mat-color($warn, default-contrast);
+            color: mat.get-color-from-palette($warn, default-contrast);
         }
     }
 }

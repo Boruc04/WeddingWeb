@@ -1,4 +1,5 @@
 // Custom Theming for Angular Material
+@use '~@angular/material' as mat;
 // For more information: https://material.angular.io/guide/theming
 @import "~@angular/material/theming";
 // Plus imports for other components in your app.
@@ -10,20 +11,20 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$wedding-web-app-primary: mat-palette($mat-cyan);
-$wedding-web-app-accent: mat-palette($mat-grey, A200, A100, A400);
-$wedding-web-app-background: mat-palette($mat-grey);
+$wedding-web-app-primary: mat.define-palette(mat.$cyan-palette);
+$wedding-web-app-accent: mat.define-palette(mat.$grey-palette, A200, A100, A400);
+$wedding-web-app-background: mat.define-palette(mat.$grey-palette);
 
 // The warn palette is optional (defaults to red).
-$wedding-web-app-warn: mat-palette($mat-red);
+$wedding-web-app-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$wedding-web-app-theme: mat-light-theme($wedding-web-app-primary, $wedding-web-app-accent, $wedding-web-app-warn);
+$wedding-web-app-theme: mat.define-light-theme($wedding-web-app-primary, $wedding-web-app-accent, $wedding-web-app-warn);
 
 // $background: map-get($wedding-web-app-theme, $key: background);
 // $background: map_merge($background, (background: #03dac6));
@@ -32,7 +33,7 @@ $wedding-web-app-theme: mat-light-theme($wedding-web-app-primary, $wedding-web-a
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($wedding-web-app-theme);
+@include mat.all-component-themes($wedding-web-app-theme);
 @include navbar-theme($wedding-web-app-theme);
 @include footer-theme($wedding-web-app-theme);
 @include home-theme($wedding-web-app-theme);

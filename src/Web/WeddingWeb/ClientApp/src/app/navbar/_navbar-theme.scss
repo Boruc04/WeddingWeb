@@ -1,11 +1,12 @@
+@use '~@angular/material' as mat;
 @mixin navbar-theme($theme) {
     $primary: map-get($theme, primary);
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
 
     app-navbar {
-        color: mat-color($foreground, base);
-        background-color: mat-color($background, app-bar);
+        color: mat.get-color-from-palette($foreground, base);
+        background-color: mat.get-color-from-palette($background, app-bar);
 
         .navbar-button,
         .navbar-link {
