@@ -65,6 +65,7 @@ Please follow [the instruction](infrastructure/cert/renew-certificate.md) to be 
 - [ ] health checks
 - [ ] customize swagger
 - [ ] introduce fronted unit tests
+- [ ] use bicep instead of terraform
 
 ## Credits
 
