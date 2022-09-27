@@ -10,148 +10,140 @@ using System.Reflection;
 using WeddingWeb.Helpers.Filters;
 using WeddingWeb.Services;
 
-namespace WeddingWeb
+public class Startup
 {
-	public class Startup
-	{
-		private readonly IConfiguration _configuration;
-		private readonly IWebHostEnvironment _environment;
+    private readonly IConfiguration _configuration;
+    private readonly IWebHostEnvironment _environment;
 
-		public Startup(IConfiguration configuration, IWebHostEnvironment environment)
-		{
-			_configuration = configuration;
-			_environment = environment;
-		}
+    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+    {
+        _configuration = configuration;
+        _environment = environment;
+    }
 
-		/// <summary>
-		/// This method gets called by the runtime. Use this method to add services to the container.
-		/// </summary>
-		/// <param name="services"></param>
-		public void ConfigureServices(IServiceCollection services)
-		{
+    /// <summary>
+    /// This method gets called by the runtime. Use this method to add services to the container.
+    /// </summary>
+    /// <param name="services"></param>
+    public void ConfigureServices(IServiceCollection services)
+    {
 
-			services.AddApplicationInsightsTelemetry(_configuration["ApplicationInsights:InstrumentationKey"]);
-			services.AddCors(options =>
-			{
-				options.AddPolicy("AllowOrigin", builder =>
-				{
-					builder 
-						.WithOrigins(_configuration["AllowCORSOrigins:Uri"])
-						.AllowAnyMethod()
-						.AllowAnyHeader();
-				});
-			});
+        services.AddApplicationInsightsTelemetry(_configuration["ApplicationInsights:InstrumentationKey"]);
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowOrigin", builder =>
+            {
+                builder
+                    .WithOrigins(_configuration["AllowCORSOrigins:Uri"])
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
 
-			services
-				.AddCustomRouting()
-				.AddCustomSwagger();
+        services
+            .AddCustomRouting()
+            .AddCustomSwagger();
 
-			services.AddSpaStaticFiles(
-				spaStaticFilesOptions => { spaStaticFilesOptions.RootPath = "ClientApp/dist/wedding-web-app"; }
-				);
-			if (_environment.IsProduction())
-			{
-				services.AddTransient<IEmailService, EmailService>();
-			}
-			else
-			{
-				services.AddTransient<IEmailService, MockEmailService>();
-			}
-			services.AddSingleton<VersionService>();
-			services.AddTransient<GalleryService>();
-		}
+        services.AddSpaStaticFiles(
+            spaStaticFilesOptions => { spaStaticFilesOptions.RootPath = "ClientApp/dist/wedding-web-app"; }
+            );
+        if (_environment.IsProduction())
+        {
+            services.AddTransient<IEmailService, EmailService>();
+        }
+        else
+        {
+            services.AddTransient<IEmailService, MockEmailService>();
+        }
+        services.AddSingleton<VersionService>();
+        services.AddTransient<GalleryService>();
+    }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
-			}
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (!env.IsDevelopment())
+        {
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
+        }
 
-			app.UseHttpsRedirection();
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+        app.UseCors("AllowOrigin");
 
-			app.UseStaticFiles();
-			app.UseCors("AllowOrigin");
+        app.UseSwagger()
+            .UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wedding Web");
+                c.RoutePrefix = "api";
+            });
 
-			app.UseSwagger()
-				.UseSwaggerUI(c =>
-				{
-					c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wedding Web");
-					c.RoutePrefix = "api";
-				});
+        if (!env.IsDevelopment())
+        {
+            app.UseSpaStaticFiles();
+        }
 
-			if (!env.IsDevelopment())
-			{
-				app.UseSpaStaticFiles();
-			}
-
-			app.UseRouting()
-				.UseEndpoints(endpoints =>
-				{
-					endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
-				});
+        app.UseRouting()
+            .UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
+            });
 
 
-			app.UseSpa(spa =>
-			{
-				// To learn more about options for serving an Angular SPA from ASP.NET Core,
-				// see https://go.microsoft.com/fwlink/?linkid=864501
+        app.UseSpa(spa =>
+        {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
 
-				spa.Options.SourcePath = "ClientApp";
-				if (env.IsDevelopment())
-				{
-					spa.UseAngularCliServer(npmScript: "start");
-				}
-			});
-		}
-	}
+            spa.Options.SourcePath = "ClientApp";
+            if (env.IsDevelopment())
+            {
+                spa.UseAngularCliServer(npmScript: "start");
+            }
+        });
+    }
+}
 
-	internal static class CustomStartupExtensionsMethods
-	{
-		public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
-		{
-			var version = Assembly.GetExecutingAssembly()
-				.GetCustomAttribute<AssemblyFileVersionAttribute>();
+internal static class CustomStartupExtensionsMethods
+{
+    public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
+    {
+        var version = Assembly.GetExecutingAssembly()
+            .GetCustomAttribute<AssemblyFileVersionAttribute>();
 
-			var desc = $"The Wedding Web <p><strong>Build: </strong>{version?.Version}</p> ";
+        var desc = $"The Wedding Web <p><strong>Build: </strong>{version?.Version}</p> ";
 
-			services.AddSwaggerGen(options =>
-			{
-				options.SwaggerDoc("v1", new OpenApiInfo
-				{
-					Title = $"Wedding Web - {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}",
-					Version = "v1",
-					Description = desc,
-					Contact = new OpenApiContact
-					{
-						Name = "Wedding Web",
-						Email = "m.borucinski@outlook.com",
-						Url = new Uri("https://github.com/Boruc04/WeddingWeb")
-					}
-				});
+        services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = $"Wedding Web - {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}",
+                Version = "v1",
+                Description = desc,
+                Contact = new OpenApiContact
+                {
+                    Name = "Wedding Web",
+                    Email = "m.borucinski@outlook.com",
+                    Url = new Uri("https://github.com/Boruc04/WeddingWeb")
+                }
+            });
 
-				options.IncludeXmlComments($@"{AppDomain.CurrentDomain.BaseDirectory}\{Assembly.GetExecutingAssembly()
-					.GetName()
-					.Name}.xml");
-			});
-			return services;
-		}
+            options.IncludeXmlComments($@"{AppDomain.CurrentDomain.BaseDirectory}\{Assembly.GetExecutingAssembly()
+                .GetName()
+                .Name}.xml");
+        });
+        return services;
+    }
 
-		public static IServiceCollection AddCustomRouting(this IServiceCollection services)
-		{
-			services.AddControllers(options =>
-				{
-					options.Filters.Add(typeof(HttpGlobalExceptionFilter));
-				})
-				.AddControllersAsServices();
+    public static IServiceCollection AddCustomRouting(this IServiceCollection services)
+    {
+        services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+            })
+            .AddControllersAsServices();
 
-			return services;
-		}
-	}
+        return services;
+    }
 }
